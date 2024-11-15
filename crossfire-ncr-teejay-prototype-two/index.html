@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCR+</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <header class="headerLogo">
+            <div class="icon"><img src="images/ncr-logo.png" alt="NCR+ logo"></div>
+            <i class="bx bx-menu icon" id="btn"></i>
+        </header>
+        <ul class="navList">
+            <li class="searchBar">
+                <i class="bx bx-search icon"></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-grid-alt icon"></i>
+                    <span class="linkName text">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-folder icon"></i>
+                    <span class="linkName text">View NCRs</span>
+                </a>
+                <span class="tooltip">View NCRs</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-edit icon"></i>
+                    <span class="linkName text">Create NCR</span>
+                </a>
+                <span class="tooltip">Create NCR</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-question-mark icon"></i>
+                    <span class="linkName text">FAQs</span>
+                </a>
+                <span class="tooltip">FAQs</span>
+            </li>
+            <li class="mode">
+                <div class="sun-moon">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+                <span class="tooltip">Switch to Light/Dark Theme</span>
+
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+            <li class="profile">
+                <div class="userProfile">
+                    <img src="images/jingkukung.png" alt="Profile picture">
+                    <div>
+                        <div class="username">Teejay</div>
+                        <div class="userType">Admin</div>
+                    </div>
+                </div>
+                <a href="#" class="noHighlight">
+                    <i class="bx bx-log-out icon" id="signOut"></i>
+                </a>
+                <span class="tooltip">Sign out</span>
+            </li>
+        </ul>
+    </nav>
+    <section class="homeSection">
+        <div id="pageTitle" class="text">
+            <h1>Dashboard</h1>
+        </div>
+        <div id="mainContent"></div>
+    </section>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

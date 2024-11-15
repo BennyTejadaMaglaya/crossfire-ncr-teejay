@@ -1,0 +1,541 @@
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ===== Crossfire Brand Colours ===== */
+  /* Primary colour: #173451 */
+  /* Secondary colour: #5897c9 */
+  --crossfire-brand-color: #173451;
+
+  --body-color: #E4E9F7;
+  --primary-color: #5897C9;
+  --primary-color-light: #F6F5FF;
+  --sidebar-color: #FFF;
+  --text-color: #707070;
+  --toggle-color: #DDD;
+
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
+}
+
+body.dark {
+  --body-color: #18191A;
+  --primary-color: #3A3B3C;
+  --primary-color-light: #3A3B3C;
+  --sidebar-color: #242526;
+  --text-color: #CCC;
+  --toggle-color: #FFF;
+}
+
+/* ===== Color ===== */
+.sidebar li.profile,
+.sidebar .profile #signOut {
+  background: var(--crossfire-brand-color);
+}
+
+.homeSection {
+  background-color: var(--body-color);
+}
+
+.mode:hover,
+.sidebar:not(.open) .mode:hover .sun-moon i,
+.sidebar:not(.open) .searchBar:hover .icon,
+.sidebar li a:hover:not(.noHighlight) {
+  background-color: var(--primary-color);
+}
+
+.sidebar .searchBar:hover input,
+.sidebar .searchBar input:focus {
+  border: 2px solid var(--primary-color);
+}
+
+.sidebar li.searchBar input {
+  background-color: var(--primary-color-light);
+}
+
+.sidebar {
+  background: var(--sidebar-color);
+}
+
+.sidebar .headerLogo .icon img {
+  display: block;
+  filter: drop-shadow(0 0 0.5px var(--text-color));
+  height: 70px;
+  margin: 0 auto;
+  object-fit: contain;
+  width: 70px;
+}
+
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text,
+.sidebar .mode:hover .mode-text,
+.sidebar .mode:hover .sun-moon i {
+  color: var(--sidebar-color);
+}
+
+.switch::before {
+  background-color: var(--sidebar-color);
+  border-radius: 50%;
+  content: '';
+  height: 15px;
+  left: 5px;
+  transition: var(--tran-03);
+  width: 15px;
+}
+
+body.dark .homeSection .text,
+body.dark .sidebar .mode:hover .mode-text,
+body.dark .sidebar .mode:hover .sun-moon i,
+body.dark .sidebar .searchBar:hover input,
+body.dark .sidebar .searchBar input:focus,
+body.dark .sidebar li a:hover .icon,
+body.dark .sidebar li a:hover .text,
+.homeSection .text,
+.sidebar .headerLogo .icon img:hover,
+.sidebar .icon,
+.sidebar .text,
+.sidebar li a .linkName,
+.sidebar li.searchBar input {
+  color: var(--text-color);
+}
+
+body.dark .sidebar .searchBar:hover input,
+body.dark .sidebar .searchBar input:focus {
+  border: 2px solid var(--text-color);
+}
+
+.sidebar .headerLogo .icon img:hover {
+  filter: drop-shadow(0 0 5px var(--text-color));
+  transform: scale(1.1);
+}
+
+body.dark .sidebar .profile a.noHighlight:hover i {
+  color: var(--toggle-color);
+}
+
+.toggle-switch .switch {
+  background-color: var(--toggle-color);
+  border-radius: 25px;
+  height: 22px;
+  width: 40px;
+}
+
+.sidebar li .tooltip {
+  background: #FFF;
+}
+
+.sidebar li.profile .username,
+.sidebar li.profile .userType {
+  color: #FFF;
+}
+
+.sidebar li a {
+  background-color: transparent;
+}
+
+/* ===== Transition ===== */
+.homeSection,
+.sidebar,
+.sidebar .bx-search,
+.sidebar .headerLogo #btn,
+.sidebar .headerLogo .icon,
+.sidebar .headerLogo .icon img,
+.sidebar .navList .mode,
+.sidebar .profile #signOut,
+.sidebar .text,
+.sidebar i,
+.sidebar input,
+.sidebar li a,
+.sidebar li a:hover .linkName,
+.sidebar li a:hover i,
+.sidebar li.searchBar,
+.sidebar li.searchBar input,
+.sidebar li.profile,
+.sidebar li .tooltip,
+.toggle-switch .switch {
+  transition: var(--tran-05);
+}
+
+.homeSection,
+.sidebar li.searchBar,
+.sidebar li.searchBar input,
+.sidebar .navList .mode,
+.toggle-switch .switch {
+  transition: var(--tran-05);
+}
+
+.sidebar .headerLogo #btn,
+.sidebar li:hover .tooltip,
+.sidebar .bx-search,
+.sidebar .profile #signOut {
+  transition: var(--tran-04);
+}
+
+.sidebar .icon,
+.sidebar .text,
+.sidebar li a {
+  transition: var(--tran-03);
+}
+
+.sidebar li a .linkName {
+  transition: 0.4s;
+}
+
+.sidebar li .tooltip {
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  left: calc(100% + 15px);
+  padding: 6px 12px;
+  top: -20px;
+  transition: 0s;
+  z-index: 3;
+}
+
+/* ===== Opacity ===== */
+body.dark .mode .sun-moon i.moon,
+.sidebar .headerLogo img,
+.sidebar li .tooltip,
+.sidebar li a .linkName,
+.sidebar:not(.open) .headerLogo img,
+.sidebar:not(.open) .mode .mode-text,
+.sidebar:not(.open) .searchBar input,
+.mode .sun-moon i.sun {
+  opacity: 0;
+}
+
+body.dark .mode .sun-moon i.sun,
+.sidebar li:hover .tooltip,
+.sidebar.open .headerLogo img,
+.sidebar.open .mode .mode-text,
+.sidebar.open .searchBar input,
+.sidebar.open li a .linkName {
+  opacity: 1;
+}
+
+/* ===== Calc ===== */
+.homeSection {
+  left: 78px;
+  min-height: 100vh;
+  width: calc(100% - 78px);
+  z-index: 2;
+}
+
+.sidebar .navList {
+  height: calc(100% - 55px);
+  flex-direction: column;
+}
+
+.sidebar.open~.homeSection {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+/* ===== Transform ===== */
+.sidebar .bx-search,
+.sidebar .headerLogo #btn,
+.sidebar .profile #signOut,
+.sidebar li:hover .tooltip,
+.switch::before {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ===== Padding ===== */
+.homeSection .text {
+  font-size: 30px;
+  padding: 12px 60px;
+}
+
+.sidebar {
+  padding: 6px 14px;
+  z-index: 99;
+}
+
+.sidebar li.profile {
+  bottom: -8px;
+  overflow: hidden;
+  padding: 10px 14px;
+}
+
+.sidebar.open input {
+  padding: 0 20px 0 50px;
+}
+
+/* ===== Height ===== */
+.homeSection,
+.sidebar:not(.open)~.homeSection {
+  height: 100vh;
+}
+
+.navList .toggle-switch,
+.navList .mode .sun-moon,
+.sidebar,
+.sidebar .headerLogo,
+.sidebar .headerLogo .icon img,
+.sidebar .navList,
+.sidebar i,
+.sidebar input,
+.sidebar li a,
+.sidebar li i,
+.sidebar li img,
+.sidebar li.profile,
+.sidebar li.searchBar input,
+.sidebar .profile #signOut {
+  height: 100%;
+}
+
+.sidebar .headerLogo {
+  height: 80px;
+}
+
+.sidebar .headerLogo .icon img {
+  width: 90px;
+  height: 90px;
+}
+
+.sidebar i,
+.sidebar .profile #signOut {
+  line-height: 60px;
+}
+
+.sidebar input,
+.sidebar li i,
+.navList .mode .sun-moon {
+  height: 50px;
+}
+
+.sidebar li i {
+  font-size: 18px;
+  line-height: 50px;
+}
+
+.sidebar li img {
+  height: 45px;
+  margin-right: 10px;
+  object-fit: cover;
+  width: 45px;
+}
+
+.sidebar li.profile {
+  height: 60px;
+}
+
+.sidebar .headerLogo,
+.sidebar i,
+.sidebar li.profile,
+.sidebar .profile #signOut {
+  height: 60px;
+}
+
+/* ===== Width ===== */
+.navList .toggle-switch {
+  min-width: 60px;
+}
+
+.navList .mode .sun-moon,
+.sidebar i {
+  font-size: 28px;
+  min-width: 50px;
+}
+
+.sidebar,
+.sidebar li.profile {
+  position: fixed;
+  width: 78px;
+}
+
+.sidebar .profile #signOut,
+.sidebar input,
+.sidebar li a,
+.sidebar li.searchBar input,
+.sidebar.open input {
+  width: 100%;
+}
+
+.sidebar input,
+.sidebar.open .profile #signOut {
+  width: 50px;
+}
+
+.sidebar.open,
+.sidebar.open li.profile {
+  width: 250px;
+}
+
+/* ===== Position ===== */
+.homeSection,
+.mode .sun-moon i,
+.navList .toggle-switch,
+.sidebar .bx-search,
+.sidebar .headerLogo #btn,
+.sidebar li .tooltip,
+.sidebar .profile #signOut,
+.switch::before {
+  position: absolute;
+}
+
+.homeSection,
+.sidebar .headerLogo,
+.sidebar li,
+.sidebar .navList .mode,
+.toggle-switch .switch {
+  position: relative;
+}
+
+/* ===== Display ===== */
+.homeSection .text {
+  display: inline-block;
+  font-size: 25px;
+  margin: 18px;
+}
+
+.navList .toggle-switch,
+.sidebar .headerLogo,
+.sidebar .icon,
+.sidebar li,
+.sidebar li .userProfile,
+.sidebar li a {
+  align-items: center;
+  display: flex;
+}
+
+.sidebar.open li .tooltip {
+  display: none;
+}
+
+.sidebar li .userProfile {
+  flex-wrap: nowrap;
+}
+
+/* ===== Font ===== */
+.sidebar .bx-search,
+.sidebar .headerLogo #btn {
+  font-size: 22px;
+}
+
+.sidebar .icon {
+  font-size: 20px;
+}
+
+.sidebar li.searchBar input {
+  font-size: 17px;
+}
+
+.sidebar li.profile .userType {
+  font-size: 12px;
+}
+
+.homeSection .text,
+.sidebar .mode .mode-text,
+.sidebar li a .text,
+.sidebar li.searchBar:hover input {
+  font-weight: 500;
+}
+
+/* ===== Layout ===== */
+.sidebar .profile #signOut {
+  border-radius: 0px;
+}
+
+.sidebar input,
+.sidebar li a,
+.sidebar li i {
+  border-radius: 12px;
+}
+
+.sidebar li img,
+.sidebar li.searchBar,
+.sidebar li.searchBar input,
+.sidebar li a,
+.sidebar .navList .mode,
+.navList .toggle-switch {
+  border-radius: 6px;
+}
+
+.sidebar input,
+.sidebar li.searchBar input {
+  border: none;
+  outline: none;
+}
+
+.sidebar li .tooltip,
+.sidebar li a .linkName {
+  pointer-events: none;
+}
+
+.sidebar li:hover .tooltip,
+.sidebar.open li a .linkName {
+  pointer-events: auto;
+}
+
+.navList .toggle-switch,
+.sidebar .headerLogo #btn,
+.sidebar li.searchBar {
+  cursor: pointer;
+}
+
+.sidebar li a {
+  text-decoration: none;
+}
+
+.sidebar.open .profile #signOut {
+  background: none;
+}
+
+.sidebar .navList {
+  margin-top: 20px;
+}
+
+.sidebar li,
+.sidebar li a {
+  list-style: none;
+  margin: 8px 0;
+}
+
+.navList .toggle-switch,
+.sidebar .headerLogo,
+.sidebar .icon {
+  justify-content: center;
+}
+
+.sidebar .headerLogo #btn,
+.sidebar i {
+  text-align: center;
+}
+
+.sidebar.open .headerLogo #btn {
+  text-align: right;
+}
+
+body.dark .switch::before {
+  left: 20px;
+}
+
+.homeSection,
+.sidebar {
+  top: 0;
+}
+
+.sidebar,
+.sidebar .bx-search,
+.sidebar li.profile {
+  left: 0;
+}
+
+.sidebar .headerLogo #btn,
+.sidebar .profile #signOut,
+.navList .toggle-switch {
+  right: 0;
+}
+
+/* ===== Media Query ===== */
+@media (max-width: 420px) {
+  .sidebar li .tooltip {
+    display: none;
+  }
+}
