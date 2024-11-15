@@ -7,15 +7,22 @@
 
 :root {
   /* ===== Crossfire Brand Colours ===== */
-  /* Primary colour: #173451 */
-  /* Secondary colour: #5897c9 */
-  --crossfire-brand-color: #173451;
+  /* Primary colour:     #173451         */
+  /* Secondary colour:   #5897c9         */
+
+  /* Foreground        | Background        | Contrast Ratio */
+  /* #1A1A1A (text)    | #FFF (sidebar)    | 17.4:1         */
+  /* #1A1A1A (text)    | #E4E9F7 (body)    | 14.33:1        */
+  /* #FFF (sidebar)    | #173451 (primary) | 12.75:1        */
+  /* #CCC (text)       | #242526 (sidebar) | 9.56:1         */
+  /* #CCC (text)       | #18191A (body)    | 10.96:1        */
+  /* #CCC (text)       | #3A3A3A (primary) | 7.08:1         */
 
   --body-color: #E4E9F7;
-  --primary-color: #5897C9;
+  --primary-color: #173451;
   --primary-color-light: #F6F5FF;
   --sidebar-color: #FFF;
-  --text-color: #707070;
+  --text-color: #1A1A1A;
   --toggle-color: #DDD;
 
   --tran-03: all 0.3s ease;
@@ -25,7 +32,7 @@
 
 body.dark {
   --body-color: #18191A;
-  --primary-color: #3A3B3C;
+  --primary-color: #3A3A3A;
   --primary-color-light: #3A3B3C;
   --sidebar-color: #242526;
   --text-color: #CCC;
@@ -33,11 +40,6 @@ body.dark {
 }
 
 /* ===== Color ===== */
-.sidebar li.profile,
-.sidebar .profile #signOut {
-  background: var(--crossfire-brand-color);
-}
-
 .homeSection {
   background-color: var(--body-color);
 }
@@ -52,6 +54,11 @@ body.dark {
 .sidebar .searchBar:hover input,
 .sidebar .searchBar input:focus {
   border: 2px solid var(--primary-color);
+}
+
+.sidebar li.profile,
+.sidebar .profile #signOut {
+  background: var(--primary-color);
 }
 
 .sidebar li.searchBar input {
@@ -73,6 +80,7 @@ body.dark {
 
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text,
+.sidebar:not(.open) .searchBar:hover .icon,
 .sidebar .mode:hover .mode-text,
 .sidebar .mode:hover .sun-moon i {
   color: var(--sidebar-color);
@@ -114,8 +122,14 @@ body.dark .sidebar .searchBar input:focus {
   transform: scale(1.1);
 }
 
+.sidebar .profile a.noHighlight i,
+body.dark .sidebar .profile a.noHighlight i {
+  color: #AAA;
+}
+
+.sidebar .profile a.noHighlight:hover i,
 body.dark .sidebar .profile a.noHighlight:hover i {
-  color: var(--toggle-color);
+  color: #FFF;
 }
 
 .toggle-switch .switch {
