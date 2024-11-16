@@ -136,6 +136,7 @@ body.dark .sidebar .profile a.noHighlight:hover i {
   background-color: var(--toggle-color);
   border-radius: 25px;
   height: 22px;
+  left: 4.5px;
   width: 40px;
 }
 
@@ -303,10 +304,6 @@ body.dark .mode .sun-moon i.sun,
   height: 100%;
 }
 
-.sidebar .headerLogo {
-  height: 80px;
-}
-
 .sidebar .headerLogo .icon img {
   width: 90px;
   height: 90px;
@@ -317,10 +314,10 @@ body.dark .mode .sun-moon i.sun,
   line-height: 60px;
 }
 
-.sidebar input,
+.sidebar li.searchBar input,
 .sidebar li i,
 .navList .mode .sun-moon {
-  height: 50px;
+  height: 45px;
 }
 
 .sidebar li i {
@@ -502,13 +499,13 @@ body.dark .mode .sun-moon i.sun,
 }
 
 .sidebar .navList {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .sidebar li,
 .sidebar li a {
   list-style: none;
-  margin: 8px 0;
+  margin: 4.5px 0;
 }
 
 .navList .toggle-switch,
