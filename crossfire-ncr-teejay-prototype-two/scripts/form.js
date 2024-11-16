@@ -72,7 +72,18 @@ function validateForm() {
 
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
             error.style.display = 'inline';
-            if (id) element.focus();
+
+            // Handle focusing on radio buttons
+            if (radio) {
+                const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
+                if (radioGroup.length > 0) {
+                    // Focus the first radio button in the group
+                    radioGroup[0].focus();
+                }
+            } else if (id) {
+                element.focus();
+            }
+
             valid = false;
         } else {
             error.style.display = 'none';
