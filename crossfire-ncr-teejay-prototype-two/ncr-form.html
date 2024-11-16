@@ -14,14 +14,307 @@
 
 <body>
     <header>
-        <h1></h1>
-
+        <h1>Non-Conformance Report</h1>
+        <div>
+            <h2>Crossfire NCR+ Support</h2>
+            <p>If you need assistance, please contact our support team:</p>
+            <p>Hotline: <a href="tel:+1234567890">1-234-567-890</a></p>
+            <p>Email Support: <a href="mailto:support@crossfireexample.com">support@crossfireexample.com</a></p>
+        </div>
     </header>
 
     <main>
+        <!-- <form id="ncrForm" action="https://webdevbasics.net/scripts/demo.php" method="post"> -->
+        <form id="ncrForm">
 
+            <div class="tooltip">
+                <p><span class="required">*</span> indicates a required field</p>
+                <p>Press <strong>Tab</strong> to navigate forward, <strong>Shift + Tab</strong> to
+                    navigate backward.</p>
+            </div>
+
+            <fieldset>
+                <legend>Quality Representative</legend>
+
+                <div>
+
+                    <div>
+                        <label for="docNumber">Document Number</label>
+                        <input type="text" id="docNumber" name="docNumber" value="OPS-00011" tabindex="1">
+
+                        <label for="docTitle">Document Title</label>
+                        <input type="text" id="docTitle" name="docTitle" value="Non-Conformance Report" tabindex="2">
+
+                        <label>Identify Process Applicable <span class="required">*</span> <span
+                                id="processApplicableError" class="required error">Please choose a process
+                                applicable.</span>
+                        </label>
+                        <br>
+                        <input id="processApplicable1" type="radio" name="processApplicable"
+                            value="Supplier or Rec-Insp" required tabindex="3">
+                        <label for="processApplicable1" class="tooltip-container">Supplier or Rec-Insp
+                            <div class="tooltip-message processApplicable-tooltip">
+                                Supplier or Rec-Insp (Receiving Inspection): Inspection of goods received from suppliers
+                                to ensure they meet required quality standards before being used in production.
+                            </div>
+                        </label>
+                        <input id="processApplicable2" type="radio" name="processApplicable"
+                            value="WIP (Production Order)">
+                        <label for="processApplicable2" class="tooltip-container">WIP (Production Order)
+                            <div class="tooltip-message processApplicable-tooltip">
+                                WIP (Work In Progress) (Production Order): Items that are in the process of being
+                                manufactured or assembled, following a formal production order.
+                            </div>
+                        </label>
+                        <br>
+
+                        <label for="supplierName">Supplier Name <span class="required">*</span> <span
+                                id="supplierNameError" class="required error">Please enter a valid supplier name. It
+                                can't be empty!</span></label>
+                        <select id="supplierName" name="supplierName" required tabindex="4">
+                            <option value="Apex Supply Co.">Apex Supply Co.</option>
+                            <option value="Horizon Supply Group">Horizon Supply Group</option>
+                            <option value="Nexa Materials">Nexa Materials</option>
+                            <option value="Nova Sourcing Solutions">Nova Sourcing Solutions</option>
+                            <option value="PrimeTech Distributors">PrimeTech Distributors</option>
+                            <option value="ProLink Resources">ProLink Resources</option>
+                            <option value="Quantum Logistics">Quantum Logistics</option>
+                            <option value="Sterling Components">Sterling Components</option>
+                            <option value="Summit Industries">Summit Industries</option>
+                            <option value="Titan Industrial Supplies">Titan Industrial Supplies</option>
+                        </select>
+
+                        <label for="descriptionItem" class="tooltip-container">Description of Item (including SAP No.)
+                            <span class="required">*</span>
+                            <span id="descriptionItemError" class="required error">Please
+                                enter the description of item. It
+                                can't be empty!</span>
+                            <div class="tooltip-message sapNumber-tooltip">
+                                The SAP Number is a unique identifier assigned to materials, products, or equipment
+                                within the SAP system. SAP stands for <em>Systems, Applications, and Products in Data
+                                    Processing</em>. It is an enterprise resource planning (ERP) system used to track
+                                and manage inventory, procurement, financial data, and the lifecycle of products across
+                                the enterprise.
+                            </div>
+                        </label>
+                        <textarea id="descriptionItem" name="descriptionItem"
+                            placeholder="e.g., Steel Beam, 4x4 ft, Grade A, SAP No.: 1234567890" required
+                            tabindex="5"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="ncrNo">NCR No.</label>
+                        <input type="text" id="ncrNo" name="ncrNo" readonly>
+
+                        <label for="prodNo" class="tooltip-container">PO or Prod. No. <span class="required">*</span>
+                            <span id="prodNoError" class="required error">Please enter a valid PO or Prod. No. (e.g.,
+                                PO-2024-0123)</span>
+                            <div class="tooltip-message prodNo-tooltip">
+                                Product Number (PO or Prod. No.) is a unique identifier used to track, order, and manage
+                                products in the system.
+                            </div>
+                        </label>
+                        <input id="prodNo" type="text" name="prodNo" placeholder="e.g., PO-2024-0123" required
+                            tabindex="6">
+
+                        <label for="salesOrderNo" class="tooltip-container">Sales Order No. <span
+                                class="required">*</span>
+                            <span id="salesOrderNoError" class="required error">Please enter a valid Sales Order
+                                No. (e.g., SO-2024-5678)</span>
+                            <div class="tooltip-message salesOrderNo-tooltip">
+                                Sales Order Number (Sales Order No.) is a unique identifier used to track the details of
+                                a
+                                sales order, including products, quantities, pricing, and shipping information.
+                            </div>
+                        </label>
+                        <input id="salesOrderNo" type="text" name="salesOrderNo" placeholder="e.g., SO-2024-5678"
+                            required tabindex="7">
+
+                        <label for="qtyReceived">Quantity Received <span class="required">*</span>
+                            <span id="qtyReceivedError" class="required error">Please enter a valid quantity.</span>
+                        </label>
+                        <input id="qtyReceived" type="number" name="qtyReceived" placeholder="e.g., 500" required
+                            tabindex="8">
+
+                        <label for="qtyDefective">Quantity Defective <span class="required">*</span>
+                            <span id="qtyDefectiveError" class="required error">Please enter a valid quantity.</span>
+                        </label>
+                        <input id="qtyDefective" type="number" name="qtyDefective" placeholder="e.g., 45" required
+                            tabindex="9">
+
+                    </div>
+
+                </div>
+
+                <label for="descriptionDefect">Description of Defect: (in as much detail as possible, use page 2
+                    if necessary) <span class="required">*</span> <span id="descriptionDefectError"
+                        class="required error">Please enter the description of defect. It
+                        can't be empty!</span></label>
+                <textarea id="descriptionDefect" name="descriptionDefect"
+                    placeholder="e.g., The outside of the product has a cracked surface, which may affect its strength. It needs to be checked right away."
+                    required tabindex="10"></textarea>
+
+                <label>Item marked Nonconforming <span class="required">*</span> <span id="markedNonconformingError"
+                        class="required error">Please mark it yes or no.</span></label>
+                <br>
+                <input id="markedNonconformingYes" type="radio" name="markedNonconforming" value="yes" required
+                    tabindex="11">
+                <label for="markedNonconformingYes">Yes</label>
+                <input id="markedNonconformingNo" type="radio" name="markedNonconforming" value="no">
+                <label for="markedNonconformingNo">No</label>
+                <br>
+
+                <label for="mediaUpload">Upload Photos or Videos (optional)</label>
+                <input type="file" id="mediaUpload" name="mediaUpload[]" multiple onchange="handleMediaUpload()"
+                    tabindex="12">
+                <div id="fileCount">Total files selected: 0</div>
+                <div id="preview"></div>
+                <br>
+
+            </fieldset>
+
+            <p><span>Note: </span>Completed NCR to be forwarded to HBC Engineering and Operations Manager
+                complete with any
+                relevant documents attached (pictures, actual measurements, material certs, etc.)</p>
+
+            <fieldset>
+                <legend>Quality Representative Reporting</legend>
+                <div>
+
+                    <div>
+                        <label for="firstName">First Name <span class="required">*</span> <span id="firstNameError"
+                                class="required error">Please enter your first name.</span></label>
+                        <input id="firstName" type="text" name="firstName" placeholder="e.g., John" required
+                            tabindex="13">
+
+                        <label for="lastName">Last Name <span class="required">*</span> <span id="lastNameError"
+                                class="required error">Please enter your last name.</span></label>
+                        <input id="lastName" type="text" name="lastName" placeholder="e.g., Smith" required
+                            tabindex="14">
+                    </div>
+
+                    <div>
+                        <label for="reportingDate">Reporting Date <span class="required">*</span> <span
+                                id="reportingDateError" class="required error">Please select a reporting
+                                date.</span></label>
+                        <input id="reportingDate" type="date" name="reportingDate" required tabindex="15">
+
+                        <label for="status">Status </label>
+                        <select id="status" name="status" tabindex="16">
+                            <option value="Active">Active</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Reviewed">Reviewed</option>
+                            <option value="Closed">Closed</option>
+                            <option value="Reopened">Reopened</option>
+                        </select>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Engineering</legend>
+
+                <div>
+
+                    <div>
+                        <label>Review by CF Engineering: <span class="required">*</span> <span
+                                id="dispositionReviewError" class="required error">Please choose a disposition.</span>
+                            <p>(indicate disposition by "checking" one of the following)</p>
+                        </label>
+                        <br>
+                        <input id="dispositionReview1" type="radio" name="dispositionReview" value="Use As Is" required
+                            tabindex="17">
+                        <label for="dispositionReview1" class="tooltip-container">Use As Is
+                            <div class="tooltip-message dispositionReview-tooltip">
+                                Use As Is
+                            </div>
+                        </label>
+                        <input id="dispositionReview2" type="radio" name="dispositionReview" value="Repair">
+                        <label for="dispositionReview2" class="tooltip-container">Repair
+                            <div class="tooltip-message dispositionReview-tooltip">
+                                Repair
+                            </div>
+                        </label>
+                        <input id="dispositionReview3" type="radio" name="dispositionReview" value="Rework">
+                        <label for="dispositionReview3" class="tooltip-container">Rework
+                            <div class="tooltip-message dispositionReview-tooltip">
+                                Rework
+                            </div>
+                        </label>
+                        <input id="dispositionReview4" type="radio" name="dispositionReview" value="Scrap">
+                        <label for="dispositionReview4" class="tooltip-container">Scrap
+                            <div class="tooltip-message dispositionReview-tooltip">
+                                Scrap
+                            </div>
+                        </label>
+                        <br>
+
+                        <label>Does Customer require notification of NCR (optional)
+                            <p>(If "Yes" then raise message to customer detailing issues)</p>
+                        </label>
+                        <br>
+                        <input id="customerRequireNotificationYes" type="radio" name="customerRequireNotification"
+                            value="yes" tabindex="18">
+                        <label for="customerRequireNotificationYes">Yes</label>
+                        <input id="customerRequireNotificationNo" type="radio" name="customerRequireNotification"
+                            value="no">
+                        <label for="customerRequireNotificationNo">No</label>
+                        <br>
+                    </div>
+
+                </div>
+
+                <label for="disposition">Disposition: (Sequence of work steps required when "repair" or "rework"
+                    indicated) <span class="required">*</span> <span id="dispositionError" class="required error">Please
+                        enter the disposition. It
+                        can't be empty!</span></label>
+                <textarea id="disposition" name="disposition" placeholder="e.g., disposition." required
+                    tabindex="19"></textarea>
+
+                <label>Does the drawing require updating (optional)</label>
+                <br>
+                <input id="drawingRequireUpdatingYes" type="radio" name="drawingRequireUpdating" value="yes"
+                    tabindex="20">
+                <label for="drawingRequireUpdatingYes">Yes</label>
+                <input id="drawingRequireUpdatingNo" type="radio" name="drawingRequireUpdating" value="no">
+                <label for="drawingRequireUpdatingNo">No</label>
+                <br>
+
+                <label for="originalRevNumber">Original Rev. Number:</label>
+                <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., originalRevNumber"
+                    tabindex="21">
+
+                <label for="updatedRevNumber">Updated Rev. Number:</label>
+                <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., updatedRevNumber"
+                    tabindex="22">
+
+                <label for="engineerName">Name of Engineer:</label>
+                <input id="engineerName" type="text" name="engineerName" placeholder="e.g., engineerName" tabindex="23">
+
+                <label for="revisionDateEngineering">Revision Date:</label>
+                <input id="revisionDateEngineering" type="date" name="revisionDateEngineering" tabindex="24">
+
+                <label for="engineering">Engineering: <span class="required">*</span> <span id="engineeringError"
+                        class="required error">Please enter engineering.</span></label>
+                <input id="engineering" type="text" name="engineering" placeholder="e.g., engineering" required
+                    tabindex="25">
+
+                <label for="reportingDateEngineering">Reporting Date <span class="required">*</span> <span
+                        id="reportingDateEngineeringError" class="required error">Please select a reporting
+                        date.</span></label>
+                <input id="reportingDateEngineering" type="date" name="reportingDateEngineering" required tabindex="26">
+            </fieldset>
+
+            <input type="submit" id="btnSubmit" onclick="submitFormData(event)" value="Submit" tabindex="27">
+            <input type="submit" id="btnSave" value="Save as Draft" tabindex="28">
+            <input type="reset" id="btnClear" onclick="clearForm()" value="Clear" tabindex="29">
+        </form>
     </main>
 
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script src="scripts/form.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 

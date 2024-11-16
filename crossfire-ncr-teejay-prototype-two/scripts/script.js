@@ -1,13 +1,14 @@
+/* ===== Declarations ===== */
+
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
-let searchBtn = document.querySelector(".bx-search");
+let searchBtn = document.querySelector(".searchBar");
 
-const body = document.querySelector('body'),
+const body = document.querySelector("body"),
   toggle = body.querySelector(".toggle"),
   modeSwitch = body.querySelector(".toggle-switch"),
   modeText = body.querySelector(".mode-text");
 
-/* ===== Sidebar ===== */
 closeBtn.addEventListener("click", () => {
   sidebar.classList.toggle("open");
   menuBtnChange();
@@ -18,6 +19,8 @@ searchBtn.addEventListener("click", () => {
   menuBtnChange();
 });
 
+/* ===== Functions ===== */
+
 function menuBtnChange() {
   if (sidebar.classList.contains("open")) {
     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
@@ -25,11 +28,6 @@ function menuBtnChange() {
     closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
   }
 }
-
-/* ===== Mode ===== */
-searchBtn.addEventListener("click", () => {
-  sidebar.classList.remove("close");
-})
 
 modeSwitch.addEventListener("click", () => {
   body.classList.toggle("dark");
