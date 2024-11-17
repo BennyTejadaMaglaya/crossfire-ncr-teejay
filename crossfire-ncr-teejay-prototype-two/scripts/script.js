@@ -92,3 +92,18 @@ function loadPage(page) {
 
   xhr.send();
 }
+
+function toggleMenu() {
+  const menu = document.querySelector('.flyingMenu');
+  const chevronIcon = document.getElementById('chevron-icon');
+
+  menu.classList.toggle('hidden');
+
+  if (menu.classList.contains('hidden')) {
+    chevronIcon.classList.remove('bx-dots-vertical-rounded');
+    chevronIcon.classList.add('bx-dots-horizontal-rounded');
+  } else {
+    chevronIcon.classList.remove('bx-dots-horizontal-rounded');
+    chevronIcon.classList.add('bx-dots-vertical-rounded');
+  }
+}

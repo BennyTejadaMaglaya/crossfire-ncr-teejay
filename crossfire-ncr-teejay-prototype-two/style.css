@@ -98,16 +98,19 @@ fieldset {
   background-color: var(--input-color);
 }
 
+.btnChevron,
 .sidebar li .tooltip,
 .sidebar li.profile,
 .sidebar .profile #signOut {
   background: var(--primary-color);
 }
 
+.flyingMenu a:hover,
 .mode:hover,
 .sidebar:not(.open) .mode:hover .sun-moon i,
 .sidebar:not(.open) .searchBar:hover .icon,
 .sidebar li a:hover:not(.noHighlight),
+.tooltip-message,
 input[type="reset"],
 input[type="submit"] {
   background-color: var(--primary-color);
@@ -127,16 +130,11 @@ textarea {
   border: 1px solid var(--primary-color);
 }
 
-.parenthetical,
-.required {
-  font-size: 0.8rem;
-  font-weight: 400;
-}
-
 .required {
   color: var(--red-color);
 }
 
+.btnChevron:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
   background-color: var(--secondary-color);
@@ -147,6 +145,7 @@ input[type="submit"]:hover {
   border: 2.5px solid var(--secondary-color);
 }
 
+.flyingMenu,
 .sidebar {
   background: var(--sidebar-color);
 }
@@ -155,6 +154,8 @@ input[type="submit"]:hover {
   background-color: var(--sidebar-color);
 }
 
+.btnChevron,
+.flyingMenu a:hover,
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text,
 .sidebar li .tooltip,
@@ -174,10 +175,11 @@ input[type="submit"]:hover {
 
 .sidebar .headerLogo .icon img:hover {
   filter: drop-shadow(0 0 5px var(--text-color));
-  transform: scale(1.1);
 }
 
 body,
+body.dark .btnChevron,
+body.dark .flyingMenu a,
 body.dark .sidebar .mode:hover .mode-text,
 body.dark .sidebar .mode:hover .sun-moon i,
 body.dark .sidebar li a:hover .icon,
@@ -185,6 +187,7 @@ body.dark .sidebar li a:hover .text,
 body.dark .sidebar li .tooltip,
 body.dark .tooltip-message,
 body.dark .sidebar .searchBar:hover .icon,
+.flyingMenu a,
 .homeSection .text,
 legend,
 .sidebar .headerLogo .icon img:hover,
@@ -259,6 +262,7 @@ body.dark .sidebar .profile a.noHighlight i {
   transition: var(--tran-04);
 }
 
+.flyingMenu,
 .sidebar .icon,
 .sidebar .text,
 .sidebar li a,
@@ -325,6 +329,11 @@ body.dark .mode .sun-moon i.sun,
 
 /* ===== Transform ===== */
 
+.btnChevron:hover,
+.sidebar .headerLogo .icon img:hover {
+  transform: scale(1.1);
+}
+
 .sidebar .bx-search,
 .sidebar .headerLogo #btn,
 .sidebar .profile #signOut,
@@ -355,7 +364,6 @@ main {
 
 .sidebar li,
 .sidebar li a {
-  list-style: none;
   margin: 4.5px 0;
 }
 
@@ -465,7 +473,6 @@ input[type="submit"] {
 
 .sidebar,
 .sidebar li.profile {
-  position: fixed;
   width: 78px;
 }
 
@@ -498,6 +505,7 @@ textarea {
 
 /* ===== Position ===== */
 
+.btnChevron,
 .homeSection,
 .mode .sun-moon i,
 .navList .toggle-switch,
@@ -513,6 +521,12 @@ textarea {
   position: absolute;
 }
 
+.flyingMenu,
+.sidebar,
+.sidebar li.profile {
+  position: fixed;
+}
+
 .homeSection,
 .preview-wrapper,
 .sidebar .headerLogo,
@@ -525,6 +539,7 @@ textarea {
 
 /* ===== Display ===== */
 
+.flyingMenu a,
 .sidebar .headerLogo .icon img,
 .tooltip-container:hover .tooltip-message,
 input[type="date"],
@@ -550,6 +565,7 @@ textarea {
   display: flex;
 }
 
+.flyingMenu.hidden #menu-list,
 .sidebar.open li .tooltip,
 .tooltip-message {
   display: none;
@@ -560,6 +576,17 @@ textarea {
 }
 
 /* ===== Font ===== */
+
+.flyingMenu a,
+.tooltip-message {
+  font-size: 14px;
+}
+
+.parenthetical,
+.required {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
 
 .sidebar .bx-search,
 .sidebar .headerLogo #btn {
@@ -610,6 +637,7 @@ label {
 
 body.dark .sidebar .searchBar:hover input,
 body.dark .sidebar .searchBar input:focus,
+.btnChevron,
 fieldset,
 input[type="date"],
 input[type="number"],
@@ -618,6 +646,8 @@ input[type="submit"],
 input[type="text"],
 select,
 textarea,
+.flyingMenu,
+.flyingMenu a,
 .sidebar .searchBar:hover input,
 .sidebar .searchBar input:focus,
 .sidebar li a,
@@ -678,6 +708,13 @@ textarea:focus {
   justify-content: center;
 }
 
+.flyingMenu ul,
+.sidebar li,
+.sidebar li a {
+  list-style: none;
+}
+
+.btnChevron,
 .navList .toggle-switch,
 .remove-button,
 .sidebar .headerLogo #btn,
@@ -705,6 +742,7 @@ textarea:focus {
   text-align: right;
 }
 
+.flyingMenu a,
 .sidebar li a {
   text-decoration: none;
 }
@@ -830,6 +868,7 @@ input[type="reset"] {
   width: 100px;
 }
 
+.flyingMenu,
 .preview-video {
   width: 200px;
 }
@@ -841,11 +880,11 @@ input[type="reset"] {
   top: 5px;
 }
 
+/* ===== Tooltip ===== */
+
 .tooltip-message {
-  background-color: var(--primary-color);
   border: 1px solid var(--toggle-color);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-  font-size: 14px;
   left: 120%;
   max-width: 500px;
   overflow: visible;
@@ -878,6 +917,50 @@ input[type="reset"] {
 .tooltip-container:hover .tooltip-message {
   transform: translateY(-50%) translateX(5px);
   visibility: visible;
+}
+
+.btnChevron,
+.flyingMenu {
+  border: 2px solid var(--toggle-color);
+}
+
+/* ===== Flying Menu ===== */
+
+.flyingMenu {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  right: 20px;
+  top: 20px;
+  z-index: 1000;
+}
+
+.flyingMenu li {
+  margin: 5px 0;
+}
+
+.flyingMenu a {
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.btnChevron {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 24px;
+  height: 50px;
+  padding: 5px;
+  right: -10px;
+  top: -10px;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  width: 50px;
+}
+
+.flyingMenu.hidden {
+  box-shadow: none;
+  width: 1px;
+}
+
+.flyingMenu.hidden #chevron-icon {
+  transform: rotate(180deg);
 }
 
 /* ===== Media Query ===== */
