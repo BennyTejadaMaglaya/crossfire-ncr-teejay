@@ -1,5 +1,7 @@
 /* ===== Declarations ===== */
 
+let currentDate = new Date().toJSON().slice(0, 10);
+
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
 let searchBtn = document.querySelector(".searchBar");
@@ -65,8 +67,10 @@ function loadPage(page) {
 
         case 'ncr-form.html':
           pageTitle.textContent = 'NCR Form';
-          // document.getElementById('ncrNo').value = await generateNCRNumber();
-          // document.getElementById('processApplicable1').focus();
+          document.getElementById('reportingDate').value = currentDate;
+          document.getElementById('revisionDateEngineering').value = currentDate;
+          document.getElementById('reportingDateEngineering').value = currentDate;
+          document.getElementById('processApplicable1').focus();
           break;
 
         case 'faqs.html':
