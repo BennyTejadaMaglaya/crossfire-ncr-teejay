@@ -43,6 +43,46 @@ async function clearForm() {
     document.getElementById("ncrForm").reset();
 }
 
+function formatFields() {
+    const prodNoElement = document.getElementById('prodNo');
+    if (prodNoElement) {
+        let prodNo = prodNoElement.value.trim();
+
+        if (!/^PO-/i.test(prodNo)) {
+            prodNo = prodNo.replace(/^po/i, 'PO');
+
+            if (!prodNo.includes('-')) {
+                prodNo = prodNo.replace(/^PO(\d{4})(\d{4})$/, 'PO-$1-$2');
+            }
+        }
+
+        if (/^\d{8}$/.test(prodNo)) {
+            prodNo = `PO-${prodNo.substring(0, 4)}-${prodNo.substring(4)}`;
+        }
+
+        prodNoElement.value = prodNo;
+    }
+
+    const salesOrderNoElement = document.getElementById('salesOrderNo');
+    if (salesOrderNoElement) {
+        let salesOrderNo = salesOrderNoElement.value.trim();
+
+        if (!/^SO-/i.test(salesOrderNo)) {
+            salesOrderNo = salesOrderNo.replace(/^so/i, 'SO');
+
+            if (!salesOrderNo.includes('-')) {
+                salesOrderNo = salesOrderNo.replace(/^SO(\d{4})(\d{4})$/, 'SO-$1-$2');
+            }
+        }
+
+        if (/^\d{8}$/.test(salesOrderNo)) {
+            salesOrderNo = `SO-${salesOrderNo.substring(0, 4)}-${salesOrderNo.substring(4)}`;
+        }
+
+        salesOrderNoElement.value = salesOrderNo;
+    }
+}
+
 function validateForm() {
     const fields = [
         { id: 'reportingDateEngineering', errorId: 'reportingDateEngineeringError' },
@@ -73,11 +113,9 @@ function validateForm() {
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
             error.style.display = 'inline';
 
-            // Handle focusing on radio buttons
             if (radio) {
                 const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
                 if (radioGroup.length > 0) {
-                    // Focus the first radio button in the group
                     radioGroup[0].focus();
                 }
             } else if (id) {
@@ -89,6 +127,8 @@ function validateForm() {
             error.style.display = 'none';
         }
     });
+
+    formatFields();
 
     return valid;
 }
