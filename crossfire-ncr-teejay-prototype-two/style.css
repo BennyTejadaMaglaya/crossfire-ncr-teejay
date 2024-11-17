@@ -75,8 +75,14 @@ body.dark {
 
 input:focus,
 input[type="radio"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
 select:focus,
-textarea:focus {
+textarea:focus,
+.btnChevron:focus,
+.btnChevron:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
   background-color: var(--focus-background-color);
   border: 2px solid var(--focus-border-color);
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.4);
@@ -132,12 +138,6 @@ textarea {
 
 .required {
   color: var(--red-color);
-}
-
-.btnChevron:hover,
-input[type="reset"]:hover,
-input[type="submit"]:hover {
-  background-color: var(--secondary-color);
 }
 
 .sidebar .searchBar input:focus,
