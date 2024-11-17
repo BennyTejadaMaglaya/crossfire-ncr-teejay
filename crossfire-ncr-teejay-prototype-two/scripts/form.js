@@ -43,6 +43,43 @@ async function clearForm() {
     document.getElementById("ncrForm").reset();
 }
 
+function validateQuantityFields() {
+    const qtyDefective = document.getElementById('qtyDefective');
+    const qtyReceived = document.getElementById('qtyReceived');
+
+    if (qtyDefective && qtyReceived) {
+        const qtyDefectiveValue = parseFloat(qtyDefective.value);
+        const qtyReceivedValue = parseFloat(qtyReceived.value);
+
+        if (qtyDefective.value.trim() === "" || qtyReceived.value.trim() === "") {
+            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received cannot be empty.";
+            document.getElementById('qtyDefectiveError').style.display = 'inline';
+            qtyDefective.focus();
+            valid = false;
+        }
+        else if (isNaN(qtyDefectiveValue) || isNaN(qtyReceivedValue) || qtyDefectiveValue < 0 || qtyReceivedValue < 0) {
+            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received must be valid numbers and cannot be negative.";
+            document.getElementById('qtyDefectiveError').style.display = 'inline';
+            qtyDefective.focus();
+            valid = false;
+        }
+        else if (qtyDefectiveValue > qtyReceivedValue) {
+            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective should be less than or equal to Quantity Received.";
+            document.getElementById('qtyDefectiveError').style.display = 'inline';
+            qtyDefective.focus();
+            valid = false;
+        }
+        else if (qtyDefectiveValue === 0 || qtyReceivedValue === 0) {
+            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received must be greater than zero.";
+            document.getElementById('qtyDefectiveError').style.display = 'inline';
+            qtyDefective.focus();
+            valid = false;
+        } else {
+            document.getElementById('qtyDefectiveError').style.display = 'none';
+        }
+    }
+}
+
 function formatFields() {
     const prodNoElement = document.getElementById('prodNo');
     if (prodNoElement) {
@@ -103,6 +140,8 @@ function validateForm() {
         const value = element ? element.value : null;
         const error = document.getElementById(errorId);
 
+        validateQuantityFields();
+
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
             // error.style.display = 'inline';
             error.style.opacity = '1';
@@ -123,41 +162,6 @@ function validateForm() {
     });
 
     formatFields();
-
-    const qtyDefective = document.getElementById('qtyDefective');
-    const qtyReceived = document.getElementById('qtyReceived');
-
-    if (qtyDefective && qtyReceived) {
-        const qtyDefectiveValue = parseFloat(qtyDefective.value);
-        const qtyReceivedValue = parseFloat(qtyReceived.value);
-
-        if (qtyDefective.value.trim() === "" || qtyReceived.value.trim() === "") {
-            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received cannot be empty.";
-            document.getElementById('qtyDefectiveError').style.display = 'inline';
-            qtyDefective.focus();
-            valid = false;
-        }
-        else if (isNaN(qtyDefectiveValue) || isNaN(qtyReceivedValue) || qtyDefectiveValue < 0 || qtyReceivedValue < 0) {
-            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received must be valid numbers and cannot be negative.";
-            document.getElementById('qtyDefectiveError').style.display = 'inline';
-            qtyDefective.focus();
-            valid = false;
-        }
-        else if (qtyDefectiveValue > qtyReceivedValue) {
-            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective should be less than or equal to Quantity Received.";
-            document.getElementById('qtyDefectiveError').style.display = 'inline';
-            qtyDefective.focus();
-            valid = false;
-        }
-        else if (qtyDefectiveValue === 0 || qtyReceivedValue === 0) {
-            document.getElementById('qtyDefectiveError').innerText = "Quantity Defective and Quantity Received must be greater than zero.";
-            document.getElementById('qtyDefectiveError').style.display = 'inline';
-            qtyDefective.focus();
-            valid = false;
-        } else {
-            document.getElementById('qtyDefectiveError').style.display = 'none';
-        }
-    }
 
     return valid;
 }
