@@ -50,13 +50,10 @@ function formatFields() {
 
         if (!/^PO-/i.test(prodNo)) {
             prodNo = prodNo.replace(/^po/i, 'PO');
-
-            if (!prodNo.includes('-')) {
-                prodNo = prodNo.replace(/^PO(\d{4})(\d{4})$/, 'PO-$1-$2');
-            }
         }
 
-        if (/^\d{8}$/.test(prodNo)) {
+        prodNo = prodNo.replace(/\D/g, '');
+        if (prodNo.length === 8) {
             prodNo = `PO-${prodNo.substring(0, 4)}-${prodNo.substring(4)}`;
         }
 
@@ -69,13 +66,10 @@ function formatFields() {
 
         if (!/^SO-/i.test(salesOrderNo)) {
             salesOrderNo = salesOrderNo.replace(/^so/i, 'SO');
-
-            if (!salesOrderNo.includes('-')) {
-                salesOrderNo = salesOrderNo.replace(/^SO(\d{4})(\d{4})$/, 'SO-$1-$2');
-            }
         }
 
-        if (/^\d{8}$/.test(salesOrderNo)) {
+        salesOrderNo = salesOrderNo.replace(/\D/g, '');
+        if (salesOrderNo.length === 8) {
             salesOrderNo = `SO-${salesOrderNo.substring(0, 4)}-${salesOrderNo.substring(4)}`;
         }
 
