@@ -79,11 +79,16 @@ input[type="reset"]:focus,
 input[type="submit"]:focus,
 select:focus,
 textarea:focus,
+.btnAction:focus,
+.btnAction:hover,
 .btnChevron:focus,
 .btnChevron:hover,
 .question:hover,
+.sortButton:focus,
+.sortButton:hover,
 input[type="reset"]:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+tr:hover {
   background-color: var(--focus-background-color);
   border: 2px solid var(--focus-border-color);
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.4);
@@ -98,7 +103,8 @@ body.dark textarea:focus {
 }
 
 .faq,
-fieldset {
+fieldset,
+tr:nth-child(even) {
   background-color: var(--form-color);
 }
 
@@ -121,7 +127,8 @@ fieldset {
 .sidebar li a:hover:not(.noHighlight),
 .tooltip-message,
 input[type="reset"],
-input[type="submit"] {
+input[type="submit"],
+th {
   background-color: var(--primary-color);
 }
 
@@ -142,6 +149,10 @@ textarea {
 
 .required {
   color: var(--red-color);
+}
+
+.btnAction {
+  color: var(--secondary-color);
 }
 
 .sidebar .searchBar input:focus,
@@ -168,7 +179,9 @@ textarea {
 .sidebar .mode:hover .mode-text,
 .sidebar .mode:hover .sun-moon i,
 .sidebar .searchBar:hover .icon,
-.tooltip-message {
+.sortButton,
+.tooltip-message,
+th {
   color: var(--sidebar-color);
 }
 
@@ -192,8 +205,10 @@ body.dark .sidebar .mode:hover .sun-moon i,
 body.dark .sidebar li a:hover .icon,
 body.dark .sidebar li a:hover .text,
 body.dark .sidebar li .tooltip,
+body.dark th,
 body.dark .tooltip-message,
 body.dark .sidebar .searchBar:hover .icon,
+body.dark .sortButton,
 .flyingMenu a,
 .homeSection .text,
 legend,
@@ -215,7 +230,7 @@ legend,
 }
 
 body.dark .sidebar .profile a.noHighlight:hover i,
-.remove-button,
+.btnRemove,
 .sidebar .profile a.noHighlight:hover i,
 .sidebar li.profile .userType,
 .sidebar li.profile .username,
@@ -229,7 +244,9 @@ body.dark .sidebar .profile a.noHighlight i {
   color: #AAA;
 }
 
-.sidebar li a {
+.btnAction,
+.sidebar li a,
+.sortButton {
   background-color: transparent;
 }
 
@@ -534,7 +551,7 @@ textarea {
 .homeSection,
 .mode .sun-moon i,
 .navList .toggle-switch,
-.remove-button,
+.btnRemove,
 .sidebar .bx-search,
 .sidebar .headerLogo #btn,
 .sidebar li .tooltip,
@@ -609,7 +626,8 @@ textarea {
 }
 
 .parenthetical,
-.required {
+.required,
+table {
   font-size: 0.8rem;
   font-weight: 400;
 }
@@ -624,8 +642,10 @@ textarea {
   font-size: 17px;
 }
 
+.btnAction,
 .sidebar li.profile .userType,
-.remove-button {
+.btnRemove,
+.sortButton {
   font-size: 12px;
 }
 
@@ -637,15 +657,18 @@ textarea {
 input[type="reset"],
 input[type="submit"],
 legend,
-label {
+label,
+th {
   font-weight: 500;
 }
 
 /* ===== Border ===== */
 
-.remove-button,
+.btnAction,
+.btnRemove,
 .sidebar input,
-.sidebar li.searchBar input {
+.sidebar li.searchBar input,
+.sortButton {
   border: none;
 }
 
@@ -740,12 +763,14 @@ textarea:focus {
   list-style: none;
 }
 
+.btnAction,
 .btnChevron,
 .navList .toggle-switch,
-.remove-button,
+.btnRemove,
 .question,
 .sidebar .headerLogo #btn,
 .sidebar li.searchBar,
+.sortButton,
 .tooltip-container {
   cursor: pointer;
 }
@@ -817,7 +842,8 @@ body.dark .switch::before {
 /* ===== Form ===== */
 
 header,
-main {
+main,
+table {
   width: 90%;
 }
 
@@ -899,11 +925,16 @@ input[type="reset"] {
   width: 200px;
 }
 
-.remove-button {
-  background-color: var(--red-color);
+.btnAction,
+.btnRemove,
+.sortButton {
   padding: 2px 5px;
   right: 5px;
   top: 5px;
+}
+
+.btnRemove {
+  background-color: var(--red-color);
 }
 
 /* ===== Tooltip ===== */
@@ -998,8 +1029,20 @@ input[type="reset"] {
   margin-top: 5px;
 }
 
-.question{
-  color: var(--sidebar-color);
+/* ===== Table ===== */
+
+table {
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 50px;
+}
+
+th,
+td {
+  border: 1px solid var(--sidebar-color);
+  height: 60px;
+  padding: 12px 15px;
+  text-align: left;
 }
 
 /* ===== Media Query ===== */

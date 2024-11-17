@@ -321,9 +321,9 @@ async function loadNCRTable() {
               <td>${ncrData.qualityRepReportingDate}</td>
               <td>${ncrData.status}</td>
               <td>
-                  <button class="viewBtn">View</button>
-                  <button class="editBtn">Edit</button>
-                  <button class="deleteBtn">Delete</button>
+                  <button class="viewBtn btnAction">View</button>
+                  <button class="editBtn btnAction">Edit</button>
+                  <button class="deleteBtn btnAction">Delete</button>
               </td>
           `;
 

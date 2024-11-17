@@ -293,7 +293,7 @@ function handleMediaUpload() {
 
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
-        removeButton.classList.add('remove-button');
+        removeButton.classList.add('btnRemove');
 
         removeButton.addEventListener('click', function () {
             previewWrapper.remove();

@@ -33,7 +33,7 @@
                 <span class="tooltip">Dashboard</span>
             </li>
             <li>
-                <a href="#" onclick="loadPage('view.html')">
+                <a href="#" onclick="loadNCRs()">
                     <i class="bx bx-folder icon"></i>
                     <span class="linkName text">View NCRs</span>
                 </a>
@@ -83,36 +83,36 @@
     <section class="homeSection">
         <div id="pageTitle" class="text">
             <h1>Dashboard</h1>
-            <div>
-                <table id="ncrTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th id="ncrNoHeader">
-                                NCR No
-                                <button id="ncrNoAsc" class="sortButton">▲</button>
-                                <button id="ncrNoDesc" class="sortButton">▼</button>
-                            </th>
-                            <th id="supplierNameHeader">
-                                Supplier Name
-                                <button id="supplierNameAsc" class="sortButton">▲</button>
-                                <button id="supplierNameDesc" class="sortButton">▼</button>
-                            </th>
-                            <th id="reportingDateHeader">
-                                Reporting Date
-                                <button id="reportingDateAsc" class="sortButton">▲</button>
-                                <button id="reportingDateDesc" class="sortButton">▼</button>
-                            </th>
-                            <th id="statusHeader">
-                                Status
-                                <button id="statusAsc" class="sortButton">▲</button>
-                                <button id="statusDesc" class="sortButton">▼</button>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        </div>
+        <div>
+            <table id="ncrTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th id="ncrNoHeader">
+                            NCR No
+                            <button id="ncrNoAsc" class="sortButton">▲</button>
+                            <button id="ncrNoDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="supplierNameHeader">
+                            Supplier Name
+                            <button id="supplierNameAsc" class="sortButton">▲</button>
+                            <button id="supplierNameDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="reportingDateHeader">
+                            Reporting Date
+                            <button id="reportingDateAsc" class="sortButton">▲</button>
+                            <button id="reportingDateDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="statusHeader">
+                            Status
+                            <button id="statusAsc" class="sortButton">▲</button>
+                            <button id="statusDesc" class="sortButton">▼</button>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
         <div id="mainContent"></div>
     </section>
