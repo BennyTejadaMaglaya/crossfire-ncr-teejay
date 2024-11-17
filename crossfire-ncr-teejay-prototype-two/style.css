@@ -127,9 +127,14 @@ textarea {
   border: 1px solid var(--primary-color);
 }
 
+.parenthetical,
+.required {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
 .required {
   color: var(--red-color);
-  font-size: 0.85rem;
 }
 
 input[type="reset"]:hover,

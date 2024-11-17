@@ -153,15 +153,15 @@
 
                 </div>
 
-                <label for="descriptionDefect">Description of Defect: (in as much detail as possible, use page 2
-                    if necessary) <span class="required">*</span> <span id="descriptionDefectError"
+                <label for="descriptionDefect">Description of Defect: <span class="parenthetical">(in as much detail as possible, use page 2
+                    if necessary)</span> <span class="required">*</span> <span id="descriptionDefectError"
                         class="required error">Please enter the description of defect. It
                         can't be empty!</span></label>
                 <textarea id="descriptionDefect" name="descriptionDefect"
                     placeholder="e.g., The outside of the product has a cracked surface, which may affect its strength. It needs to be checked right away."
                     required tabindex="9"></textarea>
 
-                <label for="mediaUpload">Upload Photos or Videos (optional)</label>
+                <label for="mediaUpload">Upload Photos or Videos <span class="parenthetical">(optional)</span></label>
                 <input type="file" id="mediaUpload" name="mediaUpload[]" multiple onchange="handleMediaUpload()"
                     tabindex="10">
                 <div id="fileCount">Total files selected: 0</div>
@@ -212,7 +212,7 @@
                     <div>
                         <label>Review by CF Engineering: <span class="required">*</span> <span
                                 id="dispositionReviewError" class="required error">Please choose a
-                                disposition.</span><br>(indicate disposition by "checking" one of the following)</label>
+                                disposition.</span><br><span class="parenthetical">(indicate disposition by "checking" one of the following)</span></label>
                         <br>
                         <input id="dispositionReview1" type="radio" name="dispositionReview" value="Use As Is" required
                             tabindex="17">
@@ -242,9 +242,10 @@
                             </span>
                         </label>
                         <br>
-
-                        <label>Does Customer require notification of NCR (optional)<br>(If "Yes" then raise message to
-                            customer detailing issues)</label>
+                    </div>
+                    <div>
+                        <label>Does Customer require notification of NCR <span class="parenthetical">(optional)</span><br><span class="parenthetical">(If "Yes" then raise message to
+                            customer detailing issues)</span></label>
                         <br>
                         <input id="customerRequireNotificationYes" type="radio" name="customerRequireNotification"
                             value="yes" tabindex="18">
@@ -257,14 +258,14 @@
 
                 </div>
 
-                <label for="disposition">Disposition: (Sequence of work steps required when "repair" or "rework"
-                    indicated) <span class="required">*</span> <span id="dispositionError" class="required error">Please
+                <label for="disposition">Disposition: <span class="parenthetical">(Sequence of work steps required when "repair" or "rework"
+                    indicated)</span> <span class="required">*</span> <span id="dispositionError" class="required error">Please
                         enter the disposition. It
                         can't be empty!</span></label>
                 <textarea id="disposition" name="disposition" placeholder="e.g., Replace faulty parts, retest, etc."
                     required tabindex="19"></textarea>
 
-                <label>Does the drawing require updating (optional)</label>
+                <label>Does the drawing require updating <span class="parenthetical">(optional)</span></label>
                 <br>
                 <input id="drawingRequireUpdatingYes" type="radio" name="drawingRequireUpdating" value="yes"
                     tabindex="20">
