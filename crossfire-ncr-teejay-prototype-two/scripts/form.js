@@ -84,14 +84,13 @@ function validateForm() {
         { id: 'disposition', errorId: 'dispositionError' },
         { name: 'dispositionReview', errorId: 'dispositionReviewError', radio: true },
         { id: 'reportingDate', errorId: 'reportingDateError' },
-        { id: 'lastName', errorId: 'lastNameError' },
-        { id: 'firstName', errorId: 'firstNameError' },
-        { name: 'markedNonconforming', errorId: 'markedNonconformingError', radio: true },
+        { id: 'qualityRepName', errorId: 'qualityRepNameError' },
         { id: 'descriptionDefect', errorId: 'descriptionDefectError' },
         { id: 'qtyDefective', errorId: 'qtyDefectiveError', check: (value) => value < 0 },
         { id: 'qtyReceived', errorId: 'qtyReceivedError', check: (value) => value <= 0 },
         { id: 'salesOrderNo', errorId: 'salesOrderNoError', pattern: /^(SO-?|so-?)?\d{4}-?\d{4}$/i },
         { id: 'prodNo', errorId: 'prodNoError', pattern: /^(PO-?|po-?)?\d{4}-?\d{4}$/i },
+        { name: 'markedNonconforming', errorId: 'markedNonconformingError', radio: true },
         { id: 'descriptionItem', errorId: 'descriptionItemError' },
         { id: 'supplierName', errorId: 'supplierNameError' },
         { name: 'processApplicable', errorId: 'processApplicableError', radio: true }
@@ -105,7 +104,8 @@ function validateForm() {
         const error = document.getElementById(errorId);
 
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
-            error.style.display = 'inline';
+            // error.style.display = 'inline';
+            error.style.opacity = '1';
 
             if (radio) {
                 const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
@@ -174,8 +174,7 @@ function collectFormData(ncrNo) {
         qtyDefective: document.getElementById('qtyDefective').value,
         descriptionDefect: document.getElementById('descriptionDefect').value,
         markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
+        qualityRepName: document.getElementById('qualityRepName').value,
         reportingDate: document.getElementById('reportingDate').value,
         status: document.getElementById('status').value,
         dispositionReview: document.querySelector('input[name="dispositionReview"]:checked').value,

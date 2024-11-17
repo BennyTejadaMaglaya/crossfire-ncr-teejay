@@ -33,25 +33,19 @@
                     navigate backward.</p>
             </div>
 
-            <fieldset>
+            <fieldset id="qualityRepSection">
                 <legend>Quality Representative</legend>
 
                 <div>
 
                     <div>
-                        <label for="docNumber">Document Number</label>
-                        <input type="text" id="docNumber" name="docNumber" value="OPS-00011" tabindex="1">
-
-                        <label for="docTitle">Document Title</label>
-                        <input type="text" id="docTitle" name="docTitle" value="Non-Conformance Report" tabindex="2">
-
                         <label>Identify Process Applicable <span class="required">*</span> <span
                                 id="processApplicableError" class="required error">Please choose a process
                                 applicable.</span>
                         </label>
                         <br>
                         <input id="processApplicable1" type="radio" name="processApplicable"
-                            value="Supplier or Rec-Insp" required tabindex="3">
+                            value="Supplier or Rec-Insp" required tabindex="1">
                         <label for="processApplicable1" class="tooltip-container">Supplier or Rec-Insp
                             <div class="tooltip-message processApplicable-tooltip">
                                 Supplier or Rec-Insp (Receiving Inspection): Inspection of goods received from suppliers
@@ -68,10 +62,12 @@
                         </label>
                         <br>
 
-                        <label for="supplierName">Supplier Name <span class="required">*</span> <span
-                                id="supplierNameError" class="required error">Please enter a valid supplier name. It
-                                can't be empty!</span></label>
-                        <select id="supplierName" name="supplierName" required tabindex="4">
+                        <label for="supplierName">Supplier Name <span class="required">*</span>
+                            <span id="supplierNameError" class="required error">Please enter a valid supplier name. It
+                                can't be empty!</span>
+                        </label>
+                        <select id="supplierName" name="supplierName" required tabindex="2">
+                            <option value="" disabled selected>Select a Supplier</option>
                             <option value="Apex Supply Co.">Apex Supply Co.</option>
                             <option value="Horizon Supply Group">Horizon Supply Group</option>
                             <option value="Nexa Materials">Nexa Materials</option>
@@ -87,8 +83,7 @@
                         <label for="descriptionItem" class="tooltip-container">Description of Item (including SAP No.)
                             <span class="required">*</span>
                             <span id="descriptionItemError" class="required error">Please
-                                enter the description of item. It
-                                can't be empty!</span>
+                                enter the description of item.</span>
                             <div class="tooltip-message sapNumber-tooltip">
                                 The SAP Number is a unique identifier assigned to materials, products, or equipment
                                 within the SAP system. SAP stands for <em>Systems, Applications, and Products in Data
@@ -97,7 +92,18 @@
                         </label>
                         <textarea id="descriptionItem" name="descriptionItem"
                             placeholder="e.g., Steel Beam, 4x4 ft, Grade A, SAP No.: 1234567890" required
-                            tabindex="5"></textarea>
+                            tabindex="3"></textarea>
+
+                        <label>Item marked Nonconforming <span class="required">*</span> <span
+                                id="markedNonconformingError" class="required error">Please mark it yes or
+                                no.</span></label>
+                        <br>
+                        <input id="markedNonconformingYes" type="radio" name="markedNonconforming" value="yes" required
+                            tabindex="4">
+                        <label for="markedNonconformingYes">Yes</label>
+                        <input id="markedNonconformingNo" type="radio" name="markedNonconforming" value="no">
+                        <label for="markedNonconformingNo">No</label>
+                        <br>
                     </div>
 
                     <div>
@@ -110,20 +116,19 @@
                             placeholder="Auto-generated upon submission">
 
                         <label for="prodNo" class="tooltip-container">PO or Prod. No. <span class="required">*</span>
-                            <span id="prodNoError" class="required error">Please enter a valid PO or Prod. No. (e.g.,
-                                PO-2024-0123)</span>
+                            <span id="prodNoError" class="required error">Please enter a valid PO or Prod. No.</span>
                             <div class="tooltip-message prodNo-tooltip">
                                 Product Number (PO or Prod. No.) is a unique identifier used to track, order, and manage
                                 products in the system.
                             </div>
                         </label>
                         <input id="prodNo" type="text" name="prodNo" placeholder="e.g., PO-2024-0123" required
-                            tabindex="6">
+                            tabindex="5">
 
                         <label for="salesOrderNo" class="tooltip-container">Sales Order No. <span
                                 class="required">*</span>
                             <span id="salesOrderNoError" class="required error">Please enter a valid Sales Order
-                                No. (e.g., SO-2024-5678)</span>
+                                No.</span>
                             <div class="tooltip-message salesOrderNo-tooltip">
                                 Sales Order Number (Sales Order No.) is a unique identifier used to track the details of
                                 a
@@ -131,20 +136,19 @@
                             </div>
                         </label>
                         <input id="salesOrderNo" type="text" name="salesOrderNo" placeholder="e.g., SO-2024-5678"
-                            required tabindex="7">
+                            required tabindex="6">
 
                         <label for="qtyReceived">Quantity Received <span class="required">*</span>
                             <span id="qtyReceivedError" class="required error">Please enter a valid quantity.</span>
                         </label>
                         <input id="qtyReceived" type="number" name="qtyReceived" placeholder="e.g., 500" required
-                            tabindex="8">
+                            tabindex="7">
 
                         <label for="qtyDefective">Quantity Defective <span class="required">*</span>
                             <span id="qtyDefectiveError" class="required error"></span>
                         </label>
                         <input id="qtyDefective" type="number" name="qtyDefective" placeholder="e.g., 45" required
-                            tabindex="9">
-
+                            tabindex="8">
                     </div>
 
                 </div>
@@ -155,21 +159,11 @@
                         can't be empty!</span></label>
                 <textarea id="descriptionDefect" name="descriptionDefect"
                     placeholder="e.g., The outside of the product has a cracked surface, which may affect its strength. It needs to be checked right away."
-                    required tabindex="10"></textarea>
-
-                <label>Item marked Nonconforming <span class="required">*</span> <span id="markedNonconformingError"
-                        class="required error">Please mark it yes or no.</span></label>
-                <br>
-                <input id="markedNonconformingYes" type="radio" name="markedNonconforming" value="yes" required
-                    tabindex="11">
-                <label for="markedNonconformingYes">Yes</label>
-                <input id="markedNonconformingNo" type="radio" name="markedNonconforming" value="no">
-                <label for="markedNonconformingNo">No</label>
-                <br>
+                    required tabindex="9"></textarea>
 
                 <label for="mediaUpload">Upload Photos or Videos (optional)</label>
                 <input type="file" id="mediaUpload" name="mediaUpload[]" multiple onchange="handleMediaUpload()"
-                    tabindex="12">
+                    tabindex="10">
                 <div id="fileCount">Total files selected: 0</div>
                 <div id="preview"></div>
                 <br>
@@ -185,25 +179,20 @@
                 <div>
 
                     <div>
-                        <label for="firstName">First Name <span class="required">*</span> <span id="firstNameError"
-                                class="required error">Please enter your first name.</span></label>
-                        <input id="firstName" type="text" name="firstName" placeholder="e.g., John" required
-                            tabindex="13">
-
-                        <label for="lastName">Last Name <span class="required">*</span> <span id="lastNameError"
-                                class="required error">Please enter your last name.</span></label>
-                        <input id="lastName" type="text" name="lastName" placeholder="e.g., Smith" required
-                            tabindex="14">
+                        <label for="qualityRepName">Quality Rep Name <span class="required">*</span> <span
+                                id="qualityRepNameError" class="required error">Please enter your name.</span></label>
+                        <input id="qualityRepName" type="text" name="qualityRepName" placeholder="e.g., John Smith"
+                            required tabindex="11">
                     </div>
 
                     <div>
                         <label for="reportingDate">Reporting Date <span class="required">*</span> <span
                                 id="reportingDateError" class="required error">Please select a reporting
                                 date.</span></label>
-                        <input id="reportingDate" type="date" name="reportingDate" required tabindex="15">
+                        <input id="reportingDate" type="date" name="reportingDate" required tabindex="12">
 
                         <label for="status">Status </label>
-                        <select id="status" name="status" tabindex="16">
+                        <select id="status" name="status" tabindex="13">
                             <option value="Active">Active</option>
                             <option value="Pending">Pending</option>
                             <option value="Reviewed">Reviewed</option>

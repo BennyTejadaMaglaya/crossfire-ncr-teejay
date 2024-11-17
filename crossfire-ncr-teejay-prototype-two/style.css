@@ -129,6 +129,7 @@ textarea {
 
 .required {
   color: var(--red-color);
+  font-size: 0.85rem;
 }
 
 input[type="reset"]:hover,
@@ -276,6 +277,7 @@ body.dark .sidebar .profile a.noHighlight i {
 /* ===== Opacity ===== */
 
 body.dark .mode .sun-moon i.moon,
+.error,
 .mode .sun-moon i.sun,
 .sidebar .headerLogo img,
 .sidebar li .tooltip,
@@ -407,10 +409,11 @@ input[type="submit"] {
   height: 100%;
 }
 
+#descriptionItem,
 #descriptionDefect,
 #disposition,
 .sidebar .headerLogo .icon img {
-  height: 90px;
+  height: 104px;
 }
 
 .sidebar i,
@@ -542,7 +545,6 @@ textarea {
   display: flex;
 }
 
-.error,
 .sidebar.open li .tooltip,
 .tooltip-message {
   display: none;
@@ -789,13 +791,12 @@ select {
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select,
-#descriptionItem {
+select {
   height: 30px;
 }
 
 input[type="radio"] {
-  margin: 0 0 28px 30px;
+  margin: 0 0 24px 30px;
 }
 
 textarea {
@@ -896,11 +897,12 @@ input[type="reset"] {
   header,
   fieldset>div {
     gap: 15px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
   }
 }
 
 @media screen and (max-width: 600px) {
+
   table,
   th,
   td {
