@@ -581,8 +581,7 @@ textarea {
 input[type="reset"],
 input[type="submit"],
 legend,
-label,
-span {
+label {
   font-weight: 500;
 }
 

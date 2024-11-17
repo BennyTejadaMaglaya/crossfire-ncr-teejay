@@ -27,7 +27,7 @@
         <!-- <form id="ncrForm" action="https://webdevbasics.net/scripts/demo.php" method="post"> -->
         <form id="ncrForm">
 
-            <div class="tooltip">
+            <div>
                 <p><span class="required">*</span> indicates a required field</p>
                 <p>Press <strong>Tab</strong> to navigate forward, <strong>Shift + Tab</strong> to
                     navigate backward.</p>
@@ -47,18 +47,18 @@
                         <input id="processApplicable1" type="radio" name="processApplicable"
                             value="Supplier or Rec-Insp" required tabindex="1">
                         <label for="processApplicable1" class="tooltip-container">Supplier or Rec-Insp
-                            <div class="tooltip-message processApplicable-tooltip">
+                            <span class="tooltip-message processApplicable-tooltip">
                                 Supplier or Rec-Insp (Receiving Inspection): Inspection of goods received from suppliers
                                 to ensure they meet required quality standards before being used in production.
-                            </div>
+                            </span>
                         </label>
                         <input id="processApplicable2" type="radio" name="processApplicable"
                             value="WIP (Production Order)">
                         <label for="processApplicable2" class="tooltip-container">WIP (Production Order)
-                            <div class="tooltip-message processApplicable-tooltip">
+                            <span class="tooltip-message processApplicable-tooltip">
                                 WIP (Work In Progress) (Production Order): Items that are in the process of being
                                 manufactured or assembled, following a formal production order.
-                            </div>
+                            </span>
                         </label>
                         <br>
 
@@ -84,11 +84,11 @@
                             <span class="required">*</span>
                             <span id="descriptionItemError" class="required error">Please
                                 enter the description of item.</span>
-                            <div class="tooltip-message sapNumber-tooltip">
+                            <span class="tooltip-message sapNumber-tooltip">
                                 The SAP Number is a unique identifier assigned to materials, products, or equipment
                                 within the SAP system. SAP stands for <em>Systems, Applications, and Products in Data
                                     Processing</em>.
-                            </div>
+                            </span>
                         </label>
                         <textarea id="descriptionItem" name="descriptionItem"
                             placeholder="e.g., Steel Beam, 4x4 ft, Grade A, SAP No.: 1234567890" required
@@ -107,20 +107,20 @@
                     </div>
 
                     <div>
-                        <label for="ncrNo" class="tooltip-container">NCR No.<div class="tooltip-message ncrNo-tooltip">
+                        <label for="ncrNo" class="tooltip-container">NCR No.<span class="tooltip-message ncrNo-tooltip">
                                 The NCR No. (Non-Conformance Report Number) is a unique identifier assigned to a report
                                 that documents a non-conformance, defect, or issue found in a product or process, which
                                 requires corrective action.
-                            </div></label>
+                            </span></label>
                         <input type="text" id="ncrNo" name="ncrNo" readonly
                             placeholder="Auto-generated upon submission">
 
                         <label for="prodNo" class="tooltip-container">PO or Prod. No. <span class="required">*</span>
                             <span id="prodNoError" class="required error">Please enter a valid PO or Prod. No.</span>
-                            <div class="tooltip-message prodNo-tooltip">
+                            <span class="tooltip-message prodNo-tooltip">
                                 Product Number (PO or Prod. No.) is a unique identifier used to track, order, and manage
                                 products in the system.
-                            </div>
+                            </span>
                         </label>
                         <input id="prodNo" type="text" name="prodNo" placeholder="e.g., PO-2024-0123" required
                             tabindex="5">
@@ -129,11 +129,11 @@
                                 class="required">*</span>
                             <span id="salesOrderNoError" class="required error">Please enter a valid Sales Order
                                 No.</span>
-                            <div class="tooltip-message salesOrderNo-tooltip">
+                            <span class="tooltip-message salesOrderNo-tooltip">
                                 Sales Order Number (Sales Order No.) is a unique identifier used to track the details of
                                 a
                                 sales order, including products, quantities, pricing, and shipping information.
-                            </div>
+                            </span>
                         </label>
                         <input id="salesOrderNo" type="text" name="salesOrderNo" placeholder="e.g., SO-2024-5678"
                             required tabindex="6">
@@ -211,42 +211,40 @@
 
                     <div>
                         <label>Review by CF Engineering: <span class="required">*</span> <span
-                                id="dispositionReviewError" class="required error">Please choose a disposition.</span>
-                            <p>(indicate disposition by "checking" one of the following)</p>
-                        </label>
+                                id="dispositionReviewError" class="required error">Please choose a
+                                disposition.</span><br>(indicate disposition by "checking" one of the following)</label>
                         <br>
                         <input id="dispositionReview1" type="radio" name="dispositionReview" value="Use As Is" required
                             tabindex="17">
                         <label for="dispositionReview1" class="tooltip-container">Use As Is
-                            <div class="tooltip-message dispositionReview-tooltip">
+                            <span class="tooltip-message dispositionReview-tooltip">
                                 Use As Is : Indicates that the product is acceptable as it is and does not require any
                                 changes.
-                            </div>
+                            </span>
                         </label>
                         <input id="dispositionReview2" type="radio" name="dispositionReview" value="Repair">
                         <label for="dispositionReview2" class="tooltip-container">Repair
-                            <div class="tooltip-message dispositionReview-tooltip">
+                            <span class="tooltip-message dispositionReview-tooltip">
                                 Repair : Indicates that the product requires repairs to meet the required standards.
-                            </div>
+                            </span>
                         </label>
                         <input id="dispositionReview3" type="radio" name="dispositionReview" value="Rework">
                         <label for="dispositionReview3" class="tooltip-container">Rework
-                            <div class="tooltip-message dispositionReview-tooltip">
+                            <span class="tooltip-message dispositionReview-tooltip">
                                 Rework : Indicates that the product needs to be reworked or modified to meet the desired
                                 specifications.
-                            </div>
+                            </span>
                         </label>
                         <input id="dispositionReview4" type="radio" name="dispositionReview" value="Scrap">
                         <label for="dispositionReview4" class="tooltip-container">Scrap
-                            <div class="tooltip-message dispositionReview-tooltip">
+                            <span class="tooltip-message dispositionReview-tooltip">
                                 Scrap : Indicates that the product is defective beyond repair and should be discarded.
-                            </div>
+                            </span>
                         </label>
                         <br>
 
-                        <label>Does Customer require notification of NCR (optional)
-                            <p>(If "Yes" then raise message to customer detailing issues)</p>
-                        </label>
+                        <label>Does Customer require notification of NCR (optional)<br>(If "Yes" then raise message to
+                            customer detailing issues)</label>
                         <br>
                         <input id="customerRequireNotificationYes" type="radio" name="customerRequireNotification"
                             value="yes" tabindex="18">
@@ -275,17 +273,17 @@
                 <label for="drawingRequireUpdatingNo">No</label>
                 <br>
 
-                <label for="originalRevNumber" class="tooltip-container">Original Rev. Number:<div
+                <label for="originalRevNumber" class="tooltip-container">Original Rev. Number:<span
                         class="tooltip-message originalRevNumber-tooltip">
                         Enter the original revision number of the drawing or product.
-                    </div></label>
+                    </span></label>
                 <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., A, B, 1.0"
                     tabindex="21">
 
-                <label for="updatedRevNumber" class="tooltip-container">Updated Rev. Number:<div
+                <label for="updatedRevNumber" class="tooltip-container">Updated Rev. Number:<span
                         class="tooltip-message updatedRevNumber-tooltip">
                         Enter the updated revision number if the drawing has been revised.
-                    </div></label>
+                    </span></label>
                 <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., B, 1.1"
                     tabindex="22">
 
