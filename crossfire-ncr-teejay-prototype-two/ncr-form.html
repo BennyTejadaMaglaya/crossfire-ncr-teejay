@@ -92,9 +92,7 @@
                             <div class="tooltip-message sapNumber-tooltip">
                                 The SAP Number is a unique identifier assigned to materials, products, or equipment
                                 within the SAP system. SAP stands for <em>Systems, Applications, and Products in Data
-                                    Processing</em>. It is an enterprise resource planning (ERP) system used to track
-                                and manage inventory, procurement, financial data, and the lifecycle of products across
-                                the enterprise.
+                                    Processing</em>.
                             </div>
                         </label>
                         <textarea id="descriptionItem" name="descriptionItem"
@@ -103,8 +101,13 @@
                     </div>
 
                     <div>
-                        <label for="ncrNo">NCR No.</label>
-                        <input type="text" id="ncrNo" name="ncrNo" readonly>
+                        <label for="ncrNo" class="tooltip-container">NCR No.<div class="tooltip-message ncrNo-tooltip">
+                                The NCR No. (Non-Conformance Report Number) is a unique identifier assigned to a report
+                                that documents a non-conformance, defect, or issue found in a product or process, which
+                                requires corrective action.
+                            </div></label>
+                        <input type="text" id="ncrNo" name="ncrNo" readonly
+                            placeholder="Auto-generated upon submission">
 
                         <label for="prodNo" class="tooltip-container">PO or Prod. No. <span class="required">*</span>
                             <span id="prodNoError" class="required error">Please enter a valid PO or Prod. No. (e.g.,
@@ -227,25 +230,27 @@
                             tabindex="17">
                         <label for="dispositionReview1" class="tooltip-container">Use As Is
                             <div class="tooltip-message dispositionReview-tooltip">
-                                Use As Is
+                                Use As Is : Indicates that the product is acceptable as it is and does not require any
+                                changes.
                             </div>
                         </label>
                         <input id="dispositionReview2" type="radio" name="dispositionReview" value="Repair">
                         <label for="dispositionReview2" class="tooltip-container">Repair
                             <div class="tooltip-message dispositionReview-tooltip">
-                                Repair
+                                Repair : Indicates that the product requires repairs to meet the required standards.
                             </div>
                         </label>
                         <input id="dispositionReview3" type="radio" name="dispositionReview" value="Rework">
                         <label for="dispositionReview3" class="tooltip-container">Rework
                             <div class="tooltip-message dispositionReview-tooltip">
-                                Rework
+                                Rework : Indicates that the product needs to be reworked or modified to meet the desired
+                                specifications.
                             </div>
                         </label>
                         <input id="dispositionReview4" type="radio" name="dispositionReview" value="Scrap">
                         <label for="dispositionReview4" class="tooltip-container">Scrap
                             <div class="tooltip-message dispositionReview-tooltip">
-                                Scrap
+                                Scrap : Indicates that the product is defective beyond repair and should be discarded.
                             </div>
                         </label>
                         <br>
@@ -269,8 +274,8 @@
                     indicated) <span class="required">*</span> <span id="dispositionError" class="required error">Please
                         enter the disposition. It
                         can't be empty!</span></label>
-                <textarea id="disposition" name="disposition" placeholder="e.g., disposition." required
-                    tabindex="19"></textarea>
+                <textarea id="disposition" name="disposition" placeholder="e.g., Replace faulty parts, retest, etc."
+                    required tabindex="19"></textarea>
 
                 <label>Does the drawing require updating (optional)</label>
                 <br>
@@ -281,12 +286,18 @@
                 <label for="drawingRequireUpdatingNo">No</label>
                 <br>
 
-                <label for="originalRevNumber">Original Rev. Number:</label>
-                <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., originalRevNumber"
+                <label for="originalRevNumber" class="tooltip-container">Original Rev. Number:<div
+                        class="tooltip-message originalRevNumber-tooltip">
+                        Enter the original revision number of the drawing or product.
+                    </div></label>
+                <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., A, B, 1.0"
                     tabindex="21">
 
-                <label for="updatedRevNumber">Updated Rev. Number:</label>
-                <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., updatedRevNumber"
+                <label for="updatedRevNumber" class="tooltip-container">Updated Rev. Number:<div
+                        class="tooltip-message updatedRevNumber-tooltip">
+                        Enter the updated revision number if the drawing has been revised.
+                    </div></label>
+                <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., B, 1.1"
                     tabindex="22">
 
                 <label for="engineerName">Name of Engineer:</label>
