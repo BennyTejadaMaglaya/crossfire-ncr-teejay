@@ -81,6 +81,7 @@ select:focus,
 textarea:focus,
 .btnChevron:focus,
 .btnChevron:hover,
+.question:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
   background-color: var(--focus-background-color);
@@ -96,6 +97,7 @@ body.dark textarea:focus {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
 }
 
+.faq,
 fieldset {
   background-color: var(--form-color);
 }
@@ -113,6 +115,7 @@ fieldset {
 
 .flyingMenu a:hover,
 .mode:hover,
+.question,
 .sidebar:not(.open) .mode:hover .sun-moon i,
 .sidebar:not(.open) .searchBar:hover .icon,
 .sidebar li a:hover:not(.noHighlight),
@@ -122,6 +125,7 @@ input[type="submit"] {
   background-color: var(--primary-color);
 }
 
+.faq,
 fieldset {
   border: 2.5px solid var(--primary-color);
 }
@@ -150,12 +154,14 @@ textarea {
   background: var(--sidebar-color);
 }
 
+.answer,
 .switch::before {
   background-color: var(--sidebar-color);
 }
 
 .btnChevron,
 .flyingMenu a:hover,
+.question,
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text,
 .sidebar li .tooltip,
@@ -180,6 +186,7 @@ textarea {
 body,
 body.dark .btnChevron,
 body.dark .flyingMenu a,
+body.dark .question,
 body.dark .sidebar .mode:hover .mode-text,
 body.dark .sidebar .mode:hover .sun-moon i,
 body.dark .sidebar li a:hover .icon,
@@ -272,6 +279,11 @@ body.dark .sidebar .profile a.noHighlight i {
 
 .sidebar li a .linkName {
   transition: 0.4s;
+}
+
+.question,
+.flyingMenu a {
+  transition: background-color 0.3s;
 }
 
 .sidebar li .tooltip {
@@ -369,9 +381,21 @@ main {
 
 /* ===== Padding ===== */
 
+.faq,
+fieldset {
+  padding: 15px;
+}
+
+body.dark .faq .answer,
+body.dark .faq .question,
+.answer,
+.question {
+  padding: 10px;
+}
+
 .homeSection .text {
   font-size: 30px;
-  padding: 12px 60px;
+  padding: 12px 32px;
 }
 
 .sidebar {
@@ -435,6 +459,7 @@ input[type="submit"] {
   line-height: 50px;
 }
 
+.btnChevron,
 .sidebar li.searchBar input,
 .sidebar li i,
 .navList .mode .sun-moon {
@@ -565,6 +590,7 @@ textarea {
   display: flex;
 }
 
+.answer,
 .flyingMenu.hidden #menu-list,
 .sidebar.open li .tooltip,
 .tooltip-message {
@@ -588,13 +614,10 @@ textarea {
   font-weight: 400;
 }
 
-.sidebar .bx-search,
-.sidebar .headerLogo #btn {
-  font-size: 22px;
-}
-
+.btnChevron,
+.sidebar .headerLogo #btn,
 .sidebar .icon {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .sidebar li.searchBar input {
@@ -607,6 +630,7 @@ textarea {
 }
 
 .homeSection .text,
+.question,
 .sidebar .mode .mode-text,
 .sidebar li a .text,
 .sidebar li.searchBar:hover input,
@@ -646,8 +670,10 @@ input[type="submit"],
 input[type="text"],
 select,
 textarea,
+.faq,
 .flyingMenu,
 .flyingMenu a,
+.question,
 .sidebar .searchBar:hover input,
 .sidebar .searchBar input:focus,
 .sidebar li a,
@@ -717,6 +743,7 @@ textarea:focus {
 .btnChevron,
 .navList .toggle-switch,
 .remove-button,
+.question,
 .sidebar .headerLogo #btn,
 .sidebar li.searchBar,
 .tooltip-container {
@@ -802,7 +829,6 @@ fieldset>div {
 fieldset {
   margin-bottom: 32px;
   margin-top: 32px;
-  padding: 15px;
 }
 
 fieldset>div {
@@ -940,18 +966,15 @@ input[type="reset"] {
 
 .flyingMenu a {
   padding: 5px 10px;
-  transition: background-color 0.3s;
 }
 
 .btnChevron {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 24px;
-  height: 50px;
   padding: 5px;
   right: -10px;
   top: -10px;
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  width: 50px;
+  width: 45px;
 }
 
 .flyingMenu.hidden {
@@ -961,6 +984,22 @@ input[type="reset"] {
 
 .flyingMenu.hidden #chevron-icon {
   transform: rotate(180deg);
+}
+
+/* ===== FAQs ===== */
+
+.faq {
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+
+.answer {
+  border-left: 3px solid var(--secondary-color);
+  margin-top: 5px;
+}
+
+.question{
+  color: var(--sidebar-color);
 }
 
 /* ===== Media Query ===== */

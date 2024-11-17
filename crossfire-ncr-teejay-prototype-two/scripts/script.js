@@ -107,3 +107,8 @@ function toggleMenu() {
     chevronIcon.classList.add('bx-dots-vertical-rounded');
   }
 }
+
+function toggleAnswer(faqElement) {
+  const answer = faqElement.querySelector('.answer');
+  answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+}
