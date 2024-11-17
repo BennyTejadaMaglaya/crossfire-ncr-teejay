@@ -41,10 +41,9 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-/*Load different pages into the main content area*/
 function loadPage(page) {
   const contentArea = document.getElementById('mainContent');
-  // const ncrTable = document.getElementById("ncrTable");
+  const ncrTable = document.getElementById("ncrTable");
   const pageTitle = document.querySelector('.homeSection #pageTitle h1');
 
   const xhr = new XMLHttpRequest();
@@ -54,7 +53,7 @@ function loadPage(page) {
     if (this.status === 200) {
       contentArea.innerHTML = this.responseText;
 
-      // ncrTable.style.display = "none";
+      ncrTable.style.display = "none";
 
       switch (page) {
         case 'index.html':
@@ -105,6 +104,326 @@ function toggleMenu() {
   } else {
     chevronIcon.classList.remove('bx-dots-horizontal-rounded');
     chevronIcon.classList.add('bx-dots-vertical-rounded');
+  }
+}
+
+function disableFields() {
+  alert("Disabling Fields...");
+  document.querySelectorAll('input:not([type="submit"]):not([type="reset"]), select, textarea').forEach((element) => {
+    element.disabled = true;
+  });
+}
+
+function enableFields() {
+  alert("Enabling Fields...");
+  document.querySelectorAll('input, select, textarea').forEach((element) => {
+    element.disabled = false;
+  });
+}
+
+function exitViewMode() {
+  alert("Exiting View Mode...");
+
+  window.location.href = "index.html";
+}
+
+async function viewNCR(ncrIndex) {
+  const ncrRef = firestore.collection("formData").doc(ncrIndex.toString());
+  try {
+    const doc = await ncrRef.get();
+    if (doc.exists) {
+      const ncrData = doc.data();
+      loadPage("ncr-form.html");
+
+      setTimeout(() => {
+        document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
+          if (radio.value === ncrData.processApplicable) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('supplierName').value = ncrData.supplierName;
+        document.getElementById('descriptionItem').value = ncrData.descriptionItem;
+
+        document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
+          if (radio.value === ncrData.markedNonconforming) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('ncrNo').value = ncrData.ncrNo;
+        document.getElementById('prodNo').value = ncrData.prodNo;
+        document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
+        document.getElementById('qtyReceived').value = ncrData.qtyReceived;
+        document.getElementById('qtyDefective').value = ncrData.qtyDefective;
+        document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
+        document.getElementById('qualityRepName').value = ncrData.qualityRepName;
+        document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
+        document.getElementById('status').value = ncrData.status;
+
+        document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
+          if (radio.value === ncrData.dispositionReview) {
+            radio.checked = true;
+          }
+        });
+
+        document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
+          if (radio.value === ncrData.customerRequireNotification) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('disposition').value = ncrData.disposition;
+
+        document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
+          if (radio.value === ncrData.drawingRequireUpdating) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
+        document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
+        document.getElementById('engineerName').value = ncrData.engineerName;
+        document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
+        document.getElementById('engineerName').value = ncrData.engineerName;
+        document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+
+        disableFields();
+
+        const submitButton = document.getElementById("btnSubmit");
+        const clearButton = document.getElementById("btnClear");
+
+        submitButton.value = "Edit";
+        submitButton.onclick = function (event) {
+          event.preventDefault();
+          enableFields();
+          submitButton.value = "Submit";
+
+          submitButton.onclick = function (event) {
+            event.preventDefault();
+            submitFormData(event);
+          };
+
+          clearButton.value = "Clear";
+          clearButton.onclick = function () {
+            clearForm();
+          };
+        };
+
+        clearButton.value = "Exit";
+        clearButton.onclick = function () {
+          exitViewMode();
+        };
+      }, 100);
+    } else {
+      console.error("No NCR document found!");
+    }
+  } catch (error) {
+    console.error("Error getting NCR data:", error);
+  }
+}
+
+async function editNCR(ncrIndex) {
+  const ncrRef = firestore.collection("formData").doc(ncrIndex.toString());
+  try {
+    const doc = await ncrRef.get();
+    if (doc.exists) {
+      const ncrData = doc.data();
+      loadPage("ncr-form.html");
+
+      setTimeout(() => {
+        document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
+          radio.disabled = false;
+          if (radio.value === ncrData.processApplicable) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('supplierName').value = ncrData.supplierName;
+        document.getElementById('descriptionItem').value = ncrData.descriptionItem;
+
+        document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
+          radio.disabled = false;
+          if (radio.value === ncrData.markedNonconforming) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('ncrNo').value = ncrData.ncrNo;
+        document.getElementById('prodNo').value = ncrData.prodNo;
+        document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
+        document.getElementById('qtyReceived').value = ncrData.qtyReceived;
+        document.getElementById('qtyDefective').value = ncrData.qtyDefective;
+        document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
+        document.getElementById('qualityRepName').value = ncrData.qualityRepName;
+        document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
+        document.getElementById('status').value = ncrData.status;
+
+        document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
+          if (radio.value === ncrData.dispositionReview) {
+            radio.checked = true;
+          }
+        });
+
+        document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
+          if (radio.value === ncrData.customerRequireNotification) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('disposition').value = ncrData.disposition;
+
+        document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
+          if (radio.value === ncrData.drawingRequireUpdating) {
+            radio.checked = true;
+          }
+        });
+
+        document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
+        document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
+        document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
+        document.getElementById('engineerName').value = ncrData.engineerName;
+        document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+      }, 100);
+    }
+  } catch (error) {
+    console.error("Error getting NCR data:", error);
+  }
+}
+
+let currentSortColumn = 'ncrNo';
+let currentSortOrder = 'desc';
+
+async function loadNCRTable() {
+  const tableBody = document.querySelector("#ncrTable tbody");
+  tableBody.innerHTML = "";
+
+  try {
+    const snapshot = await firestore.collection("formData").get();
+
+    const ncrDataArray = [];
+
+    snapshot.forEach((doc) => {
+      const ncrData = doc.data();
+      ncrData.id = doc.id;
+      ncrDataArray.push(ncrData);
+    });
+
+    sortData(ncrDataArray, currentSortColumn, currentSortOrder);
+
+    ncrDataArray.forEach((ncrData) => {
+      const row = document.createElement("tr");
+      row.dataset.docId = ncrData.id;
+
+      row.innerHTML = `
+              <td>${ncrData.ncrNo}</td>
+              <td>${ncrData.supplierName}</td>
+              <td>${ncrData.qualityRepReportingDate}</td>
+              <td>${ncrData.status}</td>
+              <td>
+                  <button class="viewBtn">View</button>
+                  <button class="editBtn">Edit</button>
+                  <button class="deleteBtn">Delete</button>
+              </td>
+          `;
+
+      tableBody.appendChild(row);
+    });
+
+    attachEventListeners();
+
+  } catch (error) {
+    console.error("Error loading NCR table:", error);
+  }
+}
+
+function sortData(dataArray, column, sortOrder) {
+  dataArray.sort((a, b) => {
+    if (a[column] < b[column]) return sortOrder === 'asc' ? -1 : 1;
+    if (a[column] > b[column]) return sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function attachEventListeners() {
+  const tableBody = document.querySelector("#ncrTable tbody");
+
+  tableBody.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    const row = clickedElement.closest("tr");
+    const docId = row?.dataset.docId;
+
+    if (!docId) return;
+
+    if (clickedElement.classList.contains("viewBtn")) {
+      viewNCR(docId);
+    } else if (clickedElement.classList.contains("editBtn")) {
+      editNCR(docId);
+    } else if (clickedElement.classList.contains("deleteBtn")) {
+      deleteNCR(docId);
+    }
+  });
+
+  document.getElementById("ncrNoAsc").addEventListener("click", function () {
+    setSortOrder('ncrNo', 'asc');
+  });
+
+  document.getElementById("ncrNoDesc").addEventListener("click", function () {
+    setSortOrder('ncrNo', 'desc');
+  });
+
+  document.getElementById("supplierNameAsc").addEventListener("click", function () {
+    setSortOrder('supplierName', 'asc');
+  });
+
+  document.getElementById("supplierNameDesc").addEventListener("click", function () {
+    setSortOrder('supplierName', 'desc');
+  });
+
+  document.getElementById("qualityRepReportingDateAsc").addEventListener("click", function () {
+    setSortOrder('qualityRepReportingDate', 'asc');
+  });
+
+  document.getElementById("qualityRepReportingDateDesc").addEventListener("click", function () {
+    setSortOrder('qualityRepReportingDate', 'desc');
+  });
+
+  document.getElementById("statusAsc").addEventListener("click", function () {
+    setSortOrder('status', 'asc');
+  });
+
+  document.getElementById("statusDesc").addEventListener("click", function () {
+    setSortOrder('status', 'desc');
+  });
+}
+
+function setSortOrder(column, order) {
+  currentSortColumn = column;
+  currentSortOrder = order;
+  loadNCRTable();
+}
+
+loadNCRTable();
+
+if (window.location.pathname.includes("index.html")) {
+  document.getElementById("ncrTable").style.display = "table";
+  window.onload = function () {
+    loadNCRTable();
+  };
+} else {
+  document.getElementById("ncrTable").style.display = "none";
+}
+
+async function deleteNCR(ncrIndex) {
+  const confirmDelete = confirm("Are you sure you want to delete this NCR?");
+  if (confirmDelete) {
+    try {
+      await firestore.collection("formData").doc(ncrIndex).delete();
+      loadNCRTable();
+      alert("NCR deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting NCR:", error);
+    }
   }
 }
 
