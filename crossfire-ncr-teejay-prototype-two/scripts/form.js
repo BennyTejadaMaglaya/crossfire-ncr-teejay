@@ -79,11 +79,11 @@ function formatFields() {
 
 function validateForm() {
     const fields = [
-        { id: 'reportingDateEngineering', errorId: 'reportingDateEngineeringError' },
-        { id: 'engineering', errorId: 'engineeringError' },
+        { id: 'engineerReportingDate', errorId: 'engineerReportingDateError' },
+        { id: 'engineerName', errorId: 'engineerNameError' },
         { id: 'disposition', errorId: 'dispositionError' },
         { name: 'dispositionReview', errorId: 'dispositionReviewError', radio: true },
-        { id: 'reportingDate', errorId: 'reportingDateError' },
+        { id: 'qualityRepReportingDate', errorId: 'qualityRepReportingDateError' },
         { id: 'qualityRepName', errorId: 'qualityRepNameError' },
         { id: 'descriptionDefect', errorId: 'descriptionDefectError' },
         { id: 'qtyDefective', errorId: 'qtyDefectiveError', check: (value) => value < 0 },
@@ -175,7 +175,7 @@ function collectFormData(ncrNo) {
         descriptionDefect: document.getElementById('descriptionDefect').value,
         markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
         qualityRepName: document.getElementById('qualityRepName').value,
-        reportingDate: document.getElementById('reportingDate').value,
+        qualityRepReportingDate: document.getElementById('qualityRepReportingDate').value,
         status: document.getElementById('status').value,
         dispositionReview: document.querySelector('input[name="dispositionReview"]:checked').value,
         customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
@@ -183,10 +183,9 @@ function collectFormData(ncrNo) {
         drawingRequireUpdating: document.querySelector('input[name="drawingRequireUpdating"]:checked')?.value || null,
         originalRevNumber: document.getElementById('originalRevNumber').value,
         updatedRevNumber: document.getElementById('updatedRevNumber').value,
+        engineerRevisionDate: document.getElementById('engineerRevisionDate').value,
         engineerName: document.getElementById('engineerName').value,
-        revisionDateEngineering: document.getElementById('revisionDateEngineering').value,
-        engineering: document.getElementById('engineering').value,
-        reportingDateEngineering: document.getElementById('reportingDateEngineering').value,
+        engineerReportingDate: document.getElementById('engineerReportingDate').value,
     };
 }
 

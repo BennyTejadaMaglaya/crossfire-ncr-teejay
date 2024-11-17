@@ -67,9 +67,9 @@ function loadPage(page) {
 
         case 'ncr-form.html':
           pageTitle.textContent = 'NCR Form';
-          document.getElementById('reportingDate').value = currentDate;
-          document.getElementById('revisionDateEngineering').value = currentDate;
-          document.getElementById('reportingDateEngineering').value = currentDate;
+          document.getElementById('qualityRepReportingDate').value = currentDate;
+          document.getElementById('engineerRevisionDate').value = currentDate;
+          document.getElementById('engineerReportingDate').value = currentDate;
           document.getElementById('processApplicable1').focus();
           break;
 

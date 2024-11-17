@@ -611,7 +611,7 @@ label {
 body.dark .sidebar .searchBar:hover input,
 body.dark .sidebar .searchBar input:focus,
 fieldset,
-.input[type="date"],
+input[type="date"],
 input[type="number"],
 input[type="reset"],
 input[type="submit"],
