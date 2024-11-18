@@ -692,7 +692,9 @@ input[type="reset"],
 input[type="submit"],
 input[type="text"],
 select,
+td,
 textarea,
+th,
 .faq,
 .flyingMenu,
 .flyingMenu a,
@@ -799,7 +801,9 @@ textarea:focus {
   text-decoration: none;
 }
 
-.sidebar li.profile {
+.sidebar li.profile,
+td,
+th {
   bottom: -8px;
   overflow: hidden;
 }
@@ -1032,13 +1036,13 @@ input[type="reset"] {
 /* ===== Table ===== */
 
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 50px;
 }
 
-th,
-td {
+td,
+th {
   border: 1px solid var(--sidebar-color);
   height: 60px;
   padding: 12px 15px;
