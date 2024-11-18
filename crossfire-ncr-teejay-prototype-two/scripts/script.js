@@ -2,6 +2,12 @@
 
 let currentDate = new Date().toJSON().slice(0, 10);
 
+let allSuppliers = [];
+let allStatuses = [];
+
+let currentSortColumn = 'ncrNo';
+let currentSortOrder = 'desc';
+
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
 let searchBtn = document.querySelector(".searchBar");
@@ -293,16 +299,20 @@ async function editNCR(ncrIndex) {
   }
 }
 
-let currentSortColumn = 'ncrNo';
-let currentSortOrder = 'desc';
-
-function loadNCRTable() {
+async function loadNCRTable(supplier = "", status = "", startDate = "", endDate = "", search = "") {
   const tableBody = document.querySelector("#ncrTable tbody");
+  const supplierFilter = document.getElementById('supplierFilter');
+  const statusFilter = document.getElementById('statusFilter');
+  const startDateFilter = document.getElementById('startDateFilter');
+  const endDateFilter = document.getElementById('endDateFilter');
+  const searchInput = document.getElementById('searchInput');
 
-  firestore.collection("formData").onSnapshot((snapshot) => {
+  firestore.collection("formData").onSnapshot(async (snapshot) => {
     tableBody.innerHTML = "";
 
     const ncrDataArray = [];
+    const suppliers = new Set();
+    const statuses = new Set();
 
     snapshot.forEach((doc) => {
       const ncrData = doc.data();
@@ -312,8 +322,53 @@ function loadNCRTable() {
         ncrData.qualityRepReportingDate = ncrData.qualityRepReportingDate.toDate().toISOString().split("T")[0];
       }
 
-      ncrDataArray.push(ncrData);
+      suppliers.add(ncrData.supplierName);
+      statuses.add(ncrData.status);
+
+      let matchSupplier = true;
+      let matchStatus = true;
+      let matchDate = true;
+      let matchSearch = true;
+
+      if (supplier && ncrData.supplierName !== supplier) {
+        matchSupplier = false;
+      }
+
+      if (status && ncrData.status !== status) {
+        matchStatus = false;
+      }
+
+      if (startDate || endDate) {
+        const reportDate = new Date(ncrData.qualityRepReportingDate);
+        if (startDate && reportDate < new Date(startDate)) {
+          matchDate = false;
+        }
+        if (endDate && reportDate > new Date(endDate)) {
+          matchDate = false;
+        }
+      }
+
+      if (search) {
+        const searchLower = search.toLowerCase();
+        const ncrSearchFields = [
+          ncrData.ncrNo.toLowerCase(),
+          ncrData.supplierName.toLowerCase(),
+          ncrData.status.toLowerCase()
+        ];
+
+        matchSearch = ncrSearchFields.some(field => field.includes(searchLower));
+      }
+
+      if (matchSupplier && matchStatus && matchDate && matchSearch) {
+        ncrDataArray.push(ncrData);
+      }
     });
+
+    allSuppliers = [...suppliers];
+    allStatuses = [...statuses];
+
+    populateDropdown(supplierFilter, allSuppliers, supplier);
+    populateDropdown(statusFilter, allStatuses, status);
 
     sortData(ncrDataArray, currentSortColumn, currentSortOrder);
 
@@ -342,6 +397,75 @@ function loadNCRTable() {
   });
 }
 
+function populateDropdown(dropdown, values, selectedValue) {
+  dropdown.innerHTML = '<option value="">All</option>';
+  values.forEach(value => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = value;
+
+    if (value === selectedValue) {
+      option.selected = true;
+    }
+
+    dropdown.appendChild(option);
+  });
+}
+
+document.getElementById('supplierFilter').addEventListener('change', function () {
+  const supplier = this.value;
+  const status = document.getElementById('statusFilter').value;
+  const startDate = document.getElementById('startDateFilter').value;
+  const endDate = document.getElementById('endDateFilter').value;
+  const search = document.getElementById('searchInput').value;
+  loadNCRTable(supplier, status, startDate, endDate, search);
+});
+
+document.getElementById('statusFilter').addEventListener('change', function () {
+  const status = this.value;
+  const supplier = document.getElementById('supplierFilter').value;
+  const startDate = document.getElementById('startDateFilter').value;
+  const endDate = document.getElementById('endDateFilter').value;
+  const search = document.getElementById('searchInput').value;
+  loadNCRTable(supplier, status, startDate, endDate, search);
+});
+
+document.getElementById('startDateFilter').addEventListener('change', function () {
+  const startDate = this.value;
+  const status = document.getElementById('statusFilter').value;
+  const supplier = document.getElementById('supplierFilter').value;
+  const endDate = document.getElementById('endDateFilter').value;
+  const search = document.getElementById('searchInput').value;
+  loadNCRTable(supplier, status, startDate, endDate, search);
+});
+
+document.getElementById('endDateFilter').addEventListener('change', function () {
+  const endDate = this.value;
+  const status = document.getElementById('statusFilter').value;
+  const supplier = document.getElementById('supplierFilter').value;
+  const startDate = document.getElementById('startDateFilter').value;
+  const search = document.getElementById('searchInput').value;
+  loadNCRTable(supplier, status, startDate, endDate, search);
+});
+
+document.getElementById('searchInput').addEventListener('input', function () {
+  const search = this.value;
+  const supplier = document.getElementById('supplierFilter').value;
+  const status = document.getElementById('statusFilter').value;
+  const startDate = document.getElementById('startDateFilter').value;
+  const endDate = document.getElementById('endDateFilter').value;
+  loadNCRTable(supplier, status, startDate, endDate, search);
+});
+
+document.getElementById('clearFilters').addEventListener('click', function () {
+  document.getElementById('supplierFilter').value = "";
+  document.getElementById('statusFilter').value = "";
+  document.getElementById('startDateFilter').value = "";
+  document.getElementById('endDateFilter').value = "";
+  document.getElementById('searchInput').value = "";
+  loadNCRTable();
+});
+
 function sortData(dataArray, column, sortOrder) {
   dataArray.sort((a, b) => {
     if (a[column] < b[column]) return sortOrder === 'asc' ? -1 : 1;
@@ -368,7 +492,6 @@ function attachEventListeners() {
       deleteNCR(docId);
     }
   });
-
   document.getElementById("ncrNoAsc").addEventListener("click", function () {
     setSortOrder('ncrNo', 'asc');
   });
