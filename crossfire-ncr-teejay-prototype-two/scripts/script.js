@@ -62,6 +62,8 @@ function loadPage(page) {
 
         case 'view.html':
           pageTitle.textContent = 'View NCRs';
+          ncrTable.style.display = "table";
+          await loadNCRTable();
           break;
 
         case 'ncr-form.html':

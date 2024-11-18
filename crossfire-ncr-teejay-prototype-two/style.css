@@ -692,9 +692,7 @@ input[type="reset"],
 input[type="submit"],
 input[type="text"],
 select,
-td,
 textarea,
-th,
 .faq,
 .flyingMenu,
 .flyingMenu a,
@@ -1035,6 +1033,22 @@ input[type="reset"] {
 
 /* ===== Table ===== */
 
+#ncrTable tr:first-child th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+#ncrTable tr:first-child th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+#ncrTable tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+
+#ncrTable tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
 table {
   border-collapse: separate;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1043,7 +1057,7 @@ table {
 
 td,
 th {
-  border: 1px solid var(--sidebar-color);
+  border: 1px solid var(--toggle-color);
   height: 60px;
   padding: 12px 15px;
   text-align: left;

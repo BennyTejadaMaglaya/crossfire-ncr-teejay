@@ -19,7 +19,36 @@
     </header>
 
     <main>
-
+        <div>
+            <table id="ncrTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th id="ncrNoHeader">
+                            NCR No
+                            <button id="ncrNoAsc" class="sortButton">▲</button>
+                            <button id="ncrNoDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="supplierNameHeader">
+                            Supplier Name
+                            <button id="supplierNameAsc" class="sortButton">▲</button>
+                            <button id="supplierNameDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="reportingDateHeader">
+                            Reporting Date
+                            <button id="qualityRepReportingDateAsc" class="sortButton">▲</button>
+                            <button id="qualityRepReportingDateDesc" class="sortButton">▼</button>
+                        </th>
+                        <th id="statusHeader">
+                            Status
+                            <button id="statusAsc" class="sortButton">▲</button>
+                            <button id="statusDesc" class="sortButton">▼</button>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </main>
 
     <script src="scripts/script.js"></script>
