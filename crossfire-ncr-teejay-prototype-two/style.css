@@ -612,6 +612,8 @@ textarea {
   display: flex;
 }
 
+#filterContainer h2,
+#ncrTableContainer h2,
 .answer,
 .flyingMenu.hidden #menu-list,
 .sidebar.open li .tooltip,
@@ -1072,6 +1074,7 @@ th {
   margin-bottom: 20px;
   text-align: center;
 }
+
 canvas {
   max-width: 400px;
   margin: 0 auto;

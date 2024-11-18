@@ -313,6 +313,21 @@ function updatePieChart(statuses) {
   const labels = [...statuses.keys()];
   const data = [...statuses.values()];
 
+  const totalCount = data.reduce((sum, count) => sum + count, 0);
+
+  labels.forEach((label, index) => {
+    const count = data[index];
+    const statusElement = document.getElementById(`${label.toLowerCase()}Count`);
+    if (statusElement) {
+      statusElement.textContent = count;
+    }
+  });
+
+  const totalCountElement = document.getElementById("totalCount");
+  if (totalCountElement) {
+    totalCountElement.textContent = totalCount;
+  }
+
   if (statusChart) {
     statusChart.data.labels = labels;
     statusChart.data.datasets[0].data = data;
@@ -441,6 +456,8 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
       row.innerHTML = `
         <td>${ncrData.ncrNo}</td>
         <td>${ncrData.supplierName}</td>
+        <td>${ncrData.qtyReceived}</td>
+        <td>${ncrData.qtyDefective}</td>
         <td>${ncrData.qualityRepReportingDate}</td>
         <td>${ncrData.status}</td>
         <td>
@@ -598,7 +615,6 @@ function setSortOrder(column, order) {
 loadNCRTable();
 
 if (window.location.pathname.includes("index.html")) {
-  document.getElementById("statusPieChart").style.display = "grid";
   document.getElementById("filterContainer").style.display = "none";
   document.getElementById("ncrTable").style.display = "table";
   window.onload = function () {
@@ -626,5 +642,3 @@ function toggleAnswer(faqElement) {
   const answer = faqElement.querySelector('.answer');
   answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
 }
-
-/** */
