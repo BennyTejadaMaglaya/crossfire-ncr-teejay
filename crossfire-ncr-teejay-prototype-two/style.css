@@ -1065,6 +1065,18 @@ th {
   text-align: left;
 }
 
+.status-chart {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+canvas {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 /* ===== Media Query ===== */
 
 @media screen and (min-width: 1440px) {

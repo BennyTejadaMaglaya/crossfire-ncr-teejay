@@ -49,6 +49,7 @@ modeSwitch.addEventListener("click", () => {
 
 function loadPage(page) {
   const contentArea = document.getElementById('mainContent');
+  const statusPieChart = document.getElementById("statusPieChart");
   const filterContainer = document.getElementById("filterContainer");
   const ncrTable = document.getElementById("ncrTable");
   const pageTitle = document.querySelector('.homeSection #pageTitle h1');
@@ -60,11 +61,13 @@ function loadPage(page) {
     if (this.status === 200) {
       contentArea.innerHTML = this.responseText;
 
+      statusPieChart.style.display = "none";
       filterContainer.style.display = "none";
       ncrTable.style.display = "none";
 
       switch (page) {
         case 'index.html':
+          statusPieChart.style.display = "grid";
           pageTitle.textContent = 'Dashboard';
           break;
 
@@ -302,6 +305,61 @@ async function editNCR(ncrIndex) {
   }
 }
 
+let statusChart;
+
+function updatePieChart(statuses) {
+  const ctx = document.getElementById("statusPieChart").getContext("2d");
+
+  const labels = [...statuses.keys()];
+  const data = [...statuses.values()];
+
+  if (statusChart) {
+    statusChart.data.labels = labels;
+    statusChart.data.datasets[0].data = data;
+    statusChart.update();
+  } else {
+    statusChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Status Distribution",
+            data: data,
+            backgroundColor: [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+              "#4BC0C0",
+              "#9966FF",
+              "#FF9F40",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                const count = tooltipItem.raw;
+                const total = data.reduce((sum, val) => sum + val, 0);
+                const percentage = ((count / total) * 100).toFixed(1);
+                return `${labels[tooltipItem.dataIndex]}: ${count} (${percentage}%)`;
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+}
+
 async function loadNCRTable(supplier = "", status = "", startDate = "", endDate = "", search = "") {
   const tableBody = document.querySelector("#ncrTable tbody");
   const supplierFilter = document.getElementById('supplierFilter');
@@ -315,7 +373,7 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
 
     const ncrDataArray = [];
     const suppliers = new Set();
-    const statuses = new Set();
+    const statuses = new Map();
 
     snapshot.forEach((doc) => {
       const ncrData = doc.data();
@@ -326,10 +384,11 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
       }
 
       suppliers.add(ncrData.supplierName);
-      statuses.add(ncrData.status);
 
-      let matchSupplier = true;
-      let matchStatus = true;
+      const statusCount = statuses.get(ncrData.status) || 0;
+      statuses.set(ncrData.status, statusCount + 1);
+      let matchSupplier = supplier ? ncrData.supplierName === supplier : true;
+      let matchStatus = status ? ncrData.status === status : true;
       let matchDate = true;
       let matchSearch = true;
 
@@ -368,7 +427,7 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
     });
 
     allSuppliers = [...suppliers];
-    allStatuses = [...statuses];
+    allStatuses = [...statuses.keys()];
 
     populateDropdown(supplierFilter, allSuppliers, supplier);
     populateDropdown(statusFilter, allStatuses, status);
@@ -395,6 +454,8 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
     });
 
     attachEventListeners();
+
+    updatePieChart(statuses);
   }, (error) => {
     console.error("Error loading NCR table:", error);
   });
@@ -537,6 +598,7 @@ function setSortOrder(column, order) {
 loadNCRTable();
 
 if (window.location.pathname.includes("index.html")) {
+  document.getElementById("statusPieChart").style.display = "grid";
   document.getElementById("filterContainer").style.display = "none";
   document.getElementById("ncrTable").style.display = "table";
   window.onload = function () {
@@ -564,3 +626,5 @@ function toggleAnswer(faqElement) {
   const answer = faqElement.querySelector('.answer');
   answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
 }
+
+/** */

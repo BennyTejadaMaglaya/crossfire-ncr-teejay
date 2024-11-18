@@ -84,6 +84,11 @@
         <div id="pageTitle" class="text">
             <h1>Dashboard</h1>
         </div>
+
+        <div>
+            <canvas id="statusPieChart"></canvas>
+        </div>
+
         <div id="filterContainer">
             <div>
                 <label for="supplierFilter">Filter by Supplier</label>
@@ -140,6 +145,7 @@
                 <tbody></tbody>
             </table>
         </div>
+
         <div id="mainContent"></div>
     </section>
 
@@ -147,6 +153,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
     <script src="scripts/form.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>
