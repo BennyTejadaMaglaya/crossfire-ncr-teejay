@@ -294,18 +294,22 @@ async function editNCR(ncrIndex) {
 let currentSortColumn = 'ncrNo';
 let currentSortOrder = 'desc';
 
-async function loadNCRTable() {
+function loadNCRTable() {
   const tableBody = document.querySelector("#ncrTable tbody");
-  tableBody.innerHTML = "";
 
-  try {
-    const snapshot = await firestore.collection("formData").get();
+  firestore.collection("formData").onSnapshot((snapshot) => {
+    tableBody.innerHTML = "";
 
     const ncrDataArray = [];
 
     snapshot.forEach((doc) => {
       const ncrData = doc.data();
       ncrData.id = doc.id;
+
+      if (ncrData.qualityRepReportingDate instanceof firebase.firestore.Timestamp) {
+        ncrData.qualityRepReportingDate = ncrData.qualityRepReportingDate.toDate().toISOString().split("T")[0];
+      }
+
       ncrDataArray.push(ncrData);
     });
 
@@ -316,25 +320,24 @@ async function loadNCRTable() {
       row.dataset.docId = ncrData.id;
 
       row.innerHTML = `
-              <td>${ncrData.ncrNo}</td>
-              <td>${ncrData.supplierName}</td>
-              <td>${ncrData.qualityRepReportingDate}</td>
-              <td>${ncrData.status}</td>
-              <td>
-                  <button class="viewBtn btnAction">View</button>
-                  <button class="editBtn btnAction">Edit</button>
-                  <button class="deleteBtn btnAction">Delete</button>
-              </td>
-          `;
+        <td>${ncrData.ncrNo}</td>
+        <td>${ncrData.supplierName}</td>
+        <td>${ncrData.qualityRepReportingDate}</td>
+        <td>${ncrData.status}</td>
+        <td>
+          <button class="viewBtn btnAction">View</button>
+          <button class="editBtn btnAction">Edit</button>
+          <button class="deleteBtn btnAction">Delete</button>
+        </td>
+      `;
 
       tableBody.appendChild(row);
     });
 
     attachEventListeners();
-
-  } catch (error) {
+  }, (error) => {
     console.error("Error loading NCR table:", error);
-  }
+  });
 }
 
 function sortData(dataArray, column, sortOrder) {
