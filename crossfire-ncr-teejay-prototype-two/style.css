@@ -381,6 +381,11 @@ body.dark .mode .sun-moon i.sun,
   margin: 18px;
 }
 
+#filterContainer,
+table {
+  margin: 20px 50px;
+}
+
 .sidebar .headerLogo .icon img,
 header,
 main {
@@ -411,7 +416,7 @@ body.dark .faq .question,
 }
 
 .homeSection .text {
-  font-size: 30px;
+  font-size: 20px;
   padding: 12px 32px;
 }
 
@@ -437,7 +442,7 @@ textarea {
 
 input[type="reset"],
 input[type="submit"] {
-  padding: 10px 30px;
+  padding: 0 30px;
 }
 
 #mainContent {
@@ -845,7 +850,8 @@ body.dark .switch::before {
 
 header,
 main,
-table {
+table,
+#filterContainer {
   width: 90%;
 }
 
@@ -884,6 +890,8 @@ select {
   margin: 0 0 15px 0;
 }
 
+input[type="reset"],
+input[type="submit"],
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -897,11 +905,6 @@ input[type="radio"] {
 
 textarea {
   resize: none;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  margin-top: 25px;
 }
 
 #fileCount,
@@ -1052,7 +1055,6 @@ input[type="reset"] {
 table {
   border-collapse: separate;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 50px;
 }
 
 td,
@@ -1082,6 +1084,7 @@ th {
   }
 
   header,
+  #filterContainer,
   fieldset>div {
     gap: 15px;
     grid-template-columns: 1.5fr 1fr;

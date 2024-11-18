@@ -49,6 +49,7 @@ modeSwitch.addEventListener("click", () => {
 
 function loadPage(page) {
   const contentArea = document.getElementById('mainContent');
+  const filterContainer = document.getElementById("filterContainer");
   const ncrTable = document.getElementById("ncrTable");
   const pageTitle = document.querySelector('.homeSection #pageTitle h1');
 
@@ -59,6 +60,7 @@ function loadPage(page) {
     if (this.status === 200) {
       contentArea.innerHTML = this.responseText;
 
+      filterContainer.style.display = "none";
       ncrTable.style.display = "none";
 
       switch (page) {
@@ -68,6 +70,7 @@ function loadPage(page) {
 
         case 'view.html':
           pageTitle.textContent = 'View NCRs';
+          filterContainer.style.display = "grid";
           ncrTable.style.display = "table";
           await loadNCRTable();
           break;
@@ -534,12 +537,14 @@ function setSortOrder(column, order) {
 loadNCRTable();
 
 if (window.location.pathname.includes("index.html")) {
+  document.getElementById("filterContainer").style.display = "none";
   document.getElementById("ncrTable").style.display = "table";
   window.onload = function () {
     loadNCRTable();
   };
 } else {
   document.getElementById("ncrTable").style.display = "none";
+  filterContainer.display = "none";
 }
 
 async function deleteNCR(ncrIndex) {

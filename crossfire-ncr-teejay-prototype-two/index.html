@@ -84,23 +84,34 @@
         <div id="pageTitle" class="text">
             <h1>Dashboard</h1>
         </div>
-        <div class="filter-container">
-            <select id="supplierFilter">
-                <option value="">All Suppliers</option>
-            </select>
+        <div id="filterContainer">
+            <div>
+                <label for="supplierFilter">Filter by Supplier</label>
+                <select id="supplierFilter" tabindex="1">
+                    <option value="">All Suppliers</option>
+                </select>
 
-            <select id="statusFilter">
-                <option value="">All Statuses</option>
-            </select>
+                <label for="statusFilter">Filter by Status</label>
+                <select id="statusFilter" tabindex="2">
+                    <option value="">All Statuses</option>
+                </select>
 
-            <input type="date" id="startDateFilter">
-            <input type="date" id="endDateFilter">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button id="clearFilters">Clear Filters</button>
+                <input type="text" id="searchInput" placeholder="Search..." tabindex="3">
+            </div>
+
+            <div>
+                <label for="startDateFilter">From</label>
+                <input type="date" id="startDateFilter" tabindex="4">
+
+                <label for="endDateFilter">To</label>
+                <input type="date" id="endDateFilter" tabindex="5">
+
+                <input type="reset" id="clearFilters" value="Clear Filters" tabindex="6">
+            </div>
         </div>
 
         <div>
-            <table id="ncrTable" style="display: none;">
+            <table id="ncrTable">
                 <thead>
                     <tr>
                         <th id="ncrNoHeader">
