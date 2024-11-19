@@ -1,2 +1,2 @@
 # crossfire-ncr-teejay
-F24 PROG1180-03 Project Planning &amp; Design (Prototype Two)
+F24 PROG1180-03 Project Planning &amp; Design Prototype Two (Presentation 3)
