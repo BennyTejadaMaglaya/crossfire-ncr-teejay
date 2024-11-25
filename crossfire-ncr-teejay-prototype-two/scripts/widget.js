@@ -4,8 +4,8 @@ const STATUS_COLORS = { Active: "#FF6384", Pending: "#FFCE56", Reviewed: "#17345
 const STATUS_LABELS = ["Active", "Pending", "Reviewed", "Closed"];
 const charts = { statusChart: null, monthChart: null, supplierChart: null };
 
-currentSortColumn = "supplier";
-currentSortOrder = "asc";
+currentSupplierTableSortColumn = "supplier";
+currentSupplierTableSortOrder = "asc";
 
 function preprocessNCRData(ncrDataArray) {
     const dataByStatus = { Active: 0, Pending: 0, Reviewed: 0, Closed: 0 };
@@ -201,20 +201,20 @@ function displaySupplierTable(labels, qtyData, dataBySupplier) {
     });
 
     const sortedSupplierData = supplierData.sort((a, b) => {
-        const valueA = a[currentSortColumn];
-        const valueB = b[currentSortColumn];
+        const valueA = a[currentSupplierTableSortColumn];
+        const valueB = b[currentSupplierTableSortColumn];
 
         if (valueA === "N/A" || valueB === "N/A") {
             return valueA === "N/A" ? 1 : -1; // N/A values go to the bottom
         }
 
         if (typeof valueA === "string") {
-            return currentSortOrder === "asc"
+            return currentSupplierTableSortOrder === "asc"
                 ? valueA.localeCompare(valueB)
                 : valueB.localeCompare(valueA);
         }
 
-        return currentSortOrder === "asc" ? valueA - valueB : valueB - valueA;
+        return currentSupplierTableSortOrder === "asc" ? valueA - valueB : valueB - valueA;
     });
 
     let tableContent = `
@@ -303,8 +303,8 @@ function attachSupplierTableEventListeners(labels, qtyData, dataBySupplier) {
 }
 
 function setSupplierTableSortOrder(column, order, labels, qtyData, dataBySupplier) {
-    currentSortColumn = column;
-    currentSortOrder = order;
+    currentSupplierTableSortColumn = column;
+    currentSupplierTableSortOrder = order;
     displaySupplierTable(labels, qtyData, dataBySupplier);
 }
 
