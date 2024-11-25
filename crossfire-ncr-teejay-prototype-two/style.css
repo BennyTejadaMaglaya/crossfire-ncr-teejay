@@ -389,12 +389,6 @@ body.dark .mode .sun-moon i.sun,
   margin: 18px;
 }
 
-#widgets,
-#filterContainer,
-table {
-  margin: 20px 50px;
-}
-
 .sidebar .headerLogo .icon img,
 canvas,
 header,
@@ -412,6 +406,14 @@ main {
 }
 
 /* ===== Padding ===== */
+
+#filterContainer,
+header,
+main>form,
+main>section,
+section {
+  padding: 0 2.5%;
+}
 
 .widget,
 .widgets,
@@ -545,14 +547,19 @@ th {
   width: 90px;
 }
 
+#filterContainer,
 .sidebar input,
 .sidebar li a,
 .sidebar li.searchBar input,
 .sidebar .profile #signOut,
 .sidebar.open input,
+header,
 input[type="date"],
 input[type="number"],
 input[type="text"],
+main>form,
+main>section,
+section,
 select,
 textarea {
   width: 100%;
@@ -892,13 +899,6 @@ input[type="text"],
 select,
 textarea {
   box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-#filterContainer,
-header,
-main,
-section {
-  width: 90%;
 }
 
 header,
