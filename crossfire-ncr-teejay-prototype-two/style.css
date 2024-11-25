@@ -405,6 +405,15 @@ main {
   margin: 4.5px 0;
 }
 
+#clearFilters {
+  margin-top: 27px;
+}
+
+#filterContainer,
+#ncrTableContainer {
+  margin-bottom: 50px;
+}
+
 /* ===== Padding ===== */
 
 #filterContainer,

@@ -1,5 +1,14 @@
 /* ===== Declarations ===== */
 
+const contentArea = document.getElementById('mainContent');
+const widgets = document.getElementById("widgets");
+const filterContainer = document.getElementById("filterContainer");
+const ncrTable = document.getElementById("ncrTable");
+const ncrFormHeader = document.getElementById("ncrFormHeader");
+const ncrForm = document.getElementById("ncrForm");
+const pageTitle = document.querySelector('.homeSection #pageTitle h1');
+const searchIt = document.getElementById("btnSearch");
+
 let currentDate = new Date().toJSON().slice(0, 10);
 
 let allSuppliers = [];
@@ -23,7 +32,8 @@ closeBtn.addEventListener("click", () => {
 });
 
 searchBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
+  // sidebar.classList.toggle("open");
+  sidebar.classList.add("open");
   menuBtnChange();
 });
 
@@ -48,12 +58,6 @@ modeSwitch.addEventListener("click", () => {
 });
 
 function loadPage(page) {
-  const contentArea = document.getElementById('mainContent');
-  const widgets = document.getElementById("widgets");
-  const filterContainer = document.getElementById("filterContainer");
-  const ncrTable = document.getElementById("ncrTable");
-  const pageTitle = document.querySelector('.homeSection #pageTitle h1');
-
   const xhr = new XMLHttpRequest();
   xhr.open('GET', page, true);
 
@@ -376,6 +380,17 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
   });
 }
 
+function applySearchFilter() {
+  widgets.style.display = "none";
+  ncrTable.style.display = "table";
+  loadNCRTable("", "", "", "", document.getElementById("btnSearch").value.trim());
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 function populateDropdown(dropdown, values, selectedValue) {
   dropdown.innerHTML = '<option value="">All</option>';
   values.forEach(value => {
@@ -535,7 +550,7 @@ if (window.location.pathname.includes("index.html")) {
     loadNCRTable();
   };
 } else {
-  document.getElementById("ncrTable").style.display = "none";
+  // document.getElementById("ncrTable").style.display = "none";
   filterContainer.display = "none";
 }
 

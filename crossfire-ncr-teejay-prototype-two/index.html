@@ -22,7 +22,7 @@
         <ul class="navList">
             <li class="searchBar">
                 <i class="bx bx-search icon"></i>
-                <input type="text" placeholder="Search..." tabindex="1">
+                <input id="btnSearch" type="text" placeholder="Search..." oninput="applySearchFilter()" tabindex="1">
                 <span class="tooltip">Search</span>
             </li>
             <li>
@@ -128,17 +128,18 @@
                     <option value="">All Statuses</option>
                 </select>
 
-                <input type="text" id="searchInput" placeholder="Search..." tabindex="13">
+                <label for="searchInput">Search NCR</label>
+                <input id="searchInput" type="text" placeholder="Search..." tabindex="13">
             </div>
 
             <div>
                 <label for="startDateFilter">From</label>
-                <input type="date" id="startDateFilter" tabindex="14">
+                <input id="startDateFilter" type="date" tabindex="14">
 
                 <label for="endDateFilter">To</label>
-                <input type="date" id="endDateFilter" tabindex="15">
+                <input id="endDateFilter" type="date" tabindex="15">
 
-                <input type="reset" id="clearFilters" value="Clear Filters" tabindex="16">
+                <input id="clearFilters" type="reset" value="Clear Filters" tabindex="16">
             </div>
         </section>
 
