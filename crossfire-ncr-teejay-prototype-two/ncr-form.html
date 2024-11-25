@@ -58,7 +58,7 @@
                         </label>
                         <br>
                         <input id="processApplicable1" type="radio" name="processApplicable"
-                            value="Supplier or Rec-Insp" required tabindex="1">
+                            value="Supplier or Rec-Insp" required tabindex="21">
                         <label for="processApplicable1" class="tooltip-container">Supplier or Rec-Insp
                             <span class="tooltip-message processApplicable-tooltip">
                                 Supplier or Rec-Insp (Receiving Inspection): Inspection of goods received from suppliers
@@ -79,7 +79,7 @@
                             <span id="supplierNameError" class="required error">Please enter a valid supplier name. It
                                 can't be empty!</span>
                         </label>
-                        <select id="supplierName" name="supplierName" required tabindex="2">
+                        <select id="supplierName" name="supplierName" required tabindex="22">
                             <option value="" disabled selected>Select a Supplier</option>
                             <option value="Apex Supply Co.">Apex Supply Co.</option>
                             <option value="Horizon Supply Group">Horizon Supply Group</option>
@@ -105,14 +105,14 @@
                         </label>
                         <textarea id="descriptionItem" name="descriptionItem"
                             placeholder="e.g., Steel Beam, 4x4 ft, Grade A, SAP No.: 1234567890" required
-                            tabindex="3"></textarea>
+                            tabindex="23"></textarea>
 
                         <label>Item marked Nonconforming <span class="required">*</span> <span
                                 id="markedNonconformingError" class="required error">Please mark it yes or
                                 no.</span></label>
                         <br>
                         <input id="markedNonconformingYes" type="radio" name="markedNonconforming" value="yes" required
-                            tabindex="4">
+                            tabindex="24">
                         <label for="markedNonconformingYes">Yes</label>
                         <input id="markedNonconformingNo" type="radio" name="markedNonconforming" value="no">
                         <label for="markedNonconformingNo">No</label>
@@ -136,7 +136,7 @@
                             </span>
                         </label>
                         <input id="prodNo" type="text" name="prodNo" placeholder="e.g., PO-2024-0123" required
-                            tabindex="5">
+                            tabindex="25">
 
                         <label for="salesOrderNo" class="tooltip-container">Sales Order No. <span
                                 class="required">*</span>
@@ -149,19 +149,19 @@
                             </span>
                         </label>
                         <input id="salesOrderNo" type="text" name="salesOrderNo" placeholder="e.g., SO-2024-5678"
-                            required tabindex="6">
+                            required tabindex="26">
 
                         <label for="qtyReceived">Quantity Received <span class="required">*</span>
                             <span id="qtyReceivedError" class="required error">Please enter a valid quantity.</span>
                         </label>
                         <input id="qtyReceived" type="number" name="qtyReceived" placeholder="e.g., 500" required
-                            tabindex="7">
+                            tabindex="27">
 
                         <label for="qtyDefective">Quantity Defective <span class="required">*</span>
                             <span id="qtyDefectiveError" class="required error"></span>
                         </label>
                         <input id="qtyDefective" type="number" name="qtyDefective" placeholder="e.g., 45" required
-                            tabindex="8">
+                            tabindex="28">
                     </div>
 
                 </div>
@@ -173,11 +173,11 @@
                         can't be empty!</span></label>
                 <textarea id="descriptionDefect" name="descriptionDefect"
                     placeholder="e.g., The outside of the product has a cracked surface, which may affect its strength. It needs to be checked right away."
-                    required tabindex="9"></textarea>
+                    required tabindex="29"></textarea>
 
                 <label for="mediaUpload">Upload Photos or Videos <span class="parenthetical">(optional)</span></label>
                 <input type="file" id="mediaUpload" name="mediaUpload[]" multiple onchange="handleMediaUpload()"
-                    tabindex="10">
+                    tabindex="30">
                 <div id="fileCount">Total files selected: 0</div>
                 <div id="preview"></div>
                 <br>
@@ -196,7 +196,7 @@
                         <label for="qualityRepName">Quality Rep Name <span class="required">*</span> <span
                                 id="qualityRepNameError" class="required error">Please enter your name.</span></label>
                         <input id="qualityRepName" type="text" name="qualityRepName" placeholder="e.g., John Smith"
-                            required tabindex="11">
+                            required tabindex="31">
                     </div>
 
                     <div>
@@ -204,10 +204,10 @@
                                 id="qualityRepReportingDateError" class="required error">Please select a reporting
                                 date.</span></label>
                         <input id="qualityRepReportingDate" type="date" name="qualityRepReportingDate" required
-                            tabindex="12">
+                            tabindex="32">
 
                         <label for="status">Status </label>
-                        <select id="status" name="status" tabindex="13">
+                        <select id="status" name="status" tabindex="33">
                             <option value="Active">Active</option>
                             <option value="Pending">Pending</option>
                             <option value="Reviewed">Reviewed</option>
@@ -230,7 +230,7 @@
                                 one of the following)</span></label>
                         <br>
                         <input id="dispositionReview1" type="radio" name="dispositionReview" value="Use As Is" required
-                            tabindex="14">
+                            tabindex="34">
                         <label for="dispositionReview1" class="tooltip-container">Use As Is
                             <span class="tooltip-message dispositionReview-tooltip">
                                 Use As Is : Indicates that the product is acceptable as it is and does not require any
@@ -265,7 +265,7 @@
                                 customer detailing issues)</span></label>
                         <br>
                         <input id="customerRequireNotificationYes" type="radio" name="customerRequireNotification"
-                            value="yes" tabindex="15">
+                            value="yes" tabindex="35">
                         <label for="customerRequireNotificationYes">Yes</label>
                         <input id="customerRequireNotificationNo" type="radio" name="customerRequireNotification"
                             value="no">
@@ -286,12 +286,12 @@
                                 "repair" or "rework"
                                 indicated)</span></label>
                         <textarea id="disposition" name="disposition"
-                            placeholder="e.g., Replace faulty parts, retest, etc." required tabindex="16"></textarea>
+                            placeholder="e.g., Replace faulty parts, retest, etc." required tabindex="36"></textarea>
 
                         <label>Does the drawing require updating <span class="parenthetical">(optional)</span></label>
                         <br>
                         <input id="drawingRequireUpdatingYes" type="radio" name="drawingRequireUpdating" value="yes"
-                            tabindex="17">
+                            tabindex="37">
                         <label for="drawingRequireUpdatingYes">Yes</label>
                         <input id="drawingRequireUpdatingNo" type="radio" name="drawingRequireUpdating" value="no">
                         <label for="drawingRequireUpdatingNo">No</label>
@@ -304,17 +304,17 @@
                                 Enter the original revision number of the drawing or product.
                             </span></label>
                         <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., A, B, 1.0"
-                            tabindex="18">
+                            tabindex="38">
 
                         <label for="updatedRevNumber" class="tooltip-container">Updated Rev. Number:<span
                                 class="tooltip-message updatedRevNumber-tooltip">
                                 Enter the updated revision number if the drawing has been revised.
                             </span></label>
                         <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., B, 1.1"
-                            tabindex="19">
+                            tabindex="39">
 
                         <label for="engineerRevisionDate">Revision Date:</label>
-                        <input id="engineerRevisionDate" type="date" name="engineerRevisionDate" tabindex="20">
+                        <input id="engineerRevisionDate" type="date" name="engineerRevisionDate" tabindex="40">
                     </div>
 
                 </div>
@@ -328,7 +328,7 @@
                         <label for="engineerName">Engineer Name <span class="required">*</span> <span
                                 id="engineerNameError" class="required error">Please enter your name.</span></label>
                         <input id="engineerName" type="text" name="engineerName" placeholder="e.g., John Smith" required
-                            tabindex="21">
+                            tabindex="41">
                     </div>
 
                     <div>
@@ -336,15 +336,15 @@
                                 id="engineerReportingDateError" class="required error">Please select a reporting
                                 date.</span></label>
                         <input id="engineerReportingDate" type="date" name="engineerReportingDate" required
-                            tabindex="22">
+                            tabindex="42">
                     </div>
 
                 </div>
             </fieldset>
             <div id="actionButtons">
-                <input type="submit" id="btnSubmit" onclick="submitFormData(event)" value="Submit" tabindex="23">
-                <input type="submit" id="btnSave" value="Save as Draft" tabindex="24">
-                <input type="reset" id="btnClear" onclick="clearForm()" value="Clear" tabindex="25">
+                <input type="submit" id="btnSubmit" onclick="submitFormData(event)" value="Submit" tabindex="43">
+                <input type="submit" id="btnSave" value="Save as Draft" tabindex="44">
+                <input type="reset" id="btnClear" onclick="clearForm()" value="Clear" tabindex="45">
             </div>
         </form>
     </main>

@@ -22,32 +22,32 @@
         <ul class="navList">
             <li class="searchBar">
                 <i class="bx bx-search icon"></i>
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="Search..." tabindex="1">
                 <span class="tooltip">Search</span>
             </li>
             <li>
-                <a href="index.html">
+                <a href="index.html" tabindex="2">
                     <i class="bx bx-grid-alt icon"></i>
                     <span class="linkName text">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
             </li>
             <li>
-                <a href="#" onclick="loadPage('view.html')">
+                <a href="#" onclick="loadPage('view.html')" tabindex="3">
                     <i class="bx bx-folder icon"></i>
                     <span class="linkName text">View NCRs</span>
                 </a>
                 <span class="tooltip">View NCRs</span>
             </li>
             <li>
-                <a href="#" onclick="loadPage('ncr-form.html')">
+                <a href="#" onclick="loadPage('ncr-form.html')" tabindex="4">
                     <i class="bx bx-edit icon"></i>
                     <span class="linkName text">Create NCR</span>
                 </a>
                 <span class="tooltip">Create NCR</span>
             </li>
             <li>
-                <a href="#" onclick="loadPage('faqs.html')">
+                <a href="#" onclick="loadPage('faqs.html')" tabindex="5">
                     <i class="bx bx-question-mark icon"></i>
                     <span class="linkName text">FAQs</span>
                 </a>
@@ -62,7 +62,7 @@
                 <span class="tooltip">Switch to Light/Dark Theme</span>
 
                 <div class="toggle-switch">
-                    <span class="switch"></span>
+                    <span class="switch" tabindex="6"></span>
                 </div>
             </li>
             <li class="profile">
@@ -73,7 +73,7 @@
                         <div class="userType">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="noHighlight">
+                <a href="#" class="noHighlight" tabindex="7">
                     <i class="bx bx-log-out icon" id="signOut"></i>
                 </a>
                 <span class="tooltip">Sign out</span>
@@ -119,26 +119,26 @@
             <h2>Filters</h2>
             <div>
                 <label for="supplierFilter">Filter by Supplier</label>
-                <select id="supplierFilter" tabindex="1">
+                <select id="supplierFilter" tabindex="11">
                     <option value="">All Suppliers</option>
                 </select>
 
                 <label for="statusFilter">Filter by Status</label>
-                <select id="statusFilter" tabindex="2">
+                <select id="statusFilter" tabindex="12">
                     <option value="">All Statuses</option>
                 </select>
 
-                <input type="text" id="searchInput" placeholder="Search..." tabindex="3">
+                <input type="text" id="searchInput" placeholder="Search..." tabindex="13">
             </div>
 
             <div>
                 <label for="startDateFilter">From</label>
-                <input type="date" id="startDateFilter" tabindex="4">
+                <input type="date" id="startDateFilter" tabindex="14">
 
                 <label for="endDateFilter">To</label>
-                <input type="date" id="endDateFilter" tabindex="5">
+                <input type="date" id="endDateFilter" tabindex="15">
 
-                <input type="reset" id="clearFilters" value="Clear Filters" tabindex="6">
+                <input type="reset" id="clearFilters" value="Clear Filters" tabindex="16">
             </div>
         </section>
 

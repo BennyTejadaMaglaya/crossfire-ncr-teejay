@@ -76,6 +76,7 @@ function loadPage(page) {
           filterContainer.style.display = "grid";
           ncrTable.style.display = "table";
           await loadNCRTable();
+          document.getElementById('supplierFilter').focus();
           break;
 
         case 'ncr-form.html':
