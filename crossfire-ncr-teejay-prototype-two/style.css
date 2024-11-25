@@ -70,8 +70,11 @@ body.dark {
 /* ===== Color ===== */
 
 .homeSection,
+input:not([type="file"]),
 .widget,
-table {
+select,
+table,
+textarea {
   background-color: var(--body-color);
 }
 
@@ -105,9 +108,6 @@ body.dark textarea:focus {
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
 }
 
-input:not([type="file"]),
-select,
-textarea,
 tr:nth-child(even) {
   background-color: var(--form-color);
 }
@@ -134,16 +134,6 @@ input[type="reset"],
 input[type="submit"],
 th {
   background-color: var(--primary-color);
-}
-
-input[type="date"],
-input[type="number"],
-input[type="reset"],
-input[type="submit"],
-input[type="text"],
-select,
-textarea {
-  border: 1px solid var(--primary-color);
 }
 
 .required {
@@ -178,7 +168,7 @@ table {
 .sidebar li .tooltip,
 .sidebar .mode:hover .mode-text,
 .sidebar .mode:hover .sun-moon i,
-.sidebar .searchBar:hover .icon,
+.sidebar:not(.open) .searchBar:hover .icon,
 .sortButton,
 .tooltip-message,
 th {
@@ -207,7 +197,6 @@ th {
 .select:focus,
 .sidebar .headerLogo .icon img:hover,
 .sidebar .icon,
-.sidebar .searchBar:hover .icon,
 .sidebar .text,
 .sidebar li a .linkName,
 .sidebar li.searchBar input,
@@ -709,7 +698,15 @@ th {
 .btnRemove,
 .sidebar input,
 .sidebar li.searchBar input,
-.sortButton {
+.sortButton,
+fieldset,
+input[type="date"],
+input[type="number"],
+input[type="reset"],
+input[type="submit"],
+input[type="text"],
+select,
+textarea {
   border: none;
 }
 
@@ -887,6 +884,16 @@ body.dark .switch::before,
 
 /* ===== Form ===== */
 
+input[type="date"],
+input[type="number"],
+input[type="reset"],
+input[type="submit"],
+input[type="text"],
+select,
+textarea {
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
 #filterContainer,
 header,
 main,
@@ -900,7 +907,6 @@ fieldset>div {
 }
 
 fieldset {
-  border: none;
   margin-bottom: 32px;
   margin-top: 32px;
 }

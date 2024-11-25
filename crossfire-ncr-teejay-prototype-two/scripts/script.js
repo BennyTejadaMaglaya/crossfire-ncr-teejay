@@ -141,6 +141,61 @@ function exitViewMode() {
   window.location.href = "index.html";
 }
 
+function populateForm(ncrData, isEditMode = false) {
+  document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
+    radio.disabled = !isEditMode;
+    if (radio.value === ncrData.processApplicable) {
+      radio.checked = true;
+    }
+  });
+
+  document.getElementById('supplierName').value = ncrData.supplierName;
+  document.getElementById('descriptionItem').value = ncrData.descriptionItem;
+
+  document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
+    radio.disabled = !isEditMode;
+    if (radio.value === ncrData.markedNonconforming) {
+      radio.checked = true;
+    }
+  });
+
+  document.getElementById('ncrNo').value = ncrData.ncrNo;
+  document.getElementById('prodNo').value = ncrData.prodNo;
+  document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
+  document.getElementById('qtyReceived').value = ncrData.qtyReceived;
+  document.getElementById('qtyDefective').value = ncrData.qtyDefective;
+  document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
+  document.getElementById('qualityRepName').value = ncrData.qualityRepName;
+  document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
+  document.getElementById('status').value = ncrData.status;
+
+  document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
+    if (radio.value === ncrData.dispositionReview) {
+      radio.checked = true;
+    }
+  });
+
+  document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
+    if (radio.value === ncrData.customerRequireNotification) {
+      radio.checked = true;
+    }
+  });
+
+  document.getElementById('disposition').value = ncrData.disposition;
+
+  document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
+    if (radio.value === ncrData.drawingRequireUpdating) {
+      radio.checked = true;
+    }
+  });
+
+  document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
+  document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
+  document.getElementById('engineerName').value = ncrData.engineerName;
+  document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
+  document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+}
+
 async function viewNCR(ncrIndex) {
   const ncrRef = firestore.collection("formData").doc(ncrIndex.toString());
   try {
@@ -150,57 +205,7 @@ async function viewNCR(ncrIndex) {
       loadPage("ncr-form.html");
 
       setTimeout(() => {
-        document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
-          if (radio.value === ncrData.processApplicable) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('supplierName').value = ncrData.supplierName;
-        document.getElementById('descriptionItem').value = ncrData.descriptionItem;
-
-        document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
-          if (radio.value === ncrData.markedNonconforming) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('ncrNo').value = ncrData.ncrNo;
-        document.getElementById('prodNo').value = ncrData.prodNo;
-        document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
-        document.getElementById('qtyReceived').value = ncrData.qtyReceived;
-        document.getElementById('qtyDefective').value = ncrData.qtyDefective;
-        document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
-        document.getElementById('qualityRepName').value = ncrData.qualityRepName;
-        document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
-        document.getElementById('status').value = ncrData.status;
-
-        document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
-          if (radio.value === ncrData.dispositionReview) {
-            radio.checked = true;
-          }
-        });
-
-        document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
-          if (radio.value === ncrData.customerRequireNotification) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('disposition').value = ncrData.disposition;
-
-        document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
-          if (radio.value === ncrData.drawingRequireUpdating) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
-        document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
-        document.getElementById('engineerName').value = ncrData.engineerName;
-        document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
-        document.getElementById('engineerName').value = ncrData.engineerName;
-        document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+        populateForm(ncrData);
 
         disableFields();
 
@@ -246,58 +251,21 @@ async function editNCR(ncrIndex) {
       loadPage("ncr-form.html");
 
       setTimeout(() => {
-        document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
-          radio.disabled = false;
-          if (radio.value === ncrData.processApplicable) {
-            radio.checked = true;
-          }
-        });
+        populateForm(ncrData, true);
 
-        document.getElementById('supplierName').value = ncrData.supplierName;
-        document.getElementById('descriptionItem').value = ncrData.descriptionItem;
+        const submitButton = document.getElementById("btnSubmit");
+        const clearButton = document.getElementById("btnClear");
 
-        document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
-          radio.disabled = false;
-          if (radio.value === ncrData.markedNonconforming) {
-            radio.checked = true;
-          }
-        });
+        submitButton.value = "Save Changes";
+        submitButton.onclick = function (event) {
+          event.preventDefault();
+          submitFormData(event);
+        };
 
-        document.getElementById('ncrNo').value = ncrData.ncrNo;
-        document.getElementById('prodNo').value = ncrData.prodNo;
-        document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
-        document.getElementById('qtyReceived').value = ncrData.qtyReceived;
-        document.getElementById('qtyDefective').value = ncrData.qtyDefective;
-        document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
-        document.getElementById('qualityRepName').value = ncrData.qualityRepName;
-        document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
-        document.getElementById('status').value = ncrData.status;
-
-        document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
-          if (radio.value === ncrData.dispositionReview) {
-            radio.checked = true;
-          }
-        });
-
-        document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
-          if (radio.value === ncrData.customerRequireNotification) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('disposition').value = ncrData.disposition;
-
-        document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
-          if (radio.value === ncrData.drawingRequireUpdating) {
-            radio.checked = true;
-          }
-        });
-
-        document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
-        document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
-        document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
-        document.getElementById('engineerName').value = ncrData.engineerName;
-        document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+        clearButton.value = "Cancel";
+        clearButton.onclick = function () {
+          exitEditMode();
+        };
       }, 100);
     }
   } catch (error) {
