@@ -49,7 +49,7 @@ modeSwitch.addEventListener("click", () => {
 
 function loadPage(page) {
   const contentArea = document.getElementById('mainContent');
-  const statusPieChart = document.getElementById("statusPieChart");
+  const widgets = document.getElementById("widgets");
   const filterContainer = document.getElementById("filterContainer");
   const ncrTable = document.getElementById("ncrTable");
   const pageTitle = document.querySelector('.homeSection #pageTitle h1');
@@ -61,13 +61,13 @@ function loadPage(page) {
     if (this.status === 200) {
       contentArea.innerHTML = this.responseText;
 
-      statusPieChart.style.display = "none";
+      widgets.style.display = "none";
       filterContainer.style.display = "none";
       ncrTable.style.display = "none";
 
       switch (page) {
         case 'index.html':
-          statusPieChart.style.display = "grid";
+          widgets.style.display = "grid";
           pageTitle.textContent = 'Dashboard';
           break;
 
@@ -305,76 +305,6 @@ async function editNCR(ncrIndex) {
   }
 }
 
-let statusChart;
-
-function updatePieChart(statuses) {
-  const ctx = document.getElementById("statusPieChart").getContext("2d");
-
-  const labels = [...statuses.keys()];
-  const data = [...statuses.values()];
-
-  const totalCount = data.reduce((sum, count) => sum + count, 0);
-
-  labels.forEach((label, index) => {
-    const count = data[index];
-    const statusElement = document.getElementById(`${label.toLowerCase()}Count`);
-    if (statusElement) {
-      statusElement.textContent = count;
-    }
-  });
-
-  const totalCountElement = document.getElementById("totalCount");
-  if (totalCountElement) {
-    totalCountElement.textContent = totalCount;
-  }
-
-  if (statusChart) {
-    statusChart.data.labels = labels;
-    statusChart.data.datasets[0].data = data;
-    statusChart.update();
-  } else {
-    statusChart = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Status Distribution",
-            data: data,
-            backgroundColor: [
-              "#FF6384",
-              "#36A2EB",
-              "#FFCE56",
-              "#4BC0C0",
-              "#9966FF",
-              "#FF9F40",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                const count = tooltipItem.raw;
-                const total = data.reduce((sum, val) => sum + val, 0);
-                const percentage = ((count / total) * 100).toFixed(1);
-                return `${labels[tooltipItem.dataIndex]}: ${count} (${percentage}%)`;
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-}
-
 async function loadNCRTable(supplier = "", status = "", startDate = "", endDate = "", search = "") {
   const tableBody = document.querySelector("#ncrTable tbody");
   const supplierFilter = document.getElementById('supplierFilter');
@@ -472,7 +402,6 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
 
     attachEventListeners();
 
-    updatePieChart(statuses);
   }, (error) => {
     console.error("Error loading NCR table:", error);
   });
@@ -587,6 +516,22 @@ function attachEventListeners() {
 
   document.getElementById("supplierNameDesc").addEventListener("click", function () {
     setSortOrder('supplierName', 'desc');
+  });
+
+  document.getElementById("qtyReceivedAsc").addEventListener("click", function () {
+    setSortOrder('qtyReceived', 'asc');
+  });
+
+  document.getElementById("qtyReceivedDesc").addEventListener("click", function () {
+    setSortOrder('qtyReceived', 'desc');
+  });
+
+  document.getElementById("qtyDefectiveAsc").addEventListener("click", function () {
+    setSortOrder('qtyDefective', 'asc');
+  });
+
+  document.getElementById("qtyDefectiveDesc").addEventListener("click", function () {
+    setSortOrder('qtyDefective', 'desc');
   });
 
   document.getElementById("qualityRepReportingDateAsc").addEventListener("click", function () {

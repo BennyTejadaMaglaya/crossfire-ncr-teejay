@@ -85,9 +85,35 @@
             <h1>Dashboard</h1>
         </div>
 
-        <div>
-            <canvas id="statusPieChart"></canvas>
-        </div>
+        <section id="widgets" class="widgets">
+            <h2>Widgets</h2>
+
+            <section class="widget">
+                <h3>Status Summary</h3>
+                <canvas id="statusPieChart" class="txt"></canvas>
+                <div id="statusCounters"></div>
+            </section>
+
+            <section class="widget">
+                <h3>Supplier Overview</h3>
+                <canvas id="ncrsBySupplierChart"></canvas>
+                <div id="supplierSummary"></div>
+            </section>
+
+            <section id="ncrsBySupplierCounters">
+                <h3>NCR+</h3>
+            </section>
+
+            <section class="widget">
+                <h3>NCRs by Reporting Date (Grouped by Month & Status)</h3>
+                <canvas id="ncrsByMonthChart"></canvas>
+            </section>
+
+            <section id="ncrsByMonthCounters">
+                <h3>NCR+</h3>
+            </section>
+
+        </section>
 
         <section id="filterContainer">
             <h2>Filters</h2>
@@ -131,11 +157,15 @@
                             <button id="supplierNameAsc" class="sortButton">▲</button>
                             <button id="supplierNameDesc" class="sortButton">▼</button>
                         </th>
-                        <th id="qtyReceived">
+                        <th id="qtyReceivedHeader">
                             Qty Received
+                            <button id="qtyReceivedAsc" class="sortButton">▲</button>
+                            <button id="qtyReceivedDesc" class="sortButton">▼</button>
                         </th>
-                        <th id="qtyDefective">
+                        <th id="qtyDefectiveHeader">
                             Qty Defective
+                            <button id="qtyDefectiveAsc" class="sortButton">▲</button>
+                            <button id="qtyDefectiveDesc" class="sortButton">▼</button>
                         </th>
                         <th id="reportingDateHeader">
                             Reporting Date
@@ -161,6 +191,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
     <script src="scripts/form.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/widget.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
