@@ -38,10 +38,52 @@ async function generateNCRNumber() {
     }
 }
 
+function handleMediaUpload() {
+    const fileInput = document.getElementById('mediaUpload');
+    const files = fileInput.files;
+    const previewContainer = document.getElementById('preview');
+    const fileCountElement = document.getElementById('fileCount');
+
+    fileCountElement.textContent = `Total files selected: ${previewContainer.childElementCount + files.length}`;
+
+    Array.from(files).forEach(file => {
+        const fileType = file.type;
+        const previewWrapper = document.createElement('div');
+        previewWrapper.classList.add('preview-wrapper');
+
+        const preview = document.createElement(fileType.startsWith('image') ? 'img' : 'video');
+
+        if (fileType.startsWith('image')) {
+            preview.src = URL.createObjectURL(file);
+            preview.classList.add('preview-thumbnail');
+        } else if (fileType.startsWith('video')) {
+            preview.src = URL.createObjectURL(file);
+            preview.controls = true;
+            preview.classList.add('preview-video');
+        }
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.classList.add('btnRemove');
+
+        removeButton.addEventListener('click', function () {
+            previewWrapper.remove();
+            fileInput.value = '';
+            fileCountElement.textContent = `Total files selected: ${previewContainer.childElementCount}`;
+        });
+
+        previewWrapper.appendChild(preview);
+        previewWrapper.appendChild(removeButton);
+        previewContainer.appendChild(previewWrapper);
+    });
+}
+
 async function clearForm() {
     alert("Clearing NCR form...");
     document.getElementById("ncrForm").reset();
 }
+
+/* ===== Submit NCR ===== */
 
 function validateQuantityFields() {
     const qtyDefective = document.getElementById('qtyDefective');
@@ -144,7 +186,7 @@ function validateForm() {
 
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
             error.style.display = 'inline';
-            
+
             if (radio) {
                 const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
                 if (radioGroup.length > 0) {
@@ -266,42 +308,61 @@ function submitFormData(event) {
     }
 }
 
-function handleMediaUpload() {
-    const fileInput = document.getElementById('mediaUpload');
-    const files = fileInput.files;
-    const previewContainer = document.getElementById('preview');
-    const fileCountElement = document.getElementById('fileCount');
+/* ===== Save NCR ===== */
 
-    fileCountElement.textContent = `Total files selected: ${previewContainer.childElementCount + files.length}`;
+async function saveFormData(event) {
+    event.preventDefault();
 
-    Array.from(files).forEach(file => {
-        const fileType = file.type;
-        const previewWrapper = document.createElement('div');
-        previewWrapper.classList.add('preview-wrapper');
+    const ncrNoElement = document.getElementById("ncrNo");
+    let ncrNo = ncrNoElement?.value.trim();
+    let currentStatus = "Q-Rep Stage";
 
-        const preview = document.createElement(fileType.startsWith('image') ? 'img' : 'video');
+    if (!ncrNo) {
+        ncrNo = await generateNCRNumber();
+    }
 
-        if (fileType.startsWith('image')) {
-            preview.src = URL.createObjectURL(file);
-            preview.classList.add('preview-thumbnail');
-        } else if (fileType.startsWith('video')) {
-            preview.src = URL.createObjectURL(file);
-            preview.controls = true;
-            preview.classList.add('preview-video');
+    const formData = {
+        ncrNo,
+        processApplicable: document.querySelector('input[name="processApplicable"]:checked')?.value || null,
+        supplierName: document.getElementById('supplierName')?.value || null,
+        descriptionItem: document.getElementById('descriptionItem')?.value || null,
+        prodNo: document.getElementById('prodNo')?.value || null,
+        salesOrderNo: document.getElementById('salesOrderNo')?.value || null,
+        qtyReceived: document.getElementById('qtyReceived')?.value || null,
+        qtyDefective: document.getElementById('qtyDefective')?.value || null,
+        descriptionDefect: document.getElementById('descriptionDefect')?.value || null,
+        markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked')?.value || null,
+        qualityRepName: document.getElementById('qualityRepName')?.value || null,
+        qualityRepReportingDate: document.getElementById('qualityRepReportingDate')?.value || null,
+        status: currentStatus,
+        dispositionReview: document.querySelector('input[name="dispositionReview"]:checked')?.value || null,
+        customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
+        disposition: document.getElementById('disposition')?.value || null,
+        drawingRequireUpdating: document.querySelector('input[name="drawingRequireUpdating"]:checked')?.value || null,
+        originalRevNumber: document.getElementById('originalRevNumber')?.value || null,
+        updatedRevNumber: document.getElementById('updatedRevNumber')?.value || null,
+        engineerRevisionDate: document.getElementById('engineerRevisionDate')?.value || null,
+        engineerName: document.getElementById('engineerName')?.value || null,
+        engineerReportingDate: document.getElementById('engineerReportingDate')?.value || null,
+    };
+
+    try {
+        if (await checkDuplicateNCR(ncrNo)) {
+            const snapshot = await firestore.collection("formData").where("ncrNo", "==", ncrNo).get();
+            if (!snapshot.empty) {
+                const docId = snapshot.docs[0].id;
+                await firestore.collection("formData").doc(docId).update(formData);
+                alert("Your form has been updated successfully.");
+            } else {
+                alert("An error occurred: Existing NCR could not be found.");
+            }
+        } else {
+            await firestore.collection("formData").add(formData);
+            alert("Your form has been saved successfully with the status 'Q-Rep Stage'.");
         }
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.classList.add('btnRemove');
-
-        removeButton.addEventListener('click', function () {
-            previewWrapper.remove();
-            fileInput.value = '';
-            fileCountElement.textContent = `Total files selected: ${previewContainer.childElementCount}`;
-        });
-
-        previewWrapper.appendChild(preview);
-        previewWrapper.appendChild(removeButton);
-        previewContainer.appendChild(previewWrapper);
-    });
+        clearForm();
+    } catch (error) {
+        console.error("Error saving form:", error);
+        alert("An error occurred while saving the form. Please try again.");
+    }
 }
