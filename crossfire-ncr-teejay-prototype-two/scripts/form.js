@@ -143,9 +143,8 @@ function validateForm() {
         validateQuantityFields();
 
         if (!value || (check && check(value)) || (pattern && !pattern.test(value))) {
-            // error.style.display = 'inline';
-            error.style.opacity = '1';
-
+            error.style.display = 'inline';
+            
             if (radio) {
                 const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
                 if (radioGroup.length > 0) {

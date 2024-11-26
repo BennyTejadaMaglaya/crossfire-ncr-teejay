@@ -323,7 +323,6 @@ body.dark .sidebar .profile a.noHighlight i {
 /* ===== Opacity ===== */
 
 body.dark .mode .sun-moon i.moon,
-.error,
 .mode .sun-moon i.sun,
 .sidebar .headerLogo img,
 .sidebar li .tooltip,
@@ -654,6 +653,7 @@ textarea {
 #filterContainer h2,
 #ncrTableContainer h2,
 .answer,
+.error,
 .flyingMenu.hidden #menu-list,
 .sidebar.open li .tooltip,
 .tooltip-message {
