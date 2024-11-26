@@ -12,6 +12,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 let firestore = firebase.firestore();
 
+const Status = new Map([
+    ["Status-1", "Q-Rep Stage"],
+    ["Status-2", "Pending Engr Review"],
+    ["Status-3", "Engr Stage"],
+    ["Status-4", "Pending Purchasing Review"],
+    ["Status-5", "Purchasing Stage"],
+    ["Status-6", "Closed"],
+]);
+
 /* ===== Functions ===== */
 
 async function generateNCRNumber() {
@@ -210,6 +219,9 @@ function validateForm() {
 function collectFormData(ncrNo) {
     return {
         ncrNo,
+        status: Status.get("Status-2"),
+
+        /* ===== Pending Engr Review ===== */
         processApplicable: document.querySelector('input[name="processApplicable"]:checked').value,
         supplierName: document.getElementById('supplierName').value,
         descriptionItem: document.getElementById('descriptionItem').value,
@@ -221,7 +233,8 @@ function collectFormData(ncrNo) {
         markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
         qualityRepName: document.getElementById('qualityRepName').value,
         qualityRepReportingDate: document.getElementById('qualityRepReportingDate').value,
-        status: document.getElementById('status').value,
+
+        /* ===== Pending Purchasing Review ===== */
         dispositionReview: document.querySelector('input[name="dispositionReview"]:checked').value,
         customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
         disposition: document.getElementById('disposition').value,
@@ -315,7 +328,7 @@ async function saveFormData(event) {
 
     const ncrNoElement = document.getElementById("ncrNo");
     let ncrNo = ncrNoElement?.value.trim();
-    let currentStatus = "Q-Rep Stage";
+    currentStatus = "Q-Rep Stage";
 
     if (!ncrNo) {
         ncrNo = await generateNCRNumber();
@@ -323,6 +336,9 @@ async function saveFormData(event) {
 
     const formData = {
         ncrNo,
+        status: Status.get("Status-1"),
+
+        /* ===== Q-Rep Stage ===== */
         processApplicable: document.querySelector('input[name="processApplicable"]:checked')?.value || null,
         supplierName: document.getElementById('supplierName')?.value || null,
         descriptionItem: document.getElementById('descriptionItem')?.value || null,
@@ -334,7 +350,8 @@ async function saveFormData(event) {
         markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked')?.value || null,
         qualityRepName: document.getElementById('qualityRepName')?.value || null,
         qualityRepReportingDate: document.getElementById('qualityRepReportingDate')?.value || null,
-        status: currentStatus,
+
+        /* ===== Engr Stage ===== */
         dispositionReview: document.querySelector('input[name="dispositionReview"]:checked')?.value || null,
         customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
         disposition: document.getElementById('disposition')?.value || null,
