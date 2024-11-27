@@ -348,6 +348,10 @@ body.dark .mode .sun-moon i.moon,
   opacity: 0;
 }
 
+fieldset[disabled] {
+  opacity: 0.75;
+}
+
 body.dark .mode .sun-moon i.sun,
 .sidebar li:hover .tooltip,
 .sidebar.open .headerLogo img,
@@ -880,7 +884,8 @@ header a {
 }
 
 .sidebar li .tooltip,
-.sidebar li a .linkName {
+.sidebar li a .linkName,
+fieldset[disabled] {
   pointer-events: none;
 }
 

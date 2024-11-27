@@ -5,6 +5,13 @@ const auth = firebase.auth();
 const loginForm = document.querySelector('.login.form');
 const resetForm = document.querySelector('.reset.form');
 
+const roleHierarchy = {
+    "Admin": ["Admin", "Q-Rep", "Engr"],
+    "Q-Rep": ["Q-Rep"],
+    "Engr": ["Engr"],
+    "default": []
+};
+
 const anchors = document.querySelectorAll('a');
 anchors.forEach(anchor => {
     anchor.addEventListener('click', () => {
@@ -170,6 +177,56 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn('No user data in session storage. User might not be logged in.');
     }
+});
+
+function canAccess(userRole, fieldRole) {
+    if (!roleHierarchy[userRole]) {
+        console.warn(`Role '${userRole}' is not defined in the hierarchy.`);
+        return false;
+    }
+    return roleHierarchy[userRole]?.includes(fieldRole);
+}
+
+function updatePermissions() {
+    const currentUserRole = sessionStorage.getItem('userType');
+
+    if (!currentUserRole) {
+        console.error('Current user role is undefined. Unable to update permissions.');
+        return;
+    }
+
+    console.log(`Updating permissions for role: ${currentUserRole}`);
+
+    const allFieldsets = document.querySelectorAll('fieldset[data-permission]');
+
+    allFieldsets.forEach(fieldset => {
+        const requiredRole = fieldset.getAttribute('data-permission');
+
+        if (!requiredRole) {
+            console.warn('Fieldset missing data-permission attribute:', fieldset);
+            return;
+        }
+
+        if (canAccess(currentUserRole, requiredRole)) {
+            fieldset.removeAttribute('disabled');
+            fieldset.classList.remove('readonly-fieldset');
+        } else {
+            fieldset.setAttribute('disabled', true);
+            fieldset.classList.add('readonly-fieldset');
+        }
+    });
+}
+
+function disableAllFieldsets() {
+    const allFieldsets = document.querySelectorAll('fieldset[data-permission]');
+    allFieldsets.forEach(fieldset => {
+        fieldset.setAttribute('disabled', true);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    disableAllFieldsets();
+    updatePermissions();
 });
 
 function sendPasswordResetEmail() {

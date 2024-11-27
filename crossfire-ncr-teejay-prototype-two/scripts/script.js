@@ -65,6 +65,8 @@ function loadPage(page) {
     if (this.status === 200) {
       contentArea.innerHTML = this.responseText;
 
+      updatePermissions();
+
       widgets.style.display = "none";
       filterContainer.style.display = "none";
       ncrTable.style.display = "none";
