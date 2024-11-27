@@ -95,10 +95,33 @@ function loginUser() {
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+
             if (user.emailVerified) {
                 console.log('User is signed in with a verified email.');
-                alert('Login successful! Redirecting to the dashboard...');
-                location.href = "index.html";
+
+                firestore.collection('users').doc(user.uid).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            const name = doc.data().name;
+                            const userType = doc.data().userType;
+
+                            sessionStorage.setItem('name', name);
+                            sessionStorage.setItem('userType', userType);
+
+                            alert('Login successful! Welcome, ' + name);
+                            location.href = "index.html";
+
+                            window.addEventListener('DOMContentLoaded', () => {
+                                updateUserProfile(name, userType);
+                            });
+                        } else {
+                            alert('No user data found.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching user data:', error);
+                        alert('An error occurred. Please try again later.');
+                    });
             } else {
                 alert('Your email is not verified. Please check your inbox and verify your email.');
             }
@@ -125,6 +148,29 @@ function loginUser() {
             console.error('Login error:', error);
         });
 }
+
+function updateUserProfile(name, userType) {
+    const nameEl = document.querySelector('.username');
+    const userTypeEl = document.querySelector('.userType');
+
+    if (nameEl && userTypeEl) {
+        nameEl.textContent = name;
+        userTypeEl.textContent = userType;
+    } else {
+        console.warn('Profile elements not found in the DOM.');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const name = sessionStorage.getItem('name');
+    const userType = sessionStorage.getItem('userType');
+
+    if (name && userType) {
+        updateUserProfile(name, userType);
+    } else {
+        console.warn('No user data in session storage. User might not be logged in.');
+    }
+});
 
 function sendPasswordResetEmail() {
     const emailForReset = document.querySelector('#resetinp').value.trim();

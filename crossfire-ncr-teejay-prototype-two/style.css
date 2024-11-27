@@ -693,6 +693,10 @@ textarea {
   flex-wrap: nowrap;
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
+
 /* ===== Font ===== */
 
 .flyingMenu a,
@@ -1256,7 +1260,7 @@ table {
   text-decoration: underline;
 }
 
-.registration{
+.registration {
   margin: auto;
   width: 75%;
 }
