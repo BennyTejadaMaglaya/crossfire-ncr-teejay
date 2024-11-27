@@ -95,6 +95,10 @@ function loadPage(page) {
           pageTitle.textContent = 'FAQs';
           break;
 
+        case 'users.html':
+          pageTitle.textContent = 'Users';
+          break;
+
         default:
           pageTitle.textContent = 'Dashboard';
           break;

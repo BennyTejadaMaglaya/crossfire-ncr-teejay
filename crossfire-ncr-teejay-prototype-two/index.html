@@ -53,6 +53,13 @@
                 </a>
                 <span class="tooltip">FAQs</span>
             </li>
+            <li>
+                <a href="#" onclick="loadPage('users.html')" tabindex="6">
+                    <i class="bx bx-user icon"></i>
+                    <span class="linkName text">Users</span>
+                </a>
+                <span class="tooltip">Users</span>
+            </li>
             <li class="mode">
                 <div class="sun-moon">
                     <i class='bx bx-moon icon moon'></i>
@@ -62,7 +69,7 @@
                 <span class="tooltip">Switch to Light/Dark Theme</span>
 
                 <div class="toggle-switch">
-                    <span class="switch" tabindex="6"></span>
+                    <span class="switch" tabindex="7"></span>
                 </div>
             </li>
             <li class="profile">
@@ -73,8 +80,8 @@
                         <div class="userType">Admin</div>
                     </div>
                 </div>
-                <a href="#" class="noHighlight" tabindex="7">
-                    <i class="bx bx-log-out icon" id="signOut"></i>
+                <a href="#" class="noHighlight" tabindex="8">
+                    <i class="bx bx-log-out icon" id="signOut" onclick="signOutUser()"></i>
                 </a>
                 <span class="tooltip">Sign out</span>
             </li>
@@ -190,8 +197,10 @@
     </section>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
     <script src="scripts/form.js"></script>
+    <script src="scripts/login.js"></script>
     <script src="scripts/script.js"></script>
     <script src="scripts/widget.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

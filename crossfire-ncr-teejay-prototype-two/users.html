@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCR+</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <main>
+        <div class="registration form">
+            <form action="#">
+                <fieldset>
+                    <legend>Create User</legend>
+
+                    <input type="text" id="name" placeholder="Enter the employee's name" required tabindex="75">
+                    <input type="text" id='username' placeholder="Enter the employee's username" required tabindex="76">
+                    <input type="text" id='email' placeholder="Enter the employee's email" required tabindex="77">
+                    <input type="password" id='password' placeholder="Create a default password" required tabindex="78">
+                    <select id="userType" name="userType" required tabindex="79">
+                        <option value="" disabled selected>Select a User Type</option>
+                        <option value="Admin">Administrator</option>
+                        <option value="Q-Rep">Quality Representative</option>
+                        <option value="Engr">Engineering</option>
+                        <option value="Purchasing">Purchasing</option>
+                    </select>
+
+                    <input id="btnCreateUser" type="button" class="button signupbtn" value="Create User"
+                        onclick="createUser()" tabindex="80">
+                </fieldset>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    <script src="scripts/form.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+
+</html>
