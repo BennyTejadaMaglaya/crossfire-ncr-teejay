@@ -327,6 +327,39 @@ function hideMediaUploadAndCheckbox() {
   }
 }
 
+async function printPDF() {
+  const jsPDF = window.jspdf.jsPDF;
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = pdf.internal.pageSize.width;
+  const pageHeight = pdf.internal.pageSize.height;
+  const topMargin = 10;
+
+  function addPageNumber(pdf, pageNumber, totalPages) {
+    pdf.setFontSize(10);
+    pdf.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, pageHeight - 5, { align: 'center' });
+  }
+
+  const qualityRepSection = document.querySelector('#qualityRepSection');
+  const qualityRepCanvas = await html2canvas(qualityRepSection, { backgroundColor: null });
+  const qualityRepImage = qualityRepCanvas.toDataURL('image/png');
+  const qualityRepHeight = (qualityRepCanvas.height * pageWidth) / qualityRepCanvas.width;
+
+  pdf.addImage(qualityRepImage, 'PNG', 0, topMargin, pageWidth, qualityRepHeight);
+  addPageNumber(pdf, 1, 2);
+
+  pdf.addPage();
+
+  const engineeringSection = document.querySelector('#engineeringSection');
+  const engineeringCanvas = await html2canvas(engineeringSection, { backgroundColor: null });
+  const engineeringImage = engineeringCanvas.toDataURL('image/png');
+  const engineeringHeight = (engineeringCanvas.height * pageWidth) / engineeringCanvas.width;
+
+  pdf.addImage(engineeringImage, 'PNG', 0, topMargin, pageWidth, engineeringHeight);
+  addPageNumber(pdf, 2, 2);
+
+  pdf.save('crossfire_ncr.pdf');
+}
+
 async function viewNCR(ncrIndex) {
   const ncrRef = firestore.collection("formData").doc(ncrIndex.toString());
   try {
@@ -339,23 +372,36 @@ async function viewNCR(ncrIndex) {
         populateForm(ncrData);
 
         const submitButton = document.getElementById("btnSubmit");
+        const saveButton = document.getElementById("btnSave");
         const clearButton = document.getElementById("btnClear");
 
-        submitButton.value = "Edit";
+        submitButton.value = "Edit NCR";
         submitButton.onclick = function (event) {
           event.preventDefault();
           editNCR(ncrIndex);
-          submitButton.value = "Submit";
+          submitButton.value = "Submit NCR";
 
           submitButton.onclick = function (event) {
             event.preventDefault();
             submitFormData(event);
           };
 
+          saveButton.value = "Save NCR";
+          saveButton.onclick = function (event) {
+            event.preventDefault();
+            saveFormData(event);
+          };
+
           clearButton.value = "Clear";
           clearButton.onclick = function () {
             clearForm();
           };
+        };
+
+        saveButton.value = "Print PDF";
+        saveButton.onclick = function (event) {
+          event.preventDefault();
+          printPDF();
         };
 
         clearButton.value = "Exit";
