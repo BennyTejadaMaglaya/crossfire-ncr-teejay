@@ -2,6 +2,7 @@
 
 const userType = sessionStorage.getItem('userType');
 const contentArea = document.getElementById('mainContent');
+const ncrNotificationContainer = document.getElementById("ncrNotificationContainer");
 const widgets = document.getElementById("widgets");
 const filterContainer = document.getElementById("filterContainer");
 const ncrTable = document.getElementById("ncrTable");
@@ -107,12 +108,14 @@ function loadPage(page) {
 
       updatePermissions();
 
+      ncrNotificationContainer.style.display = "none";
       widgets.style.display = "none";
       filterContainer.style.display = "none";
       ncrTable.style.display = "none";
 
       switch (page) {
         case 'index.html':
+          ncrNotificationContainer.style.display = "table";
           widgets.style.display = "grid";
           pageTitle.textContent = 'Dashboard';
           break;
@@ -682,6 +685,7 @@ async function loadPendingNCRs() {
 
     const readButton = document.createElement("button");
     readButton.textContent = isRead ? "Mark Unread" : "Mark Read";
+    readButton.classList.add("btnAction");
     readButton.onclick = () => toggleReadStatus(localStorageKey, !isRead, ncrItem, readButton);
 
     const ncrLink = document.createElement("a");
@@ -695,7 +699,7 @@ async function loadPendingNCRs() {
     };
 
     const ncrDetails = document.createElement("p");
-    ncrDetails.textContent = `Date: ${ncr.qualityRepReportingDate}, Quality Rep: ${ncr.qualityRepName}`;
+    ncrDetails.textContent = `Product Number: ${ncr.prodNo}, reported on ${ncr.qualityRepReportingDate} by ${ncr.qualityRepName}`;
 
     ncrItem.appendChild(ncrLink);
     ncrItem.appendChild(ncrDetails);
