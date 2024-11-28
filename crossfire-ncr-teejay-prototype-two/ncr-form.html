@@ -205,14 +205,6 @@
                                 date.</span></label>
                         <input id="qualityRepReportingDate" type="date" name="qualityRepReportingDate" required
                             tabindex="32">
-
-                        <label for="status">Status </label>
-                        <select id="status" name="status" tabindex="33">
-                            <option value="Active">Active</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Reviewed">Reviewed</option>
-                            <option value="Closed">Closed</option>
-                        </select>
                     </div>
 
                 </div>
@@ -230,7 +222,7 @@
                                 one of the following)</span></label>
                         <br>
                         <input id="dispositionReview1" type="radio" name="dispositionReview" value="Use As Is" required
-                            tabindex="34">
+                            tabindex="33">
                         <label for="dispositionReview1" class="tooltip-container">Use As Is
                             <span class="tooltip-message dispositionReview-tooltip">
                                 Use As Is : Indicates that the product is acceptable as it is and does not require any
@@ -265,7 +257,7 @@
                                 customer detailing issues)</span></label>
                         <br>
                         <input id="customerRequireNotificationYes" type="radio" name="customerRequireNotification"
-                            value="yes" tabindex="35">
+                            value="yes" tabindex="34">
                         <label for="customerRequireNotificationYes">Yes</label>
                         <input id="customerRequireNotificationNo" type="radio" name="customerRequireNotification"
                             value="no">
@@ -286,12 +278,12 @@
                                 "repair" or "rework"
                                 indicated)</span></label>
                         <textarea id="disposition" name="disposition"
-                            placeholder="e.g., Replace faulty parts, retest, etc." required tabindex="36"></textarea>
+                            placeholder="e.g., Replace faulty parts, retest, etc." required tabindex="35"></textarea>
 
                         <label>Does the drawing require updating <span class="parenthetical">(optional)</span></label>
                         <br>
                         <input id="drawingRequireUpdatingYes" type="radio" name="drawingRequireUpdating" value="yes"
-                            tabindex="37">
+                            tabindex="36">
                         <label for="drawingRequireUpdatingYes">Yes</label>
                         <input id="drawingRequireUpdatingNo" type="radio" name="drawingRequireUpdating" value="no">
                         <label for="drawingRequireUpdatingNo">No</label>
@@ -304,17 +296,20 @@
                                 Enter the original revision number of the drawing or product.
                             </span></label>
                         <input id="originalRevNumber" type="text" name="originalRevNumber" placeholder="e.g., A, B, 1.0"
-                            tabindex="38">
+                            tabindex="37">
 
                         <label for="updatedRevNumber" class="tooltip-container">Updated Rev. Number:<span
                                 class="tooltip-message updatedRevNumber-tooltip">
                                 Enter the updated revision number if the drawing has been revised.
                             </span></label>
                         <input id="updatedRevNumber" type="text" name="updatedRevNumber" placeholder="e.g., B, 1.1"
-                            tabindex="39">
+                            tabindex="38">
 
                         <label for="engineerRevisionDate">Revision Date:</label>
-                        <input id="engineerRevisionDate" type="date" name="engineerRevisionDate" tabindex="40">
+                        <input id="engineerRevisionDate" type="date" name="engineerRevisionDate" tabindex="39">
+
+                        <label for="closeNCRCheckbox">Close NCR:</label>
+                        <input id="closeNCRCheckbox" type="checkbox" id="closeNCRCheckbox" tabindex="40">
                     </div>
 
                 </div>

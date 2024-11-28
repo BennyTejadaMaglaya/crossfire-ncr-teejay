@@ -228,7 +228,11 @@ function validateForm() {
 }
 
 function collectFormData(ncrNo) {
-    currentStatus = (userType === 'Engr') ? Status.get("Status-4") : Status.get("Status-2");
+    if (document.getElementById("closeNCRCheckbox").checked) {
+        currentStatus = Status.get("Status-6");
+    } else {
+        currentStatus = (userType === 'Engr') ? Status.get("Status-4") : Status.get("Status-2");
+    }
 
     /* ===== Pending Engr Review ===== */
     if (userType === 'Q-Rep' || userType === 'Admin') {
