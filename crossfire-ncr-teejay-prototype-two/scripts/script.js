@@ -174,20 +174,6 @@ function toggleMenu() {
   }
 }
 
-function disableFields() {
-  alert("Disabling Fields...");
-  document.querySelectorAll('input:not([type="submit"]):not([type="reset"]), select, textarea').forEach((element) => {
-    element.disabled = true;
-  });
-}
-
-function enableFields() {
-  alert("Enabling Fields...");
-  document.querySelectorAll('input, select, textarea').forEach((element) => {
-    element.disabled = false;
-  });
-}
-
 function exitViewMode() {
   alert("Exiting View Mode...");
 
@@ -195,58 +181,150 @@ function exitViewMode() {
 }
 
 function populateForm(ncrData, isEditMode = false) {
-  document.querySelectorAll('input[name="processApplicable"]').forEach((radio) => {
-    radio.disabled = !isEditMode;
-    if (radio.value === ncrData.processApplicable) {
-      radio.checked = true;
+  function replaceInputWithP(inputElement, value) {
+    const p = document.createElement('p');
+    p.textContent = value || 'N/A';
+    p.style.marginBottom = '25px';
+    inputElement.parentElement.replaceChild(p, inputElement);
+  }
+
+  function displaySelectedRadioValue(radioElements, selectedValue) {
+    radioElements.forEach((radio) => {
+      const label = radio.nextElementSibling;
+      const tooltip = label ? label.querySelector('.tooltip-message') : null;
+
+      if (label) {
+        label.style.display = 'none';
+      }
+
+      if (radio.value === selectedValue) {
+        replaceInputWithP(radio, radio.value);
+      } else {
+        radio.style.display = 'none';
+        if (label) {
+          label.style.display = 'none';
+        }
+        if (tooltip) {
+          tooltip.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  if (!isEditMode) {
+    hideMediaUploadAndCheckbox();
+  }
+
+  const processApplicableRadios = document.querySelectorAll('input[name="processApplicable"]');
+  if (isEditMode) {
+    processApplicableRadios.forEach((radio) => {
+      radio.disabled = false;
+      if (radio.value === ncrData.processApplicable) {
+        radio.checked = true;
+      }
+    });
+  } else {
+    displaySelectedRadioValue(processApplicableRadios, ncrData.processApplicable);
+  }
+
+  const fields = [
+    'supplierName', 'descriptionItem', 'ncrNo', 'prodNo', 'salesOrderNo', 'qtyReceived',
+    'qtyDefective', 'descriptionDefect', 'qualityRepName', 'qualityRepReportingDate', 'disposition',
+    'originalRevNumber', 'updatedRevNumber', 'engineerName', 'engineerRevisionDate', 'engineerReportingDate'
+  ];
+
+  fields.forEach(field => {
+    const element = document.getElementById(field);
+    if (element) {
+      if (isEditMode) {
+        element.value = ncrData[field];
+      } else {
+        replaceInputWithP(element, ncrData[field]);
+      }
     }
   });
 
-  document.getElementById('supplierName').value = ncrData.supplierName;
-  document.getElementById('descriptionItem').value = ncrData.descriptionItem;
+  const markedNonconformingRadios = document.querySelectorAll('input[name="markedNonconforming"]');
+  if (isEditMode) {
+    markedNonconformingRadios.forEach((radio) => {
+      radio.disabled = false;
+      if (radio.value === ncrData.markedNonconforming) {
+        radio.checked = true;
+      }
+    });
+  } else {
+    displaySelectedRadioValue(markedNonconformingRadios, ncrData.markedNonconforming);
+  }
 
-  document.querySelectorAll('input[name="markedNonconforming"]').forEach((radio) => {
-    radio.disabled = !isEditMode;
-    if (radio.value === ncrData.markedNonconforming) {
-      radio.checked = true;
-    }
-  });
+  const dispositionReviewRadios = document.querySelectorAll('input[name="dispositionReview"]');
+  if (isEditMode) {
+    dispositionReviewRadios.forEach((radio) => {
+      radio.disabled = false;
+      if (radio.value === ncrData.dispositionReview) {
+        radio.checked = true;
+      }
+    });
+  } else {
+    displaySelectedRadioValue(dispositionReviewRadios, ncrData.dispositionReview);
+  }
 
-  document.getElementById('ncrNo').value = ncrData.ncrNo;
-  document.getElementById('prodNo').value = ncrData.prodNo;
-  document.getElementById('salesOrderNo').value = ncrData.salesOrderNo;
-  document.getElementById('qtyReceived').value = ncrData.qtyReceived;
-  document.getElementById('qtyDefective').value = ncrData.qtyDefective;
-  document.getElementById('descriptionDefect').value = ncrData.descriptionDefect;
-  document.getElementById('qualityRepName').value = ncrData.qualityRepName;
-  document.getElementById('qualityRepReportingDate').value = ncrData.qualityRepReportingDate;
-  document.getElementById('status').value = ncrData.status;
+  const customerRequireNotificationRadios = document.querySelectorAll('input[name="customerRequireNotification"]');
+  if (isEditMode) {
+    customerRequireNotificationRadios.forEach((radio) => {
+      radio.disabled = false;
+      if (radio.value === ncrData.customerRequireNotification) {
+        radio.checked = true;
+      }
+    });
+  } else {
+    displaySelectedRadioValue(customerRequireNotificationRadios, ncrData.customerRequireNotification);
+  }
 
-  document.querySelectorAll('input[name="dispositionReview"]').forEach((radio) => {
-    if (radio.value === ncrData.dispositionReview) {
-      radio.checked = true;
-    }
-  });
+  const drawingRequireUpdatingRadios = document.querySelectorAll('input[name="drawingRequireUpdating"]');
+  if (isEditMode) {
+    drawingRequireUpdatingRadios.forEach((radio) => {
+      radio.disabled = false;
+      if (radio.value === ncrData.drawingRequireUpdating) {
+        radio.checked = true;
+      }
+    });
+  } else {
+    displaySelectedRadioValue(drawingRequireUpdatingRadios, ncrData.drawingRequireUpdating);
+  }
+}
 
-  document.querySelectorAll('input[name="customerRequireNotification"]').forEach((radio) => {
-    if (radio.value === ncrData.customerRequireNotification) {
-      radio.checked = true;
-    }
-  });
+function hideMediaUploadAndCheckbox() {
+  const mediaLabel = document.querySelector('label[for="mediaUpload"]');
+  const mediaInput = document.getElementById('mediaUpload');
+  const fileCount = document.getElementById('fileCount');
+  const preview = document.getElementById('preview');
 
-  document.getElementById('disposition').value = ncrData.disposition;
+  if (mediaLabel) {
+    mediaLabel.style.display = 'none';
+  }
 
-  document.querySelectorAll('input[name="drawingRequireUpdating"]').forEach((radio) => {
-    if (radio.value === ncrData.drawingRequireUpdating) {
-      radio.checked = true;
-    }
-  });
+  if (mediaInput) {
+    mediaInput.style.display = 'none';
+  }
 
-  document.getElementById('originalRevNumber').value = ncrData.originalRevNumber;
-  document.getElementById('updatedRevNumber').value = ncrData.updatedRevNumber;
-  document.getElementById('engineerName').value = ncrData.engineerName;
-  document.getElementById('engineerRevisionDate').value = ncrData.engineerRevisionDate;
-  document.getElementById('engineerReportingDate').value = ncrData.engineerReportingDate;
+  if (fileCount) {
+    fileCount.style.display = 'none';
+  }
+
+  if (preview) {
+    preview.style.display = 'none';
+  }
+
+  const checkboxLabel = document.querySelector('label[for="closeNCRCheckbox"]');
+  const checkboxInput = document.getElementById('closeNCRCheckbox');
+
+  if (checkboxLabel) {
+    checkboxLabel.style.display = 'none';
+  }
+
+  if (checkboxInput) {
+    checkboxInput.style.display = 'none';
+  }
 }
 
 async function viewNCR(ncrIndex) {
@@ -260,15 +338,13 @@ async function viewNCR(ncrIndex) {
       setTimeout(() => {
         populateForm(ncrData);
 
-        disableFields();
-
         const submitButton = document.getElementById("btnSubmit");
         const clearButton = document.getElementById("btnClear");
 
         submitButton.value = "Edit";
         submitButton.onclick = function (event) {
           event.preventDefault();
-          enableFields();
+          editNCR(ncrIndex);
           submitButton.value = "Submit";
 
           submitButton.onclick = function (event) {
