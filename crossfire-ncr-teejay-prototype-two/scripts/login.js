@@ -168,6 +168,10 @@ function updateUserProfile(name, userType) {
     } else {
         console.warn('Profile elements not found in the DOM.');
     }
+
+    if (currentUserType === "Admin") {
+        document.getElementById("adminUsersLink").style.display = "block";
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
