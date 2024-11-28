@@ -110,9 +110,11 @@ function loginUser() {
                     .then((doc) => {
                         if (doc.exists) {
                             const name = doc.data().name;
+                            const username = doc.data().username;
                             const userType = doc.data().userType;
 
                             sessionStorage.setItem('name', name);
+                            sessionStorage.setItem('username', username);
                             sessionStorage.setItem('userType', userType);
 
                             alert('Login successful! Welcome, ' + name);

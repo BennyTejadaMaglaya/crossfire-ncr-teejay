@@ -56,7 +56,7 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-function initializeForm(userType, currentUsername, currentDate) {
+function initializeForm(userType, currentName, currentDate) {
   if (userType === 'Engr') {
     const engineeringSection = document.getElementById('engineeringSection');
     if (engineeringSection) {
@@ -70,7 +70,7 @@ function initializeForm(userType, currentUsername, currentDate) {
     const engineerName = document.getElementById('engineerName');
     const engineerReportingDate = document.getElementById('engineerReportingDate');
     if (engineerName && !engineerName.value) {
-      engineerName.value = currentUsername;
+      engineerName.value = currentName;
     }
     if (engineerReportingDate && !engineerReportingDate.value) {
       engineerReportingDate.value = currentDate;
@@ -89,7 +89,7 @@ function initializeForm(userType, currentUsername, currentDate) {
     const qualityRepName = document.getElementById('qualityRepName');
     const qualityRepReportingDate = document.getElementById('qualityRepReportingDate');
     if (qualityRepName && !qualityRepName.value) {
-      qualityRepName.value = currentUsername;
+      qualityRepName.value = currentName;
     }
     if (qualityRepReportingDate && !qualityRepReportingDate.value) {
       qualityRepReportingDate.value = currentDate;
@@ -128,7 +128,7 @@ function loadPage(page) {
         case 'ncr-form.html':
           pageTitle.textContent = 'NCR Form';
 
-          initializeForm(currentUserType, currentUsername, currentDate);
+          initializeForm(currentUserType, currentName, currentDate);
 
           break;
 
@@ -303,7 +303,7 @@ async function editNCR(ncrIndex) {
       setTimeout(() => {
         populateForm(ncrData, true);
 
-        initializeForm(currentUserType, currentUsername, currentDate);
+        initializeForm(currentUserType, currentName, currentDate);
 
         const submitButton = document.getElementById("btnSubmit");
         const clearButton = document.getElementById("btnClear");
@@ -629,3 +629,90 @@ function toggleAnswer(faqElement) {
   const answer = faqElement.querySelector('.answer');
   answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
 }
+
+async function loadPendingNCRs() {
+  const pendingNCRs = [];
+
+  let query = firestore.collection("formData");
+  if (currentUserType === "Engr") {
+    query = query.where("status", "==", "Pending Engr Review");
+  } else if (currentUserType === "Admin") {
+    query = query.where("status", "in", ["Pending Engr Review", "Pending Purchasing Review"]);
+  } else {
+    return;
+  }
+
+  const snapshot = await query.get();
+  snapshot.forEach((doc) => {
+    const ncrData = doc.data();
+    ncrData.id = doc.id;
+    pendingNCRs.push(ncrData);
+  });
+
+  pendingNCRs.sort((a, b) => {
+    return b.ncrNo - a.ncrNo || new Date(b.qualityRepReportingDate) - new Date(a.qualityRepReportingDate);
+  });
+
+  const notificationContainer = document.getElementById("ncrNotificationContainer");
+  notificationContainer.innerHTML = "";
+
+  const header = document.createElement("div");
+  header.classList.add("notification-header");
+  header.textContent = `${currentName}, there are ${pendingNCRs.length} Pending NCRs for your review`;
+
+  header.onclick = () => {
+    const ncrListContainer = document.getElementById("ncrListContainer");
+    ncrListContainer.classList.toggle("collapsed");
+  };
+
+  notificationContainer.appendChild(header);
+
+  const ncrListContainer = document.createElement("div");
+  ncrListContainer.id = "ncrListContainer";
+  ncrListContainer.classList.add("ncr-list-container");
+
+  pendingNCRs.forEach((ncr) => {
+    const ncrItem = document.createElement("div");
+    ncrItem.classList.add("ncr-item");
+
+    const localStorageKey = `${currentUsername}-read-${ncr.id}`;
+    const isRead = localStorage.getItem(localStorageKey) === "true";
+
+    ncrItem.classList.add(isRead ? "read" : "unread");
+
+    const readButton = document.createElement("button");
+    readButton.textContent = isRead ? "Mark Unread" : "Mark Read";
+    readButton.onclick = () => toggleReadStatus(localStorageKey, !isRead, ncrItem, readButton);
+
+    const ncrLink = document.createElement("a");
+    ncrLink.href = "#";
+    ncrLink.textContent = `NCR #${ncr.ncrNo} - ${ncr.status}`;
+    ncrLink.onclick = async () => {
+
+      await toggleReadStatus(localStorageKey, true, ncrItem, readButton);
+
+      await editNCR(ncr.id);
+    };
+
+    const ncrDetails = document.createElement("p");
+    ncrDetails.textContent = `Date: ${ncr.qualityRepReportingDate}, Quality Rep: ${ncr.qualityRepName}`;
+
+    ncrItem.appendChild(ncrLink);
+    ncrItem.appendChild(ncrDetails);
+    ncrItem.appendChild(readButton);
+
+    ncrListContainer.appendChild(ncrItem);
+  });
+
+  notificationContainer.appendChild(ncrListContainer);
+}
+
+function toggleReadStatus(localStorageKey, isRead, ncrItem, readButton) {
+  localStorage.setItem(localStorageKey, isRead.toString());
+
+  ncrItem.classList.toggle("read", isRead);
+  ncrItem.classList.toggle("unread", !isRead);
+  readButton.textContent = isRead ? "Mark Unread" : "Mark Read";
+}
+
+window.onload = loadPendingNCRs;

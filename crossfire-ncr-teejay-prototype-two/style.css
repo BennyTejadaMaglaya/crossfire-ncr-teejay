@@ -785,6 +785,7 @@ textarea {
 .flyingMenu,
 .flyingMenu a,
 .form input,
+.notification-header,
 .question,
 .sidebar .searchBar:hover input,
 .sidebar .searchBar input:focus,
@@ -1199,6 +1200,7 @@ table {
 .container,
 .faq,
 .flyingMenu,
+.notification-header,
 .sidebar,
 .sidebar li .tooltip,
 .tooltip-message,
@@ -1268,6 +1270,57 @@ table {
 .registration {
   margin: auto;
   width: 75%;
+}
+
+/* ===== Notifications ===== */
+.notification-container {
+  width: 96.5%;
+  margin: 20px;
+}
+
+.notification-header {
+  padding: 10px;
+  background-color: var(--primary-color);
+  border: 1px solid #ddd;
+  color: var(--sidebar-color);
+  cursor: pointer;
+}
+
+body.dark .notification-header {
+  color: var(--text-color);
+}
+
+.ncr-list-container {
+  display: none;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.ncr-list-container.collapsed {
+  display: block;
+}
+
+.ncr-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.ncr-item.unread {
+  background-color: var(--sidebar-color);
+}
+
+.ncr-item.read {
+  background-color: var(--form-color);
+}
+
+.ncr-item a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.ncr-item a:hover {
+  text-decoration: underline;
 }
 
 /* ===== Media Query ===== */

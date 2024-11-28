@@ -13,7 +13,8 @@ firebase.initializeApp(firebaseConfig);
 let firestore = firebase.firestore();
 
 let currentDate = new Date().toJSON().slice(0, 10);
-const currentUsername = sessionStorage.getItem('name');
+const currentName = sessionStorage.getItem('name');
+const currentUsername = sessionStorage.getItem('username');
 const currentUserType = sessionStorage.getItem('userType');
 let currentStatus = null;
 
