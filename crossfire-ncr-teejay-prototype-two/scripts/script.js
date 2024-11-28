@@ -1,5 +1,6 @@
 /* ===== Declarations ===== */
 
+const userType = sessionStorage.getItem('userType');
 const contentArea = document.getElementById('mainContent');
 const widgets = document.getElementById("widgets");
 const filterContainer = document.getElementById("filterContainer");
@@ -90,7 +91,26 @@ function loadPage(page) {
           document.getElementById('qualityRepReportingDate').value = currentDate;
           document.getElementById('engineerRevisionDate').value = currentDate;
           document.getElementById('engineerReportingDate').value = currentDate;
-          document.getElementById('processApplicable1').focus();
+
+          if (userType === 'Engr') {
+            const engineeringSection = document.getElementById('engineeringSection');
+            if (engineeringSection) {
+              engineeringSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            const dispositionReview1 = document.getElementById('dispositionReview1');
+            if (dispositionReview1) {
+              dispositionReview1.focus();
+            }
+          } else if (userType === 'Q-Rep' || userType === 'Admin') {
+            const qualityRepSection = document.getElementById('qualityRepSection');
+            if (qualityRepSection) {
+              qualityRepSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            const processApplicable1 = document.getElementById('processApplicable1');
+            if (processApplicable1) {
+              processApplicable1.focus();
+            }
+          }
           break;
 
         case 'faqs.html':
