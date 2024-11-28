@@ -179,23 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function canAccess(userRole, fieldRole) {
-    if (!roleHierarchy[userRole]) {
-        console.warn(`Role '${userRole}' is not defined in the hierarchy.`);
+function canAccess(userType, fieldRole) {
+    if (!roleHierarchy[userType]) {
+        console.warn(`Role '${userType}' is not defined in the hierarchy.`);
         return false;
     }
-    return roleHierarchy[userRole]?.includes(fieldRole);
+    return roleHierarchy[userType]?.includes(fieldRole);
 }
 
 function updatePermissions() {
-    const currentUserRole = sessionStorage.getItem('userType');
-
-    if (!currentUserRole) {
+    if (!currentUserType) {
         console.error('Current user role is undefined. Unable to update permissions.');
         return;
     }
 
-    console.log(`Updating permissions for role: ${currentUserRole}`);
+    console.log(`Updating permissions for role: ${currentUserType}`);
 
     const allFieldsets = document.querySelectorAll('fieldset[data-permission]');
 
@@ -207,7 +205,7 @@ function updatePermissions() {
             return;
         }
 
-        if (canAccess(currentUserRole, requiredRole)) {
+        if (canAccess(currentUserType, requiredRole)) {
             fieldset.removeAttribute('disabled');
             fieldset.classList.remove('readonly-fieldset');
         } else {

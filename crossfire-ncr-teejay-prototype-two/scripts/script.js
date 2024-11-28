@@ -10,8 +10,6 @@ const ncrForm = document.getElementById("ncrForm");
 const pageTitle = document.querySelector('.homeSection #pageTitle h1');
 const searchIt = document.getElementById("btnSearch");
 
-let currentDate = new Date().toJSON().slice(0, 10);
-
 let allSuppliers = [];
 let allStatuses = [];
 
@@ -58,6 +56,47 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
+function initializeForm(userType, currentUsername, currentDate) {
+  if (userType === 'Engr') {
+    const engineeringSection = document.getElementById('engineeringSection');
+    if (engineeringSection) {
+      engineeringSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    const dispositionReview1 = document.getElementById('dispositionReview1');
+    if (dispositionReview1) {
+      dispositionReview1.focus();
+    }
+
+    const engineerName = document.getElementById('engineerName');
+    const engineerReportingDate = document.getElementById('engineerReportingDate');
+    if (engineerName && !engineerName.value) {
+      engineerName.value = currentUsername;
+    }
+    if (engineerReportingDate && !engineerReportingDate.value) {
+      engineerReportingDate.value = currentDate;
+    }
+
+  } else if (userType === 'Q-Rep' || userType === 'Admin') {
+    const qualityRepSection = document.getElementById('qualityRepSection');
+    if (qualityRepSection) {
+      qualityRepSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    const processApplicable1 = document.getElementById('processApplicable1');
+    if (processApplicable1) {
+      processApplicable1.focus();
+    }
+
+    const qualityRepName = document.getElementById('qualityRepName');
+    const qualityRepReportingDate = document.getElementById('qualityRepReportingDate');
+    if (qualityRepName && !qualityRepName.value) {
+      qualityRepName.value = currentUsername;
+    }
+    if (qualityRepReportingDate && !qualityRepReportingDate.value) {
+      qualityRepReportingDate.value = currentDate;
+    }
+  }
+}
+
 function loadPage(page) {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', page, true);
@@ -88,29 +127,9 @@ function loadPage(page) {
 
         case 'ncr-form.html':
           pageTitle.textContent = 'NCR Form';
-          document.getElementById('qualityRepReportingDate').value = currentDate;
-          document.getElementById('engineerRevisionDate').value = currentDate;
-          document.getElementById('engineerReportingDate').value = currentDate;
 
-          if (userType === 'Engr') {
-            const engineeringSection = document.getElementById('engineeringSection');
-            if (engineeringSection) {
-              engineeringSection.scrollIntoView({ behavior: 'smooth' });
-            }
-            const dispositionReview1 = document.getElementById('dispositionReview1');
-            if (dispositionReview1) {
-              dispositionReview1.focus();
-            }
-          } else if (userType === 'Q-Rep' || userType === 'Admin') {
-            const qualityRepSection = document.getElementById('qualityRepSection');
-            if (qualityRepSection) {
-              qualityRepSection.scrollIntoView({ behavior: 'smooth' });
-            }
-            const processApplicable1 = document.getElementById('processApplicable1');
-            if (processApplicable1) {
-              processApplicable1.focus();
-            }
-          }
+          initializeForm(currentUserType, currentUsername, currentDate);
+
           break;
 
         case 'faqs.html':
@@ -283,6 +302,8 @@ async function editNCR(ncrIndex) {
 
       setTimeout(() => {
         populateForm(ncrData, true);
+
+        initializeForm(currentUserType, currentUsername, currentDate);
 
         const submitButton = document.getElementById("btnSubmit");
         const clearButton = document.getElementById("btnClear");

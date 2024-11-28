@@ -12,6 +12,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 let firestore = firebase.firestore();
 
+let currentDate = new Date().toJSON().slice(0, 10);
+const currentUsername = sessionStorage.getItem('name');
+const currentUserType = sessionStorage.getItem('userType');
+let currentStatus = null;
+
 const Status = new Map([
     ["Status-1", "Q-Rep Stage"],
     ["Status-2", "Pending Engr Review"],
@@ -166,11 +171,14 @@ function formatFields() {
 }
 
 function validateForm() {
-    const fields = [
+    const engrFields = [
         { id: 'engineerReportingDate', errorId: 'engineerReportingDateError' },
         { id: 'engineerName', errorId: 'engineerNameError' },
         { id: 'disposition', errorId: 'dispositionError' },
-        { name: 'dispositionReview', errorId: 'dispositionReviewError', radio: true },
+        { name: 'dispositionReview', errorId: 'dispositionReviewError', radio: true }
+    ];
+
+    const qRepFields = [
         { id: 'qualityRepReportingDate', errorId: 'qualityRepReportingDateError' },
         { id: 'qualityRepName', errorId: 'qualityRepNameError' },
         { id: 'descriptionDefect', errorId: 'descriptionDefectError' },
@@ -183,6 +191,8 @@ function validateForm() {
         { id: 'supplierName', errorId: 'supplierNameError' },
         { name: 'processApplicable', errorId: 'processApplicableError', radio: true }
     ];
+
+    const fields = (userType === 'Engr') ? engrFields : qRepFields;
 
     let valid = true;
 
@@ -217,34 +227,67 @@ function validateForm() {
 }
 
 function collectFormData(ncrNo) {
-    return {
-        ncrNo,
-        status: Status.get("Status-2"),
+    currentStatus = (userType === 'Engr') ? Status.get("Status-4") : Status.get("Status-2");
 
-        /* ===== Pending Engr Review ===== */
-        processApplicable: document.querySelector('input[name="processApplicable"]:checked').value,
-        supplierName: document.getElementById('supplierName').value,
-        descriptionItem: document.getElementById('descriptionItem').value,
-        prodNo: document.getElementById('prodNo').value,
-        salesOrderNo: document.getElementById('salesOrderNo').value,
-        qtyReceived: document.getElementById('qtyReceived').value,
-        qtyDefective: document.getElementById('qtyDefective').value,
-        descriptionDefect: document.getElementById('descriptionDefect').value,
-        markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
-        qualityRepName: document.getElementById('qualityRepName').value,
-        qualityRepReportingDate: document.getElementById('qualityRepReportingDate').value,
+    /* ===== Pending Engr Review ===== */
+    if (userType === 'Q-Rep' || userType === 'Admin') {
+        return {
+            ncrNo,
+            status: currentStatus,
 
-        /* ===== Pending Purchasing Review ===== */
-        dispositionReview: document.querySelector('input[name="dispositionReview"]:checked').value,
-        customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
-        disposition: document.getElementById('disposition').value,
-        drawingRequireUpdating: document.querySelector('input[name="drawingRequireUpdating"]:checked')?.value || null,
-        originalRevNumber: document.getElementById('originalRevNumber').value,
-        updatedRevNumber: document.getElementById('updatedRevNumber').value,
-        engineerRevisionDate: document.getElementById('engineerRevisionDate').value,
-        engineerName: document.getElementById('engineerName').value,
-        engineerReportingDate: document.getElementById('engineerReportingDate').value,
-    };
+            processApplicable: document.querySelector('input[name="processApplicable"]:checked').value,
+            supplierName: document.getElementById('supplierName').value,
+            descriptionItem: document.getElementById('descriptionItem').value,
+            prodNo: document.getElementById('prodNo').value,
+            salesOrderNo: document.getElementById('salesOrderNo').value,
+            qtyReceived: document.getElementById('qtyReceived').value,
+            qtyDefective: document.getElementById('qtyDefective').value,
+            descriptionDefect: document.getElementById('descriptionDefect').value,
+            markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
+            qualityRepName: document.getElementById('qualityRepName').value,
+            qualityRepReportingDate: document.getElementById('qualityRepReportingDate').value,
+
+            dispositionReview: document.querySelector('input[name="dispositionReview"]:checked')?.value || null,
+            customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
+            disposition: document.getElementById('disposition')?.value || null,
+            drawingRequireUpdating: document.querySelector('input[name="drawingRequireUpdating"]:checked')?.value || null,
+            originalRevNumber: document.getElementById('originalRevNumber')?.value || null,
+            updatedRevNumber: document.getElementById('updatedRevNumber')?.value || null,
+            engineerRevisionDate: document.getElementById('engineerRevisionDate')?.value || null,
+            engineerName: document.getElementById('engineerName')?.value || null,
+            engineerReportingDate: document.getElementById('engineerReportingDate')?.value || null,
+        };
+    }
+
+    /* ===== Pending Purchasing Review ===== */
+    if (userType === 'Engr' || userType === 'Admin') {
+        return {
+            ncrNo,
+            status: currentStatus,
+
+            processApplicable: document.querySelector('input[name="processApplicable"]:checked')?.value || null,
+            supplierName: document.getElementById('supplierName')?.value || null,
+            descriptionItem: document.getElementById('descriptionItem')?.value || null,
+            prodNo: document.getElementById('prodNo')?.value || null,
+            salesOrderNo: document.getElementById('salesOrderNo')?.value || null,
+            qtyReceived: document.getElementById('qtyReceived')?.value || null,
+            qtyDefective: document.getElementById('qtyDefective')?.value || null,
+            descriptionDefect: document.getElementById('descriptionDefect')?.value || null,
+            markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked')?.value || null,
+            qualityRepName: document.getElementById('qualityRepName')?.value || null,
+            qualityRepReportingDate: document.getElementById('qualityRepReportingDate')?.value || null,
+
+            dispositionReview: document.querySelector('input[name="dispositionReview"]:checked').value,
+            customerRequireNotification: document.querySelector('input[name="customerRequireNotification"]:checked')?.value || null,
+            disposition: document.getElementById('disposition').value,
+            drawingRequireUpdating: document.querySelector('input[name="drawingRequireUpdating"]:checked')?.value || null,
+            originalRevNumber: document.getElementById('originalRevNumber').value,
+            updatedRevNumber: document.getElementById('updatedRevNumber').value,
+            engineerRevisionDate: document.getElementById('engineerRevisionDate').value,
+            engineerName: document.getElementById('engineerName').value,
+            engineerReportingDate: document.getElementById('engineerReportingDate').value,
+        };
+    }
 }
 
 async function checkDuplicateNCR(ncrNo) {
@@ -255,7 +298,7 @@ async function checkDuplicateNCR(ncrNo) {
 function saveToFirebase(data) {
     firestore.collection("formData").add(data)
         .then(() => {
-            alert("Your form has been submitted successfully.");
+            alert("Your form has been submitted successfully with the status: " + currentStatus);
             clearForm();
         })
         .catch((error) => {
@@ -304,7 +347,7 @@ function submitFormData(event) {
                     const docId = snapshot.docs[0].id;
                     firestore.collection("formData").doc(docId).update(formData)
                         .then(() => {
-                            alert("Your NCR has been updated successfully.");
+                            alert("Your NCR has been updated successfully with the status: " + currentStatus);
                             loadNCRTable();
                             clearForm();
                         })
@@ -328,15 +371,16 @@ async function saveFormData(event) {
 
     const ncrNoElement = document.getElementById("ncrNo");
     let ncrNo = ncrNoElement?.value.trim();
-    currentStatus = "Q-Rep Stage";
 
     if (!ncrNo) {
         ncrNo = await generateNCRNumber();
     }
 
+    currentStatus = (userType === 'Engr') ? Status.get("Status-3") : Status.get("Status-1");
+
     const formData = {
         ncrNo,
-        status: Status.get("Status-1"),
+        status: currentStatus,
 
         /* ===== Q-Rep Stage ===== */
         processApplicable: document.querySelector('input[name="processApplicable"]:checked')?.value || null,
@@ -369,13 +413,13 @@ async function saveFormData(event) {
             if (!snapshot.empty) {
                 const docId = snapshot.docs[0].id;
                 await firestore.collection("formData").doc(docId).update(formData);
-                alert("Your form has been updated successfully.");
+                alert("Your form has been updated successfully with the status: " + currentStatus);
             } else {
                 alert("An error occurred: Existing NCR could not be found.");
             }
         } else {
             await firestore.collection("formData").add(formData);
-            alert("Your form has been saved successfully with the status 'Q-Rep Stage'.");
+            alert("Your form has been saved successfully with the status: " + currentStatus);
         }
         clearForm();
     } catch (error) {
