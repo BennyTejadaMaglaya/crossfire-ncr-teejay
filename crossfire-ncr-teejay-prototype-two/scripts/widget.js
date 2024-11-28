@@ -1,14 +1,14 @@
 /* ===== Widgets ===== */
 
-const STATUS_COLORS = { Active: "#FF6384", Pending: "#FFCE56", Reviewed: "#173451", Closed: "#5897C9" };
-const STATUS_LABELS = ["Active", "Pending", "Reviewed", "Closed"];
+const STATUS_COLORS = { "Q-Rep Stage": "#FF6384", "Pending Engr Review": "#FFCE56", "Engr Stage": "#173451", "Pending Purchasing Review": "#5897C9", Closed: "#1AC1A4" };
+const STATUS_LABELS = ["Q-Rep Stage", "Pending Engr Review", "Engr Stage", "Pending Purchasing Review", "Closed"];
 const charts = { statusChart: null, monthChart: null, supplierChart: null };
 
 currentSupplierTableSortColumn = "supplier";
 currentSupplierTableSortOrder = "asc";
 
 function preprocessNCRData(ncrDataArray) {
-    const dataByStatus = { Active: 0, Pending: 0, Reviewed: 0, Closed: 0 };
+    const dataByStatus = { "Q-Rep Stage": 0, "Pending Engr Review": 0, "Engr Stage": 0, "Pending Purchasing Review": 0, Closed: 0 };
     const dataByMonth = {};
     const dataBySupplier = {};
     const qtyData = {};
@@ -24,17 +24,17 @@ function preprocessNCRData(ncrDataArray) {
 
         const date = new Date(ncr.qualityRepReportingDate);
         const month = date.toLocaleString("default", { month: "short", year: "numeric" });
-        dataByMonth[month] = dataByMonth[month] || { Active: 0, Pending: 0, Reviewed: 0, Closed: 0 };
+        dataByMonth[month] = dataByMonth[month] || { "Q-Rep Stage": 0, "Pending Engr Review": 0, "Engr Stage": 0, "Pending Purchasing Review": 0, Closed: 0 };
         if (ncr.status in dataByMonth[month]) dataByMonth[month][ncr.status]++;
         const supplier = ncr.supplierName;
-        dataBySupplier[supplier] = dataBySupplier[supplier] || { Active: 0, Pending: 0, Reviewed: 0, Closed: 0 };
+        dataBySupplier[supplier] = dataBySupplier[supplier] || { "Q-Rep Stage": 0, "Pending Engr Review": 0, "Engr Stage": 0, "Pending Purchasing Review": 0, Closed: 0 };
         if (ncr.status in dataBySupplier[supplier]) dataBySupplier[supplier][ncr.status]++;
 
         qtyData[supplier] = qtyData[supplier] || { qtyReceived: 0, qtyDefective: 0 };
         qtyData[supplier].qtyReceived += ncr.qtyReceived || 0;
         qtyData[supplier].qtyDefective += ncr.qtyDefective || 0;
 
-        if (ncr.status === "Active") recentNCRs.push(ncr);
+        if (ncr.status === "Q-Rep Stage") recentNCRs.push(ncr);
     });
 
     recentNCRs.sort((a, b) => new Date(b.qualityRepReportingDate) - new Date(a.qualityRepReportingDate));
@@ -177,9 +177,10 @@ function displaySupplierTable(labels, qtyData, dataBySupplier) {
     const supplierData = labels.map((supplier) => {
         const qtyDefective = parseInt(qtyData[supplier]?.qtyDefective) || 0;
         const qtyReceived = parseInt(qtyData[supplier]?.qtyReceived) || 0;
-        const ncrCount = (dataBySupplier[supplier]?.Active || 0) +
-            (dataBySupplier[supplier]?.Pending || 0) +
-            (dataBySupplier[supplier]?.Reviewed || 0) +
+        const ncrCount = (dataBySupplier[supplier]?.["Q-Rep Stage"] || 0) +
+            (dataBySupplier[supplier]?.["Pending Engr Review"] || 0) +
+            (dataBySupplier[supplier]?.["Engr Stage"] || 0) +
+            (dataBySupplier[supplier]?.["Pending Purchasing Review"] || 0) +
             (dataBySupplier[supplier]?.Closed || 0);
 
         const ratioString = qtyReceived > 0
