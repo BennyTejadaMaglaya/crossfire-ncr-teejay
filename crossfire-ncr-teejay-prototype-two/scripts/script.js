@@ -403,6 +403,18 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
       const row = document.createElement("tr");
       row.dataset.docId = ncrData.id;
 
+      let editButton = "";
+      if (userType === "Q-Rep" && ncrData.status === "Q-Rep Stage") {
+        editButton = `<button class="editBtn btnAction">Edit</button>`;
+      } else if (
+        userType === "Engr" &&
+        (ncrData.status === "Pending Engr Review" || ncrData.status === "Engr Stage")
+      ) {
+        editButton = `<button class="editBtn btnAction">Edit</button>`;
+      } else if (userType === "Admin") {
+        editButton = `<button class="editBtn btnAction">Edit</button>`;
+      }
+
       row.innerHTML = `
         <td>${ncrData.ncrNo}</td>
         <td>${ncrData.supplierName}</td>
@@ -412,8 +424,7 @@ async function loadNCRTable(supplier = "", status = "", startDate = "", endDate 
         <td>${ncrData.status}</td>
         <td>
           <button class="viewBtn btnAction">View</button>
-          <button class="editBtn btnAction">Edit</button>
-          <button class="deleteBtn btnAction">Delete</button>
+          ${editButton}
         </td>
       `;
 
