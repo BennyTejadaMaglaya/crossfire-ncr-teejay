@@ -234,6 +234,9 @@ function collectFormData(ncrNo) {
         currentStatus = (userType === 'Engr') ? Status.get("Status-4") : Status.get("Status-2");
     }
 
+    const qtyReceived = parseInt(document.getElementById('qtyReceived')?.value) || 0;  // Default to 0 if NaN
+    const qtyDefective = parseInt(document.getElementById('qtyDefective')?.value) || 0;  // Default to 0 if NaN
+
     /* ===== Pending Engr Review ===== */
     if (userType === 'Q-Rep' || userType === 'Admin') {
         return {
@@ -245,8 +248,8 @@ function collectFormData(ncrNo) {
             descriptionItem: document.getElementById('descriptionItem').value,
             prodNo: document.getElementById('prodNo').value,
             salesOrderNo: document.getElementById('salesOrderNo').value,
-            qtyReceived: document.getElementById('qtyReceived').value,
-            qtyDefective: document.getElementById('qtyDefective').value,
+            qtyReceived: qtyReceived,
+            qtyDefective: qtyDefective,
             descriptionDefect: document.getElementById('descriptionDefect').value,
             markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked').value,
             qualityRepName: document.getElementById('qualityRepName').value,
@@ -382,6 +385,8 @@ async function saveFormData(event) {
     }
 
     currentStatus = (userType === 'Engr') ? Status.get("Status-3") : Status.get("Status-1");
+    const qtyReceived = parseInt(document.getElementById('qtyReceived')?.value) || 0;  // Default to 0 if NaN
+    const qtyDefective = parseInt(document.getElementById('qtyDefective')?.value) || 0;  // Default to 0 if NaN
 
     const formData = {
         ncrNo,
@@ -393,8 +398,8 @@ async function saveFormData(event) {
         descriptionItem: document.getElementById('descriptionItem')?.value || null,
         prodNo: document.getElementById('prodNo')?.value || null,
         salesOrderNo: document.getElementById('salesOrderNo')?.value || null,
-        qtyReceived: document.getElementById('qtyReceived')?.value || null,
-        qtyDefective: document.getElementById('qtyDefective')?.value || null,
+        qtyReceived: qtyReceived,
+        qtyDefective: qtyDefective,
         descriptionDefect: document.getElementById('descriptionDefect')?.value || null,
         markedNonconforming: document.querySelector('input[name="markedNonconforming"]:checked')?.value || null,
         qualityRepName: document.getElementById('qualityRepName')?.value || null,
