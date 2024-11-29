@@ -437,3 +437,119 @@ async function saveFormData(event) {
         alert("An error occurred while saving the form. Please try again.");
     }
 }
+
+function importExcel(event) {
+    var file = event.target.files[0];
+    if (file) {
+        if (!file.name.match(/\.xlsx?$/)) {
+            alert('Please upload a valid Excel file (.xlsx or .xls)');
+            return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var data = e.target.result;
+
+            try {
+                var workbook = XLSX.read(data, { type: 'binary' });
+                if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+                    throw new Error("No sheets found in the Excel file.");
+                }
+
+                var sheetName = workbook.SheetNames[0];
+                var sheet = workbook.Sheets[sheetName];
+
+                function getCellValue(cellAddress) {
+                    return sheet[cellAddress] ? sheet[cellAddress].v : '';
+                }
+
+                function setElementValue(id, value, isCheckbox = false) {
+                    var element = document.getElementById(id);
+                    if (element) {
+                        if (isCheckbox) {
+                            element.checked = value === "x";
+                        } else {
+                            element.value = value;
+                        }
+                    } else {
+                        console.warn(`Element with ID '${id}' not found.`);
+                    }
+                }
+
+                setElementValue("processApplicable1", getCellValue("C6"), true);
+                setElementValue("processApplicable2", getCellValue("C7"), true);
+                setElementValue("supplierName", getCellValue("M7"));
+                setElementValue("descriptionItem", getCellValue("B9"));
+                setElementValue("ncrNo", getCellValue("AC5"));
+                setElementValue("prodNo", getCellValue("AC6"));
+                setElementValue("salesOrderNo", getCellValue("AC7"));
+                setElementValue("qtyReceived", getCellValue("AF8"));
+                setElementValue("qtyDefective", getCellValue("AF9"));
+                setElementValue("descriptionDefect", getCellValue("B11"));
+                setElementValue("markedNonconformingYes", getCellValue("C15"), true);
+                setElementValue("markedNonconformingNo", getCellValue("H15"), true);
+                setElementValue("qualityRepName", getCellValue("U16"));
+
+                var qualityRepReportingDate = processDate(sheet['AE16'] ? sheet['AE16'].v : "");
+                document.getElementById("qualityRepReportingDate").value = qualityRepReportingDate;
+
+                setElementValue("dispositionReview1", getCellValue("F18"), true);
+                setElementValue("dispositionReview2", getCellValue("M18"), true);
+                setElementValue("dispositionReview3", getCellValue("T18"), true);
+                setElementValue("dispositionReview4", getCellValue("AA18"), true);
+                setElementValue("customerRequireNotificationYes", getCellValue("T19"), true);
+                setElementValue("customerRequireNotificationNo", getCellValue("AA19"), true);
+                setElementValue("disposition", getCellValue("B22"));
+                setElementValue("drawingRequireUpdatingYes", getCellValue("O26"), true);
+                setElementValue("drawingRequireUpdatingNo", getCellValue("T26"), true);
+                setElementValue("originalRevNumber", getCellValue("J27"));
+                setElementValue("updatedRevNumber", getCellValue("T27"));
+                
+                var engineerRevisionDate = processDate(sheet['T28'] ? sheet['T28'].v : "");
+                document.getElementById("engineerRevisionDate").value = engineerRevisionDate;
+
+                setElementValue("engineerName", getCellValue("T29"));
+
+                var engineerReportingDate = processDate(sheet['AD29'] ? sheet['AD29'].v : "");
+                document.getElementById("engineerReportingDate").value = engineerReportingDate;
+
+            } catch (err) {
+                console.error("Error reading the Excel file:", err);
+                alert("There was an error processing the Excel file.");
+            }
+        };
+
+        reader.readAsBinaryString(file);
+    }
+}
+
+function processDate(value) {
+    if (typeof value === "number") {
+        // Convert Excel serial date to ISO format
+        var excelStartDate = new Date(1900, 0, 1); // Jan 1, 1900
+        var daysOffset = value - 2; // Adjust for Excel leap year bug
+        var date = new Date(excelStartDate.getTime() + daysOffset * 24 * 60 * 60 * 1000);
+        return date.toISOString().split('T')[0]; // yyyy-MM-dd
+    } else if (typeof value === "string") {
+        // Parse MM/DD/YYYY format
+        var dateParts = value.split("/");
+        if (dateParts.length === 3) {
+            var month = parseInt(dateParts[0], 10) - 1; // Months are zero-based
+            var day = parseInt(dateParts[1], 10);
+            var year = parseInt(dateParts[2], 10);
+
+            var formattedDate = new Date(year, month, day);
+            if (!isNaN(formattedDate)) {
+                return formattedDate.toISOString().split('T')[0]; // yyyy-MM-dd
+            }
+        }
+        // Attempt direct parsing for other string formats
+        var parsedDate = new Date(value);
+        if (!isNaN(parsedDate)) {
+            return parsedDate.toISOString().split('T')[0];
+        }
+    }
+    console.warn("Invalid date value:", value);
+    return "";
+}
