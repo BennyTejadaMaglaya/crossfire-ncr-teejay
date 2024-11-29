@@ -336,11 +336,15 @@
 
                 </div>
             </fieldset>
+            <div id="importExcelContainer">
+                <label for="btnImport" id="importLabel" style="cursor: pointer;">Import Excel</label>
+                <input type="file" id="btnImport" accept=".xlsx, .xls" onchange="importExcel(event)"
+                    style="display: none;" tabindex="46">
+            </div>
             <div id="actionButtons">
                 <input type="submit" id="btnSubmit" onclick="submitFormData(event)" value="Submit NCR" tabindex="43">
                 <input type="submit" id="btnSave" onclick="saveFormData(event)" value="Save NCR" tabindex="44">
                 <input type="reset" id="btnClear" onclick="clearForm()" value="Clear" tabindex="45">
-                <input type="file" id="btnImport" onchange="importExcel(event)" value="Import Excel" tabindex="46">
             </div>
         </form>
     </main>

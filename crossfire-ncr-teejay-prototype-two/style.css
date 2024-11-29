@@ -1325,6 +1325,11 @@ body.dark .notification-header {
   text-decoration: underline;
 }
 
+#importExcelContainer {
+  margin-left: auto;
+  margin-bottom: 50px;
+}
+
 /* ===== Media Query ===== */
 
 @media screen and (min-width: 1440px) {

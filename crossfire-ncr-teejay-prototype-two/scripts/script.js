@@ -130,7 +130,10 @@ function loadPage(page) {
 
         case 'ncr-form.html':
           pageTitle.textContent = 'NCR Form';
-
+          var importLabel = document.getElementById("importLabel");
+          importLabel.style.display = "block";
+          var btnImport = document.getElementById("btnImport");
+          btnImport.style.display = "block";
           initializeForm(currentUserType, currentName, currentDate);
 
           break;
@@ -371,6 +374,10 @@ async function viewNCR(ncrIndex) {
       setTimeout(() => {
         populateForm(ncrData);
 
+        var importLabel = document.getElementById("importLabel");
+        importLabel.style.display = "none";
+        var btnImport = document.getElementById("btnImport");
+        btnImport.style.display = "none";
         const submitButton = document.getElementById("btnSubmit");
         const saveButton = document.getElementById("btnSave");
         const clearButton = document.getElementById("btnClear");
@@ -430,6 +437,10 @@ async function editNCR(ncrIndex) {
 
         initializeForm(currentUserType, currentName, currentDate);
 
+        var importLabel = document.getElementById("importLabel");
+        importLabel.style.display = "none";
+        var btnImport = document.getElementById("btnImport");
+        btnImport.style.display = "none";
         const submitButton = document.getElementById("btnSubmit");
         const clearButton = document.getElementById("btnClear");
 
