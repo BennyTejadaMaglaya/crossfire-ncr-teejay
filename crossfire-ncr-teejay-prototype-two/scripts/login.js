@@ -214,9 +214,15 @@ function updatePermissions() {
         if (canAccess(currentUserType, requiredRole)) {
             fieldset.removeAttribute('disabled');
             fieldset.classList.remove('readonly-fieldset');
+            fieldset.style.display = '';
         } else {
-            fieldset.setAttribute('disabled', true);
-            fieldset.classList.add('readonly-fieldset');
+            if (currentUserType === 'Q-Rep') {
+                fieldset.style.display = 'none';
+            } else {
+                fieldset.setAttribute('disabled', true);
+                fieldset.classList.add('readonly-fieldset');
+                fieldset.style.display = '';
+            }
         }
     });
 }
